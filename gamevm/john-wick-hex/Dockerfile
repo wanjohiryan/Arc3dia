@@ -5,7 +5,8 @@ FROM $BASE_IMAGE
 #Install essentials
 RUN apt update \
     && apt-get update -y \
-    && apt-get install -y gnupg\
+    # && apt-get install -y gnupg\
+    && apt-get install --no-install-recommends --assume-yes wget software-properties-common gpg-agent mingw-w64 cabextract aptitude vim\
     && apt-get clean \
     && apt-get autoremove
 
