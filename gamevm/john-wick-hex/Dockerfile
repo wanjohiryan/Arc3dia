@@ -23,7 +23,7 @@ RUN dpkg --add-architecture i386 \
 
 #
 # Install winetricks
-RUN wget -nv -O /usr/bin/winetricks https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks \
+RUN wget -O /usr/bin/winetricks https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks \
     && chmod +x /usr/bin/winetricks
 
 #
