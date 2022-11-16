@@ -10,12 +10,12 @@ services:
       - "8080:8080"
       - "52000-52100:52000-52100/udp"
     environment:
-      - NEKO_SCREEN: 1920x1080@30
-      - NEKO_PASSWORD: neko
-      - NEKO_PASSWORD_ADMIN: admin
-      - NEKO_EPR: 52000-52100
-      - NEKO_ICELITE: 1
-      - APPPATH: /games/John-Wick-Hex
-      - APPFILE: 'John Wick Hex.exe'
+      NEKO_SCREEN: 1920x1080@30
+      NEKO_PASSWORD: neko
+      NEKO_PASSWORD_ADMIN: admin
+      NEKO_EPR: 52000-52100
+      NEKO_ICELITE: 1
+      APPPATH: /games/John-Wick-Hex
+      APPFILE: 'John Wick Hex.exe'
     volumes:
       - /home/ec2-user/games:/games
