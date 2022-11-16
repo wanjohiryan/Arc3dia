@@ -18,8 +18,8 @@ RUN dpkg --add-architecture i386 \
     && wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key \
     && wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/debian/dists/bullseye/winehq-bullseye.sources \
     && apt update \
-    && DEBIAN_FRONTEND="noninteractive" apt-get install -y --install-recommends winehq-${WINE_BRANCH} \
-    && rm -rf /var/lib/apt/lists/*
+    && DEBIAN_FRONTEND="noninteractive" apt-get install --install-recommends winehq-${WINE_BRANCH} \
+    # && rm -rf /var/lib/apt/lists/*
 
 #
 # Install winetricks
