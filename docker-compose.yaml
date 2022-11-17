@@ -5,7 +5,7 @@ services:
       context: ./gamevm/john-wick-hex
       dockerfile: Dockerfile
     restart: "unless-stopped"
-    shm_size: "2gb"
+    shm_size: "7gb"
     ports:
       - "8080:8080"
       - "52000-52100:52000-52100/udp"
