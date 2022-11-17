@@ -6,7 +6,7 @@ FROM $BASE_IMAGE
 ARG WINE_BRANCH="stable"
 RUN dpkg --add-architecture i386 \
     && apt update \
-    && apt -y install gnupg2 software-properties-common cabextract  gpg-agent mingw-w64 cabextract aptitude vim
+    && apt -y install gnupg2 software-properties-common cabextract aptitude vim
 
 #
 # Install wine (source: https://computingforgeeks.com/how-to-install-wine-on-debian/ )
