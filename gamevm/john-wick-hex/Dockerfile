@@ -19,7 +19,7 @@ RUN dpkg --add-architecture i386 \
 
 # Install wine
 #(source: https://computingforgeeks.com/how-to-install-wine-on-debian/ )
-RUN  && wget -nc https://dl.winehq.org/wine-builds/winehq.key \
+RUN wget -nc https://dl.winehq.org/wine-builds/winehq.key \
     && apt-key add winehq.key \ 
     apt-add-repository https://dl.winehq.org/wine-builds/debian/ \
     && wget -O- -q https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/Debian_10/Release.key | apt-key add -  \  
