@@ -1,3 +1,5 @@
+ARG UBUNTU_RELEASE=20.04
+ARG CUDA_VERSION=11.2.2
 #
 # STAGE 1: SERVER
 #
@@ -45,13 +47,11 @@ RUN npm install
 COPY client/ .
 RUN npm run build
 
-ARG UBUNTU_RELEASE=20.04
-ARG CUDA_VERSION=11.2.2
 #
 # STAGE 3: RUNTIME
 #
 # FROM debian:bullseye-slim
-FROM nvcr.io/nvidia/cudagl:${CUDA_VERSION}-runtime-ubuntu${UBUNTU_RELEASE}
+FROM nvcr.io/nvidia/cudagl:11.2.2-runtime-ubuntu20.04
 
 ARG UBUNTU_RELEASE
 ARG CUDA_VERSION
@@ -71,12 +71,13 @@ ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
 RUN set -eux; \
+    apt-get update; \
     #
     # install dependencies
     apt-get install -y --no-install-recommends wget ca-certificates supervisor; \
     apt-get install -y --no-install-recommends pulseaudio dbus-x11 xserver-xorg-video-dummy; \
     apt-get install -y --no-install-recommends libcairo2 libxcb1 libxrandr2 libxv1 libopus0 libvpx6; \
-    apt-get install -y gnupg2 software-properties-common cabextract aptitude vim \
+    apt-get install -y gnupg2 software-properties-common cabextract aptitude vim curl; \
     #
     # intel driver + vaapi
     apt-get install -y --no-install-recommends intel-media-va-driver-non-free libva2 vainfo; \
@@ -167,7 +168,7 @@ RUN wget -nv -O /usr/bin/winetricks https://raw.githubusercontent.com/Winetricks
 
 #
 # Download gecko and mono installers
-COPY download_gecko_and_mono.sh /root/download_gecko_and_mono.sh
+COPY gamevm/base/download_gecko_and_mono.sh /root/download_gecko_and_mono.sh
 RUN chmod +x /root/download_gecko_and_mono.sh \
     && /root/download_gecko_and_mono.sh "$(dpkg -s wine-${WINE_BRANCH} | grep "^Version:\s" | awk '{print $2}' | sed -E 's/~.*$//')"
 
