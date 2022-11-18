@@ -40,12 +40,18 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GIT_TOKEN }}
+      
+      - name: Move Dockerfile to base
+        uses: canastro/copy-file-action@master
+        with:
+        source: "./gamevm/base/Dockerfile"
+        target: "Dockerfile"
 
       - name: Build image and push to Docker Hub and GitHub Container Registry
         uses: docker/build-push-action@v2
         with:
           # relative path to the place where source code with Dockerfile is located
-          context: ./gamevm/base
+          context: ./
           # Note: tags has to be all lower-case
           tags: |
             wanjohiryan/qwantify:latest 
