@@ -44,8 +44,8 @@ jobs:
       - name: Move Dockerfile to base
         uses: canastro/copy-file-action@master
         with:
-        source: "./gamevm/base/Dockerfile"
-        target: "Dockerfile"
+          source: "./gamevm/base/Dockerfile"
+          target: "Dockerfile"
 
       - name: Build image and push to Docker Hub and GitHub Container Registry
         uses: docker/build-push-action@v2
