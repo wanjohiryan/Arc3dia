@@ -37,5 +37,4 @@ jobs:
       - name: Build image and push to Docker Hub and GitHub Container Registry
         run: |
           docker build . --tag ghrc.io/wanjohiryan/qwantify:latest
-          docker run ghrc.io/wanjohiryan/qwantify:latest
           docker push ghrc.io/wanjohiryan/qwantify:latest
