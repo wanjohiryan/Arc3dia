@@ -5,12 +5,17 @@ services:
       context: ./gamevm/john-wick-hex
       dockerfile: Dockerfile
     restart: "unless-stopped"
-    shm_size: "2gb"
+    # shm_size: "2gb"
     ports:
       - "8080:8080"
       - "52000-52100:52000-52100/udp"
     volumes:
       - /home/ec2-user/games:/games
+    deploy:
+      resources:
+        limits:
+          memory: 5G
+          cpus: '16' #for testing purposes only
     environment:
       - NEKO_SCREEN=1920x1080@30
       - NEKO_PASSWORD=neko
