@@ -59,7 +59,8 @@ ARG CUDA_VERSION
 ARG NVIDIA_VISIBLE_DEVICES=all
 # All NVIDIA driver capabilities should preferably be used, check `NVIDIA_DRIVER_CAPABILITIES` inside the container if things do not work
 ENV NVIDIA_DRIVER_CAPABILITIES all
-
+ENV VGL_DISPLAY egl
+ENV REFRESH 60
 #
 # avoid warnings by switching to noninteractive
 ENV DEBIAN_FRONTEND=noninteractive
@@ -192,6 +193,7 @@ COPY gamevm/base/default.pa /etc/pulse/default.pa
 COPY gamevm/base/supervisord.conf /etc/neko/supervisord.conf
 COPY gamevm/base/xorg.conf /etc/neko/xorg.conf
 COPY gamevm/base/add-render-group.sh /usr/bin/add-render-group.sh
+COPY gamevm/base/entrypoint.sh /etc/entrypoint.sh
 
 #
 # set default envs
