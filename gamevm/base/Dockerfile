@@ -1,3 +1,5 @@
+ARG UBUNTU_RELEASE=20.04
+ARG CUDA_VERSION=11.2.2
 #
 # STAGE 1: SERVER
 #
@@ -48,7 +50,15 @@ RUN npm run build
 #
 # STAGE 3: RUNTIME
 #
-FROM debian:bullseye-slim
+# FROM debian:bullseye-slim
+FROM nvcr.io/nvidia/cudagl:11.2.2-runtime-ubuntu20.04
+
+ARG UBUNTU_RELEASE
+ARG CUDA_VERSION
+# Make all NVIDIA GPUs visible by default
+ARG NVIDIA_VISIBLE_DEVICES=all
+# All NVIDIA driver capabilities should preferably be used, check `NVIDIA_DRIVER_CAPABILITIES` inside the container if things do not work
+ENV NVIDIA_DRIVER_CAPABILITIES all
 
 #
 # avoid warnings by switching to noninteractive
@@ -61,17 +71,13 @@ ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
 RUN set -eux; \
-    #
-    # add non-free repo for intel drivers
-    echo deb http://deb.debian.org/debian bullseye main contrib non-free > /etc/apt/sources.list; \
-    echo deb http://deb.debian.org/debian-security/ bullseye-security main contrib non-free >> /etc/apt/sources.list; \
-    echo deb http://deb.debian.org/debian bullseye-updates main contrib non-free >> /etc/apt/sources.list; \
     apt-get update; \
     #
     # install dependencies
     apt-get install -y --no-install-recommends wget ca-certificates supervisor; \
     apt-get install -y --no-install-recommends pulseaudio dbus-x11 xserver-xorg-video-dummy; \
     apt-get install -y --no-install-recommends libcairo2 libxcb1 libxrandr2 libxv1 libopus0 libvpx6; \
+    apt-get install -y gnupg2 software-properties-common cabextract aptitude vim curl; \
     #
     # intel driver + vaapi
     apt-get install -y --no-install-recommends intel-media-va-driver-non-free libva2 vainfo; \
@@ -117,12 +123,75 @@ RUN set -eux; \
     rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 
 #
+# Install and configure Vulkan manually
+RUN if [ "${UBUNTU_RELEASE}" = "18.04" ]; then apt-get update && apt-get install --no-install-recommends -y vulkan-utils; else apt-get update && apt-get install --no-install-recommends -y vulkan-tools; fi && \
+    rm -rf /var/lib/apt/lists/* && \
+    VULKAN_API_VERSION=$(dpkg -s libvulkan1 | grep -oP 'Version: [0-9|\.]+' | grep -oP '[0-9]+(\.[0-9]+)(\.[0-9]+)') && \
+    mkdir -p /etc/vulkan/icd.d/ && \
+    echo "{\n\
+    \"file_format_version\" : \"1.0.0\",\n\
+    \"ICD\": {\n\
+        \"library_path\": \"libGLX_nvidia.so.0\",\n\
+        \"api_version\" : \"${VULKAN_API_VERSION}\"\n\
+    }\n\
+}" > /etc/vulkan/icd.d/nvidia_icd.json
+
+ARG VIRTUALGL_VERSION=3.0.2
+#
+# Install VirtualGL and make libraries available for preload
+RUN curl -fsSL -O "https://sourceforge.net/projects/virtualgl/files/virtualgl_${VIRTUALGL_VERSION}_amd64.deb" && \
+    curl -fsSL -O "https://sourceforge.net/projects/virtualgl/files/virtualgl32_${VIRTUALGL_VERSION}_amd64.deb" && \
+    apt-get update && apt-get install -y --no-install-recommends ./virtualgl_${VIRTUALGL_VERSION}_amd64.deb ./virtualgl32_${VIRTUALGL_VERSION}_amd64.deb && \
+    rm -f "virtualgl_${VIRTUALGL_VERSION}_amd64.deb" "virtualgl32_${VIRTUALGL_VERSION}_amd64.deb" && \
+    rm -rf /var/lib/apt/lists/* && \
+    chmod u+s /usr/lib/libvglfaker.so && \
+    chmod u+s /usr/lib/libdlfaker.so && \
+    chmod u+s /usr/lib32/libvglfaker.so && \
+    chmod u+s /usr/lib32/libdlfaker.so && \
+    chmod u+s /usr/lib/i386-linux-gnu/libvglfaker.so && \
+    chmod u+s /usr/lib/i386-linux-gnu/libdlfaker.so
+
+#
+# Install wine
+ARG WINE_BRANCH="stable"
+RUN wget -nv -O- https://dl.winehq.org/wine-builds/winehq.key | APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1 apt-key add - \
+    && apt-add-repository "deb https://dl.winehq.org/wine-builds/ubuntu/ $(grep VERSION_CODENAME= /etc/os-release | cut -d= -f2) main" \
+    && dpkg --add-architecture i386 \
+    && apt-get update \
+    && DEBIAN_FRONTEND="noninteractive" apt-get install -y --install-recommends winehq-${WINE_BRANCH} \
+    && rm -rf /var/lib/apt/lists/*
+
+#
+# Install winetricks
+RUN wget -nv -O /usr/bin/winetricks https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks \
+    && chmod +x /usr/bin/winetricks
+
+#
+# Download gecko and mono installers
+COPY gamevm/base/download_gecko_and_mono.sh /root/download_gecko_and_mono.sh
+RUN chmod +x /root/download_gecko_and_mono.sh \
+    && /root/download_gecko_and_mono.sh "$(dpkg -s wine-${WINE_BRANCH} | grep "^Version:\s" | awk '{print $2}' | sed -E 's/~.*$//')"
+
+#
+# Install graphic libraries //JohnWick uses dx11
+RUN winetricks d3dx11_43 
+# RUN winetricks --force -q dotnet48
+
+#
+# Silence all fixme warnings from wine
+ENV WINEDEBUG fixme-all
+
+#
+#volume for mounting games
+VOLUME [ "/games" ]
+
+#
 # copy config files
-COPY .docker/base/dbus /usr/bin/dbus
-COPY .docker/base/default.pa /etc/pulse/default.pa
-COPY .docker/base/supervisord.conf /etc/neko/supervisord.conf
-COPY .docker/base/xorg.conf /etc/neko/xorg.conf
-COPY .docker/base/add-render-group.sh /usr/bin/add-render-group.sh
+COPY gamevm/base/dbus /usr/bin/dbus
+COPY gamevm/base/default.pa /etc/pulse/default.pa
+COPY gamevm/base/supervisord.conf /etc/neko/supervisord.conf
+COPY gamevm/base/xorg.conf /etc/neko/xorg.conf
+COPY gamevm/base/add-render-group.sh /usr/bin/add-render-group.sh
 
 #
 # set default envs
