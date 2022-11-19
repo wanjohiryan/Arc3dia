@@ -3,14 +3,19 @@ name: "CI for github packages"
 on:
   push:
    branches: [ master ]
+  pull_request:
+    branches: [ main ]
 
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: wanjohiryan/qwantify
 
 jobs:
-  build-base:
+  build-git-package:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     #
     # do not run on forks
     #
@@ -18,25 +23,29 @@ jobs:
     steps:
       -
         name: Checkout
-        uses: actions/checkout@v2
-      -
-        name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+        uses: actions/checkout@v3
       - 
-        name: Log in to the Container registry
-        uses: docker/login-action@v1
+        name: Log into registry ${{ env.REGISTRY }}
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v2
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GIT_TOKEN }}
       - 
-        name: Build and push
-        uses: docker/build-push-action@v2
+        name: Extract Container metadata
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+      - 
+        name: Build and push Ubuntu 20.04 Container image
+        uses: docker/build-push-action@v3
         with:
           context: ./
           file: gamevm/base/Dockerfile
-          push: true
-          tags: wanjohiryan/qwantify:latest
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:20.04
+          labels: ${{ steps.meta.outputs.labels }}
