@@ -1,18 +1,19 @@
 version: "3.8"
 services:
   neko:
-    build:
-      context: ./gamevm/john-wick-hex
-      dockerfile: Dockerfile
+    image: wanjohiryan/qwantify:latest
     restart: "unless-stopped"
     # shm_size: "2gb"
     ports:
       - "8080:8080"
       - "52000-52100:52000-52100/udp"
     volumes:
-      - /home/ec2-user/games:/games
+      - /games:/games
     deploy:
       resources:
+        reservations:
+          devices:
+            capabilities: [gpu]
         limits:
           memory: 5G
           cpus: '16' #for testing purposes only
@@ -22,5 +23,4 @@ services:
       - NEKO_PASSWORD_ADMIN=admin
       - NEKO_EPR=52000-52100
       - NEKO_ICELITE=1
-      - APPPATH=/games/John-Wick-Hex
-      - APPFILE='John Wick Hex.exe'
+      - APPPATH=/games/John-Wick-Hex/'John Wick Hex.exe'

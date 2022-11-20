@@ -1,5 +1,3 @@
-ARG UBUNTU_RELEASE=20.04
-ARG CUDA_VERSION=11.2.2
 #
 # STAGE 1: SERVER
 #
@@ -53,6 +51,8 @@ RUN npm run build
 # FROM debian:bullseye-slim
 FROM nvcr.io/nvidia/cudagl:11.2.2-runtime-ubuntu20.04
 
+LABEL maintainer "https://github.com/wanjohiryan"
+
 ARG UBUNTU_RELEASE
 ARG CUDA_VERSION
 # Make all NVIDIA GPUs visible by default
@@ -63,7 +63,9 @@ ENV REFRESH 60
 #
 # avoid warnings by switching to noninteractive
 ENV DEBIAN_FRONTEND=noninteractive
-
+#
+# set vgl-display to headless 3d gpu card/// correct values are egl[n] or /dev/dri/card0:if this is passed into container
+ENV VGL_DISPLAY egl
 #
 # set custom user
 ARG USERNAME=neko
