@@ -67,6 +67,9 @@ ENV DEBIAN_FRONTEND=noninteractive
 # set vgl-display to headless 3d gpu card/// correct values are egl[n] or /dev/dri/card0:if this is passed into container
 ENV VGL_DISPLAY egl
 #
+#for vulkan
+ENV XDG_RUNTIME_DIR /tmp
+#
 # set custom user
 ARG USERNAME=neko
 ARG USER_UID=1000
@@ -154,8 +157,8 @@ RUN curl -fsSL -O "https://sourceforge.net/projects/virtualgl/files/virtualgl_${
     chmod u+s /usr/lib/i386-linux-gnu/libdlfaker.so
 
 #
-# Install wine
-ARG WINE_BRANCH="stable"
+# Install wine >= 7.2 for vk3d capabilities // probably not that stable :)
+ARG WINE_BRANCH="devel"
 RUN wget -nv -O- https://dl.winehq.org/wine-builds/winehq.key | APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1 apt-key add - \
     && apt-add-repository "deb https://dl.winehq.org/wine-builds/ubuntu/ $(grep VERSION_CODENAME= /etc/os-release | cut -d= -f2) main" \
     && dpkg --add-architecture i386 \
