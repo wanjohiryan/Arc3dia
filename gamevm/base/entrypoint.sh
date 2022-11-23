@@ -6,7 +6,7 @@ export PATH="${PATH}:/opt/VirtualGL/bin"
 if [ -n "$(nvidia-smi --query-gpu=uuid --format=csv | sed -n 2p)" ]; then
   export VGL_DISPLAY="${VGL_DISPLAY:-egl}"
   export VGL_REFRESHRATE="$REFRESH"
-  vglrun +wm wine "${APPPATH}" 
+  cd "${APPPATH}" && vglrun +wm wine "${APPFILE}" 
 else
-  wine "${APPPATH}" 
+  cd "${APPPATH}" && wine "${APPFILE}"
 fi

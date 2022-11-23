@@ -51,6 +51,9 @@ RUN npm run build
 # FROM debian:bullseye-slim
 FROM nvcr.io/nvidia/cudagl:11.2.2-runtime-ubuntu20.04
 
+ARG UBUNTU_RELEASE=20.04
+ARG CUDA_VERSION=11.2.2
+
 LABEL maintainer "https://github.com/wanjohiryan"
 
 ARG UBUNTU_RELEASE
@@ -60,6 +63,8 @@ ARG NVIDIA_VISIBLE_DEVICES=all
 # All NVIDIA driver capabilities should preferably be used, check `NVIDIA_DRIVER_CAPABILITIES` inside the container if things do not work
 ENV NVIDIA_DRIVER_CAPABILITIES all
 ENV REFRESH 60
+ENV DPI 96
+ENV CDEPTH 24
 #
 # avoid warnings by switching to noninteractive
 ENV DEBIAN_FRONTEND=noninteractive
@@ -78,11 +83,14 @@ ARG USER_GID=$USER_UID
 RUN set -eux; \
     apt-get update; \
     #
-    # install dependencies
+    # install dependencies //xserver-xorg-video-dummy
     apt-get install -y --no-install-recommends wget ca-certificates supervisor; \
-    apt-get install -y --no-install-recommends pulseaudio dbus-x11 xserver-xorg-video-dummy; \
+    apt-get install -y --no-install-recommends pulseaudio dbus-x11 xvfb; \
     apt-get install -y --no-install-recommends libcairo2 libxcb1 libxrandr2 libxv1 libopus0 libvpx6; \
     apt-get install -y gnupg2 software-properties-common cabextract aptitude vim curl; \
+    #
+    # hardware acclerations utilities
+    apt-get install --no-install-recommends -y libgtk-3-bin mesa-utils mesa-utils-extra mesa-va-drivers mesa-vulkan-drivers libvulkan-dev libvulkan-dev:i386 vdpauinfo; \
     #
     # intel driver + vaapi
     apt-get install -y --no-install-recommends intel-media-va-driver-non-free libva2 vainfo; \
@@ -158,7 +166,7 @@ RUN curl -fsSL -O "https://sourceforge.net/projects/virtualgl/files/virtualgl_${
 
 #
 # Install wine >= 7.2 for vk3d capabilities // probably not that stable :)
-ARG WINE_BRANCH="devel"
+ARG WINE_BRANCH="staging"
 RUN wget -nv -O- https://dl.winehq.org/wine-builds/winehq.key | APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1 apt-key add - \
     && apt-add-repository "deb https://dl.winehq.org/wine-builds/ubuntu/ $(grep VERSION_CODENAME= /etc/os-release | cut -d= -f2) main" \
     && dpkg --add-architecture i386 \
@@ -178,9 +186,8 @@ RUN chmod +x /root/download_gecko_and_mono.sh \
     && /root/download_gecko_and_mono.sh "$(dpkg -s wine-${WINE_BRANCH} | grep "^Version:\s" | awk '{print $2}' | sed -E 's/~.*$//')"
 
 #
-# Install graphic libraries //JohnWick uses dx11
-RUN winetricks d3dx11_43 
-# RUN winetricks --force -q dotnet48
+#install dx11
+RUN winetricks d3dx11_43
 
 #
 # Silence all fixme warnings from wine

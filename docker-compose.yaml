@@ -16,11 +16,12 @@ services:
             capabilities: [gpu]
         limits:
           memory: 5G
-          cpus: '16' #for testing purposes only
+          cpus: '4' #for testing purposes only
     environment:
       - NEKO_SCREEN=1920x1080@30
       - NEKO_PASSWORD=neko
       - NEKO_PASSWORD_ADMIN=admin
       - NEKO_EPR=52000-52100
       - NEKO_ICELITE=1
-      - APPPATH=/games/John-Wick-Hex/'John Wick Hex.exe'
+      - APPPATH=/path/to/game/folder
+      - APPFILE=/game.exe
