@@ -72,8 +72,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 # set vgl-display to headless 3d gpu card/// correct values are egl[n] or /dev/dri/card0:if this is passed into container
 ENV VGL_DISPLAY egl
 #
-#for vulkan
-ENV XDG_RUNTIME_DIR /tmp
+#for vulkan //creates complications
+# ENV XDG_RUNTIME_DIR /tmp
 #
 # set custom user
 ARG USERNAME=neko
@@ -83,9 +83,9 @@ ARG USER_GID=$USER_UID
 RUN set -eux; \
     apt-get update; \
     #
-    # install dependencies //xserver-xorg-video-dummy
+    # install dependencies 
     apt-get install -y --no-install-recommends wget ca-certificates supervisor; \
-    apt-get install -y --no-install-recommends pulseaudio dbus-x11 xvfb; \
+    apt-get install -y --no-install-recommends pulseaudio dbus-x11 xserver-xorg-video-dummy; \
     apt-get install -y --no-install-recommends libcairo2 libxcb1 libxrandr2 libxv1 libopus0 libvpx6; \
     apt-get install -y gnupg2 software-properties-common cabextract aptitude vim curl; \
     #
