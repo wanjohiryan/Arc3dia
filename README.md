@@ -21,7 +21,12 @@
   </a>
 </h4>
 
-<img src="/img/infisical_github_repo.png" width="100%" alt="Dashboard" />
+<img src="/img/infisical_github_repo.png" width="100%" alt="Dashboard"/>
+
+<img src="/imgs/signup-black.png#gh-light-mode-only" width="100%" alt="qwantify signup" />
+<img src="/imgs/signup-white.png#gh-light-mode-only" width="100%" alt="qwantify signup" />
+
+
 
 **[qwantify](https://qwantify.vercel.app)** is an open source docker image for running games (or other apps) on a shared host computer with at least one gpu.
 
