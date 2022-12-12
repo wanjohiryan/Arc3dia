@@ -1,7 +1,7 @@
-<h2 height="110" align="center">
-  <img width="500" src="/imgs/logo-black.svg#gh-light-mode-only" alt="qwantify logo">
-  <img width="500" src="/imgs/logo-white.svg#gh-dark-mode-only" alt="qwantify logo">
-</h2>
+<h1 align="center">
+  <img width="200" src="/imgs/logo-black.svg#gh-light-mode-only" alt="qwantify logo">
+  <img width="200" src="/imgs/logo-white.svg#gh-dark-mode-only" alt="qwantify logo">
+</h1>
 <p align="center">
   <p align="center">Play games with your friends right from the browser. No installations needed</p>
 </p>
