@@ -23,13 +23,6 @@
 
 <img src="/img/infisical_github_repo.png" width="100%" alt="Dashboard"/>
 
-<p>
-<img src="/imgs/signup-black.png#gh-light-mode-only" height="120" alt="qwantify signup" />
-<img src="/imgs/signup-white.png#gh-dark-mode-only" height="120"  alt="qwantify signup" />
-</p>
-
-
-
 **[qwantify](https://qwantify.vercel.app)** is an open source docker image for running games (or other apps) on a shared host computer with at least one gpu.
 
 - **User-Friendly Interface** to intuitively play games with your friends
@@ -44,6 +37,12 @@
 - 🔜 **Twitch and Youtube stream** integrations
 
 And more.
+
+<p align="center" >
+  <a href="https://qwantify.vercel.app" target="_blank"><img src="/imgs/sign-up.png" height=120 /> </a>
+  <a href="https://qwantify.vercel.app" target="_blank"><img src="/imgs/demo-game.png" height=120 /> </a>
+  <a href="" target="_blank"><img src="/imgs/partner-up.png" height=120></a>
+</p>
 
 ## 🚀 Get started
 
@@ -85,12 +84,6 @@ Then
 docker-compose up -d docker-compose.yaml
 ```
 
-<p>
-  <a href="https://qwantify.vercel.app" target="_blank"><img src="/imgs/sign-up.png" height=120 /> </a>
-  <a href="https://qwantify.vercel.app" target="_blank"><img src="/imgs/demo-game.png" height=120 /> </a>
-  <a href="" target="_blank"><img src="/imgs/partner-up.png" height=120></a>
-</p>
-
 ## 🔥 What's cool about this?
 
 qwantify makes gaming . We're on a mission to make games more accessible to all, <i>not just gamers with expensive hardware</i>. 
@@ -101,34 +94,16 @@ We are currently working hard to make qwantify more extensive. Need any integrat
 
 Whether it's big or small, we love contributions ❤️ Check out our guide to see how to [get started](https://infisical.com/docs/contributing/overview).
 
-Not sure where to get started? You can:
-- [Book a free, non-pressure pairing sessions with one of our teammates](mailto:tony@infisical.com?subject=Pairing%20session&body=I'd%20like%20to%20do%20a%20pairing%20session!)!
-- Join our <a href="https://join.slack.com/t/infisical-users/shared_invite/zt-1kdbk07ro-RtoyEt_9E~fyzGo_xQYP6g">Slack</a>, and ask us any questions there.
-
-## 💚 Community & Support
-
-- [Slack](https://join.slack.com/t/infisical-users/shared_invite/zt-1kdbk07ro-RtoyEt_9E~fyzGo_xQYP6g) (For live discussion with the community and the Infisical team)
-- [GitHub Discussions](https://github.com/Infisical/infisical/discussions) (For help with building and deeper conversations about features)
-- [GitHub Issues](https://github.com/Infisical/infisical-cli/issues) (For any bugs and errors you encounter using Infisical)
-- [Twitter](https://twitter.com/infisical) (Get news fast) 
-
 ## 🐥 Status
 
-- [x] Public Alpha: Anyone can sign up over at [infisical.com](https://infisical.com) but go easy on us, there are kinks and we're just getting started.
-- [ ] Public Beta: Stable enough for most non-enterprise use-cases.
+- [x] Public Alpha: Anyone can sign up over at [qwantify arcade](https://qwantify.vercel.app/) 
+- [ ] Public Beta: Stable enough for most gamers.
 - [ ] Public: Production-ready.
 
 We're currently in Public Alpha.
-
-## 🚨 Stay Up-to-Date
-
-Infisical officially launched as v.1.0 on November 21st, 2022. However, a lot of new features are coming very quickly. Watch **releases** of this repository to be notified about future updates:
-
-![infisical-star-github](https://github.com/Infisical/infisical/blob/main/.github/images/star-infisical.gif?raw=true)
-
 ## 🔌 Integrations
 
-We're currently setting the foundation and building [integrations](https://infisical.com/docs/integrations/overview) so secrets can be synced everywhere. Any help is welcome! :)
+We're currently setting the foundation and building a gaming network so games can be played from anywhere on the planet. Any help is welcome! :)
 
 <table>
 <tr>
