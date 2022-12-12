@@ -1,7 +1,7 @@
-<h1 align="center">
-  <img width=300 src="./imgs/logo-black.svg#gh-light-mode-only" alt="qwantify logo">
-  <img width=300 src="./imgs/logo-white.svg#gh-dark-mode-only" alt="qwantify logo">
-</h1>
+<h4 align="center">
+  <img height=120 width=300 src="./imgs/logo-black.svg#gh-light-mode-only" alt="qwantify logo">
+  <img height=120 width=300 src="./imgs/logo-white.svg#gh-dark-mode-only" alt="qwantify logo">
+</h4>
 <p align="center">
   <p align="center">Play games with your friends right from the browser. No installations needed</p>
 </p>
@@ -38,7 +38,7 @@ And more.
 
 <p align="center" >
   <a href="https://qwantify.vercel.app" target="_blank"><img src="./imgs/sign-up.png" height=120 /> </a>
-  <a href="https://qwantify.vercel.app" target="_blank"><img src="./imgs/demo-game.png" height=120 /> </a>
+  <a href="https://qwantify.vercel.app" target="_blank"><img src="./imgs/game-demo.png" height=120 /> </a>
   <a href="" target="_blank"><img src="./imgs/partner-up.png" height=120></a>
 </p>
 
