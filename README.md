@@ -1,6 +1,6 @@
 <h1 align="center">
-  <img width="200" src="/imgs/logo-black.svg#gh-light-mode-only" alt="qwantify logo">
-  <img width="200" src="/imgs/logo-white.svg#gh-dark-mode-only" alt="qwantify logo">
+  <img width=300 src="/imgs/logo-black.svg#gh-light-mode-only" alt="qwantify logo">
+  <img width=300 src="/imgs/logo-white.svg#gh-dark-mode-only" alt="qwantify logo">
 </h1>
 <p align="center">
   <p align="center">Play games with your friends right from the browser. No installations needed</p>
@@ -23,8 +23,10 @@
 
 <img src="/img/infisical_github_repo.png" width="100%" alt="Dashboard"/>
 
-<img src="/imgs/signup-black.png#gh-light-mode-only" width="100%" alt="qwantify signup" />
-<img src="/imgs/signup-white.png#gh-dark-mode-only" width="100%"  alt="qwantify signup" />
+<p>
+<img src="/imgs/signup-black.png#gh-light-mode-only" height="120" alt="qwantify signup" />
+<img src="/imgs/signup-white.png#gh-dark-mode-only" width="120"  alt="qwantify signup" />
+</p>
 
 
 
