@@ -88,11 +88,11 @@ docker-compose up -d docker-compose.yaml
 
 qwantify makes gaming . We're on a mission to make games more accessible to all, <i>not just gamers with expensive hardware</i>. 
 
-We are currently working hard to make qwantify more extensive. Need any integrations or want a new feature? Feel free to [create an issue](https://github.com/wanjohiryan/qwantify/issues) or [contribute](https://infisical.com/docs/contributing/overview) directly to the repository.
+We are currently working hard to make qwantify more extensive. Need any integrations or want a new feature? Feel free to [create an issue](https://github.com/wanjohiryan/qwantify/issues) or [contribute](https://github.com/wanjohiryan/qwantify/blob/master/CONTRIBUTING.md) directly to the repository.
 
 ## 🌱 Contributing
 
-Whether it's big or small, we love contributions ❤️ Check out our guide to see how to [get started](https://infisical.com/docs/contributing/overview).
+Whether it's big or small, we love contributions ❤️ Check out our guide to see how to [get started](https://github.com/wanjohiryan/qwantify/blob/master/CONTRIBUTING.md).
 
 ## 🐥 Status
 

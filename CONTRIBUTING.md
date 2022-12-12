@@ -12,3 +12,6 @@ Before raising a new issue, please search existing ones to make sure you’re no
 You can start by browsing through our list of issues or adding your own that improves on the platform experience. Once you’ve decided on an issue, leave a comment and wait to get approved; this helps avoid multiple people working on the same issue.
 
 If you’re ever in doubt about whether or not a proposed feature aligns with Infisical as a whole, feel free to raise an issue about it and we’ll get back to you promptly.
+
+
+*Happy hacking :)*
