@@ -86,9 +86,9 @@ docker-compose up -d docker-compose.yaml
 ```
 
 <p>
-  <a href="https://infisical.com/docs/self-hosting/overview" target="_blank"><img src="https://user-images.githubusercontent.com/78047717/206356882-2b773eed-b0da-4725-ae2f-83e3cd7f2713.png" height=120 /> </a>
-  <a href="https://www.youtube.com/watch?v=JS3OKYU2078" target="_blank"><img src="https://user-images.githubusercontent.com/78047717/206356600-8833b128-6cae-408c-a703-07b2fc6aff4b.png" height=120 /> </a>
-  <a href="https://app.infisical.com/signup" target="_blank"><img src="https://user-images.githubusercontent.com/78047717/206355970-f4c09062-b88f-452a-94e0-9c61a0651170.png" height=120></a>
+  <a href="https://qwantify.vercel.app" target="_blank"><img src="/imgs/sign-up.png" height=120 /> </a>
+  <a href="https://qwantify.vercel.app" target="_blank"><img src="/imgs/demo-game.png" height=120 /> </a>
+  <a href="" target="_blank"><img src="/imgs/patner-up.png" height=120></a>
 </p>
 
 ## 🔥 What's cool about this?
