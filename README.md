@@ -1,5 +1,5 @@
-<h2 height="110 align="center">
-  <img width="500" height= src="/imgs/logo-black.svg#gh-light-mode-only" alt="qwantify logo">
+<h2 height="110" align="center">
+  <img width="500" src="/imgs/logo-black.svg#gh-light-mode-only" alt="qwantify logo">
   <img width="500" src="/imgs/logo-white.svg#gh-dark-mode-only" alt="qwantify logo">
 </h2>
 <p align="center">
