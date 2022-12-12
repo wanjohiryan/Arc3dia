@@ -1,13 +1,15 @@
-<h4 align="center">
+<!-- inspired by https://github.com/Infisical/infisical/blob/main/README.md -->
+
+<h3 align="center">
   <img height=120 width=300 src="./imgs/logo-black.svg#gh-light-mode-only" alt="qwantify logo">
   <img height=120 width=300 src="./imgs/logo-white.svg#gh-dark-mode-only" alt="qwantify logo">
-</h4>
+</h3>
 <p align="center">
   <p align="center">Play games with your friends right from the browser. No installations needed</p>
 </p>
 <h4 align="center">
   <a href="https://qwantify.vercel.app/">qwantify Arcade</a> |
-  <a href="https://qwantify.vercel.app/">Hosting</a> |
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLSfBZDOlcdnvJwUdt5ju-v8Gx4oIqHd_jHu_p6QCvlwgaOvQ0A/viewform">Hosting</a> |
   <a href="https://qwantify.vercel.app/">Docs</a> |
   <a href="https://qwantify.vercel.app/">Website</a>
 </h4>
@@ -39,7 +41,7 @@ And more.
 <p align="center" >
   <a href="https://qwantify.vercel.app" target="_blank"><img src="./imgs/sign-up.png" height=120 /> </a>
   <a href="https://qwantify.vercel.app" target="_blank"><img src="./imgs/game-demo.png" height=120 /> </a>
-  <a href="" target="_blank"><img src="./imgs/partner-up.png" height=120></a>
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLSfBZDOlcdnvJwUdt5ju-v8Gx4oIqHd_jHu_p6QCvlwgaOvQ0A/viewform" target="_blank"><img src="./imgs/partner-up.png" height=120></a>
 </p>
 
 ## 🚀 Get started
@@ -170,5 +172,9 @@ We're currently setting the foundation and building a gaming network so games ca
 ### Rent out your GPU and help us deliver games to everyone. Become a partner today.
 
 <p >
-  <a href="" target="_blank"><img src="./imgs/partner-up.png" height=120></a>
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLSfBZDOlcdnvJwUdt5ju-v8Gx4oIqHd_jHu_p6QCvlwgaOvQ0A/viewform" target="_blank"><img src="./imgs/partner-up.png" height=120></a>
 </p>
+
+
+
+**Stay frosty :)**
