@@ -25,7 +25,7 @@
 
 <p>
 <img src="/imgs/signup-black.png#gh-light-mode-only" height="120" alt="qwantify signup" />
-<img src="/imgs/signup-white.png#gh-dark-mode-only" width="120"  alt="qwantify signup" />
+<img src="/imgs/signup-white.png#gh-dark-mode-only" height="120"  alt="qwantify signup" />
 </p>
 
 
@@ -78,6 +78,8 @@ services:
       - APPFILE=/game.exe #game executable file
 
 ```
+
+Then
 
 ```bash
 docker-compose up -d docker-compose.yaml
