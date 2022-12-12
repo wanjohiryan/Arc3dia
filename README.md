@@ -26,14 +26,12 @@
 **[qwantify](https://qwantify.vercel.app)** is an open source docker image for running games (or other apps) on a shared host computer with at least one gpu.
 
 - **User-Friendly Interface** to intuitively play games with your friends
-- **Cloud and GPU Agnostic deployment** that lets you play and host games anywhere anytime, through the browser 
-- **Complete control over your game data** - save your game progress locally
-- **Play with multiple gamepads** per gameroom. Turn any game into multiplayer
+- **Complete control over your game data** - play online, save your game progress locally
+- 🛠️ **Cloud and GPU Agnostic deployment** that lets you play and host games anywhere anytime, through the browser 
+- 🛠️ **Url invites for friends**
+- 🛠️ **Play with multiple gamepads** per gameroom. Turn any game into multiplayer
+- 🛠️ **Official Support for AMD and Intel Gpus**
 - 🔜 **1-Click Deploy** locally, AWS or GCP
-- 🔜 **Url Sharing** for gamerooms (gamepad control switching soon after)
-- 🔜 **Official Support for AMD and Intel Gpus**
-- 🔜 **Url invites for friends**
-- 🔜 **No extra installations needed**
 - 🔜 **Twitch and Youtube stream** integrations
 
 And more.
@@ -96,7 +94,7 @@ Whether it's big or small, we love contributions ❤️ Check out our guide to s
 
 ## 🐥 Status
 
-- [x] Public Alpha: Anyone can sign up over at [qwantify arcade](https://qwantify.vercel.app/) 
+- [x] Public Alpha: Anyone can sign up over at the [qwantify arcade](https://qwantify.vercel.app/) 
 - [ ] Public Beta: Stable enough for most gamers.
 - [ ] Public: Production-ready.
 
@@ -106,172 +104,73 @@ We're currently in Public Alpha.
 We're currently setting the foundation and building a gaming network so games can be played from anywhere on the planet. Any help is welcome! :)
 
 <table>
-<tr>
-  <th>Platforms </th>
-  <th>Frameworks</th>
-</tr>
-<tr> 
-  <td>
-
-<table>
-  <tbody>
+    <caption><b>All Available Servers<b></caption>
     <tr>
-      <td align="left" valign="middle">
-        <a href="https://infisical.com/docs/integrations/platforms/docker?ref=github.com">
-          ✔️ Docker
-        </a>
-      </td>
-      <td align="left" valign="middle">
-        <a href="https://infisical.com/docs/integrations/platforms/docker-compose?ref=github.com">
-          ✔️ Docker Compose
-        </a>
-      </td>
-      <td align="left" valign="middle">
-        <a href="https://infisical.com/docs/integrations/cloud/heroku?ref=github.com">
-          ✔️ Heroku
-        </a>
-      </td>
+        <th scope="col">Region</th>
+        <th scope="col">Instances</th>
     </tr>
     <tr>
-      <td align="left" valign="middle">
-        🔜 Vercel (https://github.com/Infisical/infisical/issues/60)
-      </td>
-      <td align="left" valign="middle">
-        🔜 GitLab CI/CD
-      </td>
-      <td align="left" valign="middle">
-        🔜 Fly.io
-      </td>
+        <th>North America</th>
+        <td>
+        <table>
+        <tr>
+            <th>Provider</th>
+            <th>Location</th>
+            <th>Online/Offline</th>
+         </tr>
+         <tr>
+         <th>AWS</th>
+         <td>us-east-1</td>
+         <td>Online ✔️</td>
+         </tr>
+        </table>
+        </td>
     </tr>
     <tr>
-      <td align="left" valign="middle">
-        🔜 AWS
-      </td>
-      <td align="left" valign="middle">
-        🔜 GitHub Actions (https://github.com/Infisical/infisical/issues/54)
-      </td>
-      <td align="left" valign="middle">
-         🔜 Railway
-      </td>
+        <th scope="row">Africa</th>
+        <td><table>
+        <tr>
+            <th>Provider</th>
+            <th>Location</th>
+            <th>Online/Offline</th>
+         </tr>
+         <tr>
+         <th>AWS</th>
+         <td>af-south-2</td>
+         <td>Online ✔️</td>
+         </tr>
+        </table></td>
+    </tr>
+     <tr>
+        <th scope="row">Europe</th>
+       <td><table>
+        <tr>
+            <th>Provider</th>
+            <th>Location</th>
+            <th>Online/Offline</th>
+         </tr>
+         <tr>
+         <th>Indie</th>
+         <td>Berlin</td>
+         <td>Online ✔️</td>
+         </tr>
+        </table></td>
     </tr>
     <tr>
-      <td align="left" valign="middle">
-        🔜 GCP
-      </td>
-      <td align="left" valign="middle">
-        🔜 Kubernetes
-      </td>
-      <td align="left" valign="middle">
-        🔜 CircleCI
-      </td>
+        <th scope="row">South America</th>
+        <td>Currently not available :( ❌</td>
     </tr>
     <tr>
-      <td align="left" valign="middle">
-        🔜 Jenkins
-      </td>
-      <td align="left" valign="middle">
-        🔜 Digital Ocean
-      </td>
-      <td align="left" valign="middle">
-        🔜 Azure
-      </td>
+        <th scope="row">Asia</th>
+        <td>Currently not available :( ❌</td>
     </tr>
-    <tr>
-      <td align="left" valign="middle">
-         🔜 TravisCI
-      </td>
-      <td align="left" valign="middle">
-         🔜 Netlify (https://github.com/Infisical/infisical/issues/55)
-      </td>
-    </tr>
-  </tbody>
 </table>
 
-  </td>
-<td>
+Rent out your GPU and help us deliver games to everyone. Become a partner today.
 
-
-<table>
-  <tbody>
-    <tr>
-      <td align="left" valign="middle">
-        <a href="https://infisical.com/docs/integrations/frameworks/react?ref=github.com">
-          ✔️ React
-        </a>
-      </td>
-      <td align="left" valign="middle">
-        <a href="https://infisical.com/docs/integrations/frameworks/express?ref=github.com">
-          ✔️ Express
-        </a>
-      </td>
-    </tr>
-    <tr>
-      <td align="left" valign="middle">
-        <a href="https://infisical.com/docs/integrations/frameworks/gatsby?ref=github.com">
-          ✔️ Gatsby
-        </a>
-      </td>
-      <td align="left" valign="middle">
-        <a href="https://infisical.com/docs/integrations/frameworks/flask?ref=github.com">
-          ✔️ Flask
-        </a>
-      </td>
-    </tr>
-    <tr>
-      <td align="left" valign="middle">
-        <a href="https://infisical.com/docs/integrations/frameworks/django?ref=github.com">
-          ✔️ Django
-        </a>
-      </td>
-      <td align="left" valign="middle">
-        <a href="https://infisical.com/docs/integrations/frameworks/laravel?ref=github.com">
-          ✔️ Laravel
-        </a>
-      </td>
-    </tr>
-    <tr>
-      <td align="left" valign="middle">
-        <a href="https://infisical.com/docs/integrations/frameworks/nestjs?ref=github.com">
-          ✔️ NestJS
-        </a>
-      </td>
-      <td align="left" valign="middle">
-        <a href="https://infisical.com/docs/integrations/frameworks/remix?ref=github.com">
-          ✔️ Remix
-        </a>
-      </td>
-    </tr>
-    <tr>
-      <td align="left" valign="middle">
-        <a href="https://infisical.com/docs/integrations/frameworks/nextjs?ref=github.com">
-          ✔️ Next.js
-        </a>
-      </td>
-      <td align="left" valign="middle">
-        <a href="https://infisical.com/docs/integrations/frameworks/vite?ref=github.com">
-          ✔️ Vite
-        </a>
-      </td>
-    </tr>
-    <tr>
-      <td align="left" valign="middle">
-        <a href="https://infisical.com/docs/integrations/frameworks/rails?ref=github.com">
-          ✔️ Ruby on Rails
-        </a>
-      </td>
-      <td align="left" valign="middle">
-        <a href="https://infisical.com/docs/integrations/frameworks/vue?ref=github.com">
-          ✔️ Vue
-        </a>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-</td>
-</tr> 
-</table>
-
+<p align="center" >
+  <a href="" target="_blank"><img src="/imgs/partner-up.png" height=120></a>
+</p>
 
 ## 🏘 Open-source vs. paid
 
