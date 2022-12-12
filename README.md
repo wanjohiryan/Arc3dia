@@ -1,141 +1,308 @@
-<div align="center">
-  <a href="https://github.com/m1k1o/neko" title="Neko's Github repository.">
-    <img src="https://raw.githubusercontent.com/m1k1o/neko/master/docs/_media/logo.png" width="400" height="auto"/>
+<h1 align="center">
+  <img width="500" src="/imgs/logo-black.svg#gh-light-mode-only" alt="qwantify logo">
+  <img width="500" src="/imgs/logo-white.svg#gh-dark-mode-only" alt="qwantify logo">
+</h1>
+<p align="center">
+  <p align="center">Play games with your friends right from the browser. No installations needed</p>
+</p>
+<h4 align="center">
+  <a href="https://qwantify.vercel.app/">qwantify Arcade</a> |
+  <a href="https://qwantify.vercel.app/">Self Hosting</a> |
+  <a href="https://qwantify.vercel.app/">Docs</a> |
+  <a href="https://qwantify.vercel.app/">Website</a>
+</h4>
+
+<h4 align="center">
+  <a href="https://github.com/wanjohiryan/qwantify">
+    <img src="https://img.shields.io/badge/PRs-Welcome-brightgreen" alt="PRs welcome!" />
   </a>
-  <p align="center">
-    <a href="https://github.com/m1k1o/neko/releases">
-      <img src="https://img.shields.io/github/v/release/m1k1o/neko" alt="release">
-    </a>
-    <a href="https://github.com/m1k1o/neko/blob/master/LICENSE">
-      <img src="https://img.shields.io/github/license/m1k1o/neko" alt="license">
-    </a>
-    <a href="https://hub.docker.com/u/m1k1o/neko">
-      <img src="https://img.shields.io/docker/pulls/m1k1o/neko" alt="pulls">
-    </a>
-    <a href="https://github.com/m1k1o/neko/issues">
-      <img src="https://img.shields.io/github/issues/m1k1o/neko" alt="issues">
-    </a>
-    <a href="https://github.com/sponsors/m1k1o">
-      <img src="https://img.shields.io/badge/-sponsor-red" alt="issues">
-    </a>
-    <a href="https://discord.gg/3U6hWpC">
-      <img src="https://discordapp.com/api/guilds/665851821906067466/widget.png" alt="Chat on discord">
-    </a>
-    <a href="https://github.com/m1k1o/neko/actions">
-      <img src="https://github.com/m1k1o/neko/actions/workflows/build.yml/badge.svg" alt="build">
-    </a>
-  </p>
-  <img src="https://i.imgur.com/ZSzbQr7.gif" width="650" height="auto"/>
-</div>
+  <a href="">
+    <img src="https://img.shields.io/github/commit-activity/m/wanjohiryan/qwantify" alt="git commit activity" />
+  </a>
+</h4>
 
-# n.eko
+<img src="/img/infisical_github_repo.png" width="100%" alt="Dashboard" />
 
-This app uses WebRTC to stream a desktop inside of a docker container, original author made this because [rabb.it](https://en.wikipedia.org/wiki/Rabb.it) went under and his internet could not handle streaming and discord kept crashing when his friend attempted to. He just wanted to watch anime with his friends ლ(ಠ益ಠლ) so he started digging throughout the internet and found a few *kinda* clones, but none of them had the virtual browser, then he found [Turtus](https://github.com/Khauri/Turtus) and he was able to figure out the rest.
+**[qwantify](https://qwantify.vercel.app)** is an open source docker image for running games (or other apps) on a shared host computer with at least one gpu.
 
-Then I found [this](https://github.com/nurdism/neko) project and started to dig into it. I really liked the idea of having collaborative browser browsing together with mutliple people, so I created a fork. Initially, I wanted to merge my changes to the upstream repository, but the original author did not have time for this project anymore and it got eventually archived.
+- **User-Friendly Interface** to intuitively play games with your friends
+- **Cloud and GPU Agnostic deployment** that lets you play and host games anywhere anytime, through the browser 
+- **Complete control over your game data** - save your game progress locally
+- **Play with multiple gamepads** per gameroom. Turn any game into multiplayer
+- 🔜 **1-Click Deploy** locally, AWS or GCP
+- 🔜 **Url Sharing** for gamerooms (gamepad control switching soon after)
+- 🔜 **Official Support for AMD and Intel Gpus**
+- 🔜 **Url invites for friends**
+- 🔜 **No extra installations needed**
+- 🔜 **Twitch and Youtube stream** integrations
 
-## Use-cases and comparison
+And more.
 
-Neko started as a virtual browser that is streamed using WebRTC to multiple users.
-- It is **not only limited to a browser**; it can run anything that runs on linux (e.g. VLC). Browser only happens to be the most popular and widely used use-case.
-- In fact, it is not limited to a single program either; you can install a full desktop environment (e.g. XFCE).
-- Speaking of limits, it does not need to run in a container; you could install neko on your host, connect to your X server and control your whole VM.
-- Theoretically it is not limited to only X server, anything that can be controlled and scraped periodically for images could be used instead.
-  - Like implementing RDP or VNC protocol, where neko would only act as WebRTC relay server. This is currently only future.
+## 🚀 Get started
 
-Primary use case is connecting with multiple people, leveraging real time synchronization and interactivity:
-- **Watch party** - watching video content together with multiple people and reacting to it (chat, emotes) - open source alternative to [giggl.app](https://giggl.app/).
-- **Interactive presentation** - not only screen sharing, but others can control the screen.
-- **Collaborative tool** - brainstorming ideas, cobrowsing, code debugging together.
-- **Support/Teaching** - interactively guiding people in controlled environment.
-- **Embed anything** - embed virtual browser in your web app - open source alternative to [hyperbeam](https://hyperbeam.com/).
-  - open any third-party website or application, synchronize audio and video flawlessly among multiple participants.
-  - request rooms using API with [neko-rooms](https://github.com/m1k1o/neko-rooms).
+To quickly get started, pull the image and run it with docker compose (*recommended*)
 
-Other use cases that benefit from single-user:
-- **Personal workspace** - streaming containerized apps and desktops to end-users - similar to [kasm](https://www.kasmweb.com/).
-- **Persistent browser** - own browser with persistent cookies available anywhere - similar to [mightyapp](https://www.mightyapp.com/).
-  - no state is left on the host browser after terminating the connection.
-  - sensitive data like cookies are not transferred - only video is shared.
-- **Throwaway browser** - a better solution for planning secret parties and buying birthday gifts off the internet.
-  - use Tor Browser and [VPN](https://github.com/m1k1o/neko-vpn) for additional anonymity.
-  - mitigates risk of OS fingerprinting and browser vulnerabilities by running in container.
-- **Session broadcasting** - broadcast room content using RTMP (to e.g. twitch or youtube...).
-- **Session recording** - broadcast RTMP can be saved to a file using e.g. [nginx-rtmp](https://www.nginx.com/products/nginx/modules/rtmp-media-streaming/)
-  - have clean environment when recording tutorials.
-  - no need to hide bookmarks or use incognito mode.
-- **Jump host** - access your internal applications securely without the need for VPN.
-- **Automated browser** - you can install [playwright](https://playwright.dev/) or [puppeteer](https://pptr.dev/) and automate tasks while being able to actively intercept them.
+```bash
+version: "3.8"
+services:
+  qwantify:
+    image: wanjohiryan/qwantify:latest #or ghcr.io/wanjohiryan/qwantify:20.04
+    restart: "unless-stopped"
+    ports:
+      - "8080:8080" #web interface
+      - "52000-52100:52000-52100/udp" #webrtc 
+    volumes:
+      - /games:/games #directory with folders containing your game(s)
+    deploy:
+      resources:
+        reservations:
+          devices: #share nvidia gpu (recommended)
+            capabilities: [gpu] 
+        limits:
+          memory: 5G #depends on game (recommended is 4)
+          cpus: '4' #depends on game (recommended is 4)
+    environment:
+      - NEKO_SCREEN=1920x1080@30 #screen size
+      - NEKO_PASSWORD=neko #password for the invited guests
+      - NEKO_PASSWORD_ADMIN=admin #password for the host admin 
+      - NEKO_EPR=52000-52100 #webrtc ports(defaults to 52000-52100)
+      - NEKO_ICELITE=1
+      - APPPATH=/path/to/game/folder #folder containing the game
+      - APPFILE=/game.exe #game executable file
 
-Compared to clientless remote desktop gateway (e.g. [Apache Guacamole](https://guacamole.apache.org/) or [websockify](https://github.com/novnc/websockify) with [noVNC](https://novnc.com/)), installed with remote desktop server along with desired program (e.g. [linuxserver/firefox](https://docs.linuxserver.io/images/docker-firefox)) provides neko additionally:
-- **Smooth video** because it uses WebRTC and not images sent over WebSockets.
-- **Built in audio** support, what is not part of Apache Guacamole or noVNC.
-- **Multi-participant control**, what is not natively supported by Apache Guacamole or noVNC.
+```
 
-### Supported browsers
+```bash
+docker-compose up -d docker-compose.yaml
+```
 
-<div align="center">
-  <img src="https://raw.githubusercontent.com/m1k1o/neko/master/docs/_media/icons/firefox.svg" title="m1k1o/neko:firefox" width="60" height="auto"/>
-  <img src="https://raw.githubusercontent.com/m1k1o/neko/master/docs/_media/icons/google-chrome.svg" title="m1k1o/neko:google-chrome" width="60" height="auto"/>
-  <img src="https://raw.githubusercontent.com/m1k1o/neko/master/docs/_media/icons/chromium.svg" title="m1k1o/neko:chromium" width="60" height="auto"/>
-  <img src="https://raw.githubusercontent.com/m1k1o/neko/master/docs/_media/icons/microsoft-edge.svg" title="m1k1o/neko:microsoft-edge" width="60" height="auto"/>
-  <img src="https://raw.githubusercontent.com/m1k1o/neko/master/docs/_media/icons/brave.svg" title="m1k1o/neko:brave" width="60" height="auto"/>
-  <img src="https://raw.githubusercontent.com/m1k1o/neko/master/docs/_media/icons/vivaldi.svg" title="m1k1o/neko:vivaldi" width="60" height="auto"/>
-  <img src="https://raw.githubusercontent.com/m1k1o/neko/master/docs/_media/icons/opera.svg" title="m1k1o/neko:opera" width="60" height="auto"/>
-  <img src="https://raw.githubusercontent.com/m1k1o/neko/master/docs/_media/icons/tor-browser.svg" title="m1k1o/neko:tor-browser" width="60" height="auto"/>
-</div>
+<p>
+  <a href="https://infisical.com/docs/self-hosting/overview" target="_blank"><img src="https://user-images.githubusercontent.com/78047717/206356882-2b773eed-b0da-4725-ae2f-83e3cd7f2713.png" height=120 /> </a>
+  <a href="https://www.youtube.com/watch?v=JS3OKYU2078" target="_blank"><img src="https://user-images.githubusercontent.com/78047717/206356600-8833b128-6cae-408c-a703-07b2fc6aff4b.png" height=120 /> </a>
+  <a href="https://app.infisical.com/signup" target="_blank"><img src="https://user-images.githubusercontent.com/78047717/206355970-f4c09062-b88f-452a-94e0-9c61a0651170.png" height=120></a>
+</p>
 
-### Other programs
+## 🔥 What's cool about this?
 
-<div align="center">
-  <img src="https://raw.githubusercontent.com/m1k1o/neko/master/docs/_media/icons/remmina.png" title="m1k1o/neko:remmina" width="60" height="auto"/>
-  <img src="https://raw.githubusercontent.com/m1k1o/neko/master/docs/_media/icons/vlc.svg" title="m1k1o/neko:vlc" width="60" height="auto"/>
-  <img src="https://raw.githubusercontent.com/m1k1o/neko/master/docs/_media/icons/xfce.svg" title="m1k1o/neko:xfce" width="60" height="auto"/>
+qwantify makes gaming . We're on a mission to make games more accessible to all, <i>not just gamers with expensive hardware</i>. 
 
-  ... others in <a href="https://github.com/m1k1o/neko-apps">m1k1o/neko-apps</a>
-</div>
+We are currently working hard to make qwantify more extensive. Need any integrations or want a new feature? Feel free to [create an issue](https://github.com/wanjohiryan/qwantify/issues) or [contribute](https://infisical.com/docs/contributing/overview) directly to the repository.
 
-### Features
+## 🌱 Contributing
 
-  * Text Chat (With basic markdown support, discord flavor)
-  * Admin users (Kick, Ban & Force Give/Release Controls, Lock room)
-  * Clipboard synchronization (on [supported browsers](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard/readText))
-  * Emote overlay
-  * Ignore user (chat and emotes)
-  * Persistent settings
-  * Automatic Login with custom url args. (add `?usr=<your-user-name>&pwd=<room-pass>` to the url.)
-  * Broadcasting room content using RTMP (to e.g. twitch or youtube...)
+Whether it's big or small, we love contributions ❤️ Check out our guide to see how to [get started](https://infisical.com/docs/contributing/overview).
 
-### Why n.eko?
+Not sure where to get started? You can:
+- [Book a free, non-pressure pairing sessions with one of our teammates](mailto:tony@infisical.com?subject=Pairing%20session&body=I'd%20like%20to%20do%20a%20pairing%20session!)!
+- Join our <a href="https://join.slack.com/t/infisical-users/shared_invite/zt-1kdbk07ro-RtoyEt_9E~fyzGo_xQYP6g">Slack</a>, and ask us any questions there.
 
-I like cats 🐱 (`Neko` is the Japanese word for cat), I'm a weeb/nerd.
+## 💚 Community & Support
 
-***But why the cat butt?*** Because cats are *assholes*, but you love them anyways.
+- [Slack](https://join.slack.com/t/infisical-users/shared_invite/zt-1kdbk07ro-RtoyEt_9E~fyzGo_xQYP6g) (For live discussion with the community and the Infisical team)
+- [GitHub Discussions](https://github.com/Infisical/infisical/discussions) (For help with building and deeper conversations about features)
+- [GitHub Issues](https://github.com/Infisical/infisical-cli/issues) (For any bugs and errors you encounter using Infisical)
+- [Twitter](https://twitter.com/infisical) (Get news fast) 
 
-## Multiple rooms
+## 🐥 Status
 
-For n.eko room management software, visit [neko-rooms](https://github.com/m1k1o/neko-rooms).
+- [x] Public Alpha: Anyone can sign up over at [infisical.com](https://infisical.com) but go easy on us, there are kinks and we're just getting started.
+- [ ] Public Beta: Stable enough for most non-enterprise use-cases.
+- [ ] Public: Production-ready.
 
-It also offers zero-knowledge [installation script (with HTTPS and Traefik)](https://github.com/m1k1o/neko-rooms/#zero-knowledge-installation-with-https-and-traefik).
+We're currently in Public Alpha.
 
-## Documentation
+## 🚨 Stay Up-to-Date
 
-* [Getting Started](https://neko.m1k1o.net/#/getting-started/)
-  * [Quick Start](https://neko.m1k1o.net/#/getting-started/quick-start)
-  * [Examples](https://neko.m1k1o.net/#/getting-started/examples)
-  * [Reverse Proxy](https://neko.m1k1o.net/#/getting-started/reverse-proxy)
-  * [Configuration](https://neko.m1k1o.net/#/getting-started/configuration)
-  * [Troubleshooting](https://neko.m1k1o.net/#/getting-started/troubleshooting)
-* [Mobile Support](https://neko.m1k1o.net/#/mobile-support)
-* [Contributing](https://neko.m1k1o.net/#/contributing)
-  * [Non Goals](https://neko.m1k1o.net/#/non-goals)
-  * [Technologies](https://neko.m1k1o.net/#/technologies)
-* [Changelog](https://neko.m1k1o.net/#/changelog)
+Infisical officially launched as v.1.0 on November 21st, 2022. However, a lot of new features are coming very quickly. Watch **releases** of this repository to be notified about future updates:
 
-## How to contribute? How to build?
+![infisical-star-github](https://github.com/Infisical/infisical/blob/main/.github/images/star-infisical.gif?raw=true)
 
-Navigate to [.docker](.docker) folder for further information.
+## 🔌 Integrations
 
-## Support
+We're currently setting the foundation and building [integrations](https://infisical.com/docs/integrations/overview) so secrets can be synced everywhere. Any help is welcome! :)
 
-If you want to support this project, you can do it [here](https://github.com/sponsors/m1k1o).
+<table>
+<tr>
+  <th>Platforms </th>
+  <th>Frameworks</th>
+</tr>
+<tr> 
+  <td>
+
+<table>
+  <tbody>
+    <tr>
+      <td align="left" valign="middle">
+        <a href="https://infisical.com/docs/integrations/platforms/docker?ref=github.com">
+          ✔️ Docker
+        </a>
+      </td>
+      <td align="left" valign="middle">
+        <a href="https://infisical.com/docs/integrations/platforms/docker-compose?ref=github.com">
+          ✔️ Docker Compose
+        </a>
+      </td>
+      <td align="left" valign="middle">
+        <a href="https://infisical.com/docs/integrations/cloud/heroku?ref=github.com">
+          ✔️ Heroku
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td align="left" valign="middle">
+        🔜 Vercel (https://github.com/Infisical/infisical/issues/60)
+      </td>
+      <td align="left" valign="middle">
+        🔜 GitLab CI/CD
+      </td>
+      <td align="left" valign="middle">
+        🔜 Fly.io
+      </td>
+    </tr>
+    <tr>
+      <td align="left" valign="middle">
+        🔜 AWS
+      </td>
+      <td align="left" valign="middle">
+        🔜 GitHub Actions (https://github.com/Infisical/infisical/issues/54)
+      </td>
+      <td align="left" valign="middle">
+         🔜 Railway
+      </td>
+    </tr>
+    <tr>
+      <td align="left" valign="middle">
+        🔜 GCP
+      </td>
+      <td align="left" valign="middle">
+        🔜 Kubernetes
+      </td>
+      <td align="left" valign="middle">
+        🔜 CircleCI
+      </td>
+    </tr>
+    <tr>
+      <td align="left" valign="middle">
+        🔜 Jenkins
+      </td>
+      <td align="left" valign="middle">
+        🔜 Digital Ocean
+      </td>
+      <td align="left" valign="middle">
+        🔜 Azure
+      </td>
+    </tr>
+    <tr>
+      <td align="left" valign="middle">
+         🔜 TravisCI
+      </td>
+      <td align="left" valign="middle">
+         🔜 Netlify (https://github.com/Infisical/infisical/issues/55)
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+  </td>
+<td>
+
+
+<table>
+  <tbody>
+    <tr>
+      <td align="left" valign="middle">
+        <a href="https://infisical.com/docs/integrations/frameworks/react?ref=github.com">
+          ✔️ React
+        </a>
+      </td>
+      <td align="left" valign="middle">
+        <a href="https://infisical.com/docs/integrations/frameworks/express?ref=github.com">
+          ✔️ Express
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td align="left" valign="middle">
+        <a href="https://infisical.com/docs/integrations/frameworks/gatsby?ref=github.com">
+          ✔️ Gatsby
+        </a>
+      </td>
+      <td align="left" valign="middle">
+        <a href="https://infisical.com/docs/integrations/frameworks/flask?ref=github.com">
+          ✔️ Flask
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td align="left" valign="middle">
+        <a href="https://infisical.com/docs/integrations/frameworks/django?ref=github.com">
+          ✔️ Django
+        </a>
+      </td>
+      <td align="left" valign="middle">
+        <a href="https://infisical.com/docs/integrations/frameworks/laravel?ref=github.com">
+          ✔️ Laravel
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td align="left" valign="middle">
+        <a href="https://infisical.com/docs/integrations/frameworks/nestjs?ref=github.com">
+          ✔️ NestJS
+        </a>
+      </td>
+      <td align="left" valign="middle">
+        <a href="https://infisical.com/docs/integrations/frameworks/remix?ref=github.com">
+          ✔️ Remix
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td align="left" valign="middle">
+        <a href="https://infisical.com/docs/integrations/frameworks/nextjs?ref=github.com">
+          ✔️ Next.js
+        </a>
+      </td>
+      <td align="left" valign="middle">
+        <a href="https://infisical.com/docs/integrations/frameworks/vite?ref=github.com">
+          ✔️ Vite
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td align="left" valign="middle">
+        <a href="https://infisical.com/docs/integrations/frameworks/rails?ref=github.com">
+          ✔️ Ruby on Rails
+        </a>
+      </td>
+      <td align="left" valign="middle">
+        <a href="https://infisical.com/docs/integrations/frameworks/vue?ref=github.com">
+          ✔️ Vue
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+</td>
+</tr> 
+</table>
+
+
+## 🏘 Open-source vs. paid
+
+This repo is entirely MIT licensed, with the exception of the `ee` directory which will contain premium enterprise features requiring a Infisical license in the future. We're currently focused on developing non-enterprise offerings first that should suit most use-cases.
+
+## 🛡 Security
+
+Looking to report a security vulnerability? Please don't post about it in GitHub issue. Instead, refer to our [SECURITY.md](./SECURITY.md) file.
+
+## 🦸 Contributors
+
+[//]: contributor-faces
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+
+<a href="https://github.com/dangtony98"><img src="https://avatars.githubusercontent.com/u/25857006?v=4" width="50" height="50" alt=""/></a> <a href="https://github.com/mv-turtle"><img src="https://avatars.githubusercontent.com/u/78047717?s=96&v=4" width="50" height="50" alt=""/></a> <a href="https://github.com/maidul98"><img src="https://avatars.githubusercontent.com/u/9300960?v=4" width="50" height="50" alt=""/></a> <a href="https://github.com/gangjun06"><img src="https://avatars.githubusercontent.com/u/50910815?v=4" width="50" height="50" alt=""/></a> <a href="https://github.com/reginaldbondoc"><img src="https://avatars.githubusercontent.com/u/7693108?v=4" width="50" height="50" alt=""/></a> <a href="https://github.com/SH5H"><img src="https://avatars.githubusercontent.com/u/25437192?v=4" width="50" height="50" alt=""/></a> <a href="https://github.com/asharonbaltazar"><img src="https://avatars.githubusercontent.com/u/58940073?v=4" width="50" height="50" alt=""/></a> <a href="https://github.com/edgarrmondragon"><img src="https://avatars.githubusercontent.com/u/16805946?v=4" width="50" height="50" alt=""/></a> <a href="https://github.com/hanywang2"><img src="https://avatars.githubusercontent.com/u/44352119?v=4" width="50" height="50" alt=""/></a> <a href="https://github.com/tobias-mintlify"><img src="https://avatars.githubusercontent.com/u/110702161?v=4" width="50" height="50" alt=""/></a> <a href="https://github.com/0xflotus"><img src="https://avatars.githubusercontent.com/u/26602940?v=4" width="50" height="50" alt=""/></a> 
