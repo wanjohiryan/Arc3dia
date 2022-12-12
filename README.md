@@ -169,7 +169,7 @@ We're currently setting the foundation and building a gaming network so games ca
     </tr>
 </table>
 
-### Rent out your GPU and help us deliver games to everyone. Become a partner today.
+### Rent out your GPU and help us deliver games to everyone.
 
 <p >
   <a href="https://docs.google.com/forms/d/e/1FAIpQLSfBZDOlcdnvJwUdt5ju-v8Gx4oIqHd_jHu_p6QCvlwgaOvQ0A/viewform" target="_blank"><img src="./imgs/partner-up.png" height=120></a>
