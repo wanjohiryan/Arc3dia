@@ -103,8 +103,8 @@ We're currently in Public Alpha.
 
 We're currently setting the foundation and building a gaming network so games can be played from anywhere on the planet. Any help is welcome! :)
 
-<table>
-    <caption><b>All Available Servers<b></caption>
+<table align="center" width="100%" >
+    <caption align="center" ><b>All Available Servers<b></caption>
     <tr>
         <th scope="col">Region</th>
         <th scope="col">Instances</th>
@@ -166,7 +166,7 @@ We're currently setting the foundation and building a gaming network so games ca
     </tr>
 </table>
 
-Rent out your GPU and help us deliver games to everyone. Become a partner today.
+### Rent out your GPU and help us deliver games to everyone. Become a partner today.
 
 <p align="center" >
   <a href="" target="_blank"><img src="/imgs/partner-up.png" height=120></a>
