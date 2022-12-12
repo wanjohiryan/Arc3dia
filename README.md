@@ -88,7 +88,7 @@ docker-compose up -d docker-compose.yaml
 <p>
   <a href="https://qwantify.vercel.app" target="_blank"><img src="/imgs/sign-up.png" height=120 /> </a>
   <a href="https://qwantify.vercel.app" target="_blank"><img src="/imgs/demo-game.png" height=120 /> </a>
-  <a href="" target="_blank"><img src="/imgs/patner-up.png" height=120></a>
+  <a href="" target="_blank"><img src="/imgs/partner-up.png" height=120></a>
 </p>
 
 ## 🔥 What's cool about this?
