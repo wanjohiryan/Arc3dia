@@ -23,11 +23,12 @@
   </a>
 </h4>
 
+<pre>
 <div style="width:100%;padding:50px;display:flex;align-items:center;justify-content:center;background: rgb(238,174,202);
 background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);">
   <img src="./imgs/web.gif" width="90%" alt="playing with qwantify"/>
 </div>
-
+</pre>
 
 **[qwantify](https://qwantify.vercel.app)** is an open source docker image for running games (or other apps) on a shared host computer with at least one gpu.
 
