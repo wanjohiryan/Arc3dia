@@ -23,8 +23,8 @@
   </a>
 </h4>
 
-<pre align="center" style="width:100%;padding:50px;">
-  <img src="./imgs/play.webp" width="90%" alt="playing with qwantify"/>
+<pre align="center" style="width:100%;padding:40px;">
+  <img src="./imgs/play.gif" width="95%" alt="playing with qwantify"/>
 </pre>
 
 **[qwantify](https://qwantify.vercel.app)** is an open source docker image for running games (or other apps) on a shared host computer with at least one gpu.
@@ -88,7 +88,7 @@ docker-compose up -d docker-compose.yaml
 
 ## 🔥 What's cool about this?
 
-qwantify makes gaming . We're on a mission to make games more accessible to all, <i>not just gamers with expensive hardware</i>. 
+We're on a mission to make games more accessible to all, <i>not just gamers with expensive hardware</i>. 
 
 We are currently working hard to make qwantify more extensive. Need any integrations or want a new feature? Feel free to [create an issue](https://github.com/wanjohiryan/qwantify/issues) or [contribute](https://github.com/wanjohiryan/qwantify/blob/master/CONTRIBUTING.md) directly to the repository.
 
