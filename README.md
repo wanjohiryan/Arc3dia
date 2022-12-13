@@ -1,141 +1,182 @@
-<div align="center">
-  <a href="https://github.com/m1k1o/neko" title="Neko's Github repository.">
-    <img src="https://raw.githubusercontent.com/m1k1o/neko/master/docs/_media/logo.png" width="400" height="auto"/>
+<!-- inspired by https://github.com/Infisical/infisical/blob/main/README.md -->
+
+<h3 align="center">
+  <img height=120 width=300 src="./imgs/logo-black.svg#gh-light-mode-only" alt="qwantify logo">
+  <img height=120 width=300 src="./imgs/logo-white.svg#gh-dark-mode-only" alt="qwantify logo">
+</h3>
+<p align="center">
+  <p align="center">Play games with your friends right from the browser. No installations needed</p>
+</p>
+<h4 align="center">
+  <a href="https://qwantify.vercel.app/">Arcade</a> |
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLSfBZDOlcdnvJwUdt5ju-v8Gx4oIqHd_jHu_p6QCvlwgaOvQ0A/viewform">Hosting</a> |
+  <a href="https://qwantify.vercel.app/">Docs</a> |
+  <a href="https://qwantify.vercel.app/">Website</a>
+</h4>
+
+<h4 align="center">
+  <a href="https://github.com/wanjohiryan/qwantify">
+    <img src="https://img.shields.io/badge/PRs-Welcome-brightgreen" alt="PRs welcome!" />
   </a>
-  <p align="center">
-    <a href="https://github.com/m1k1o/neko/releases">
-      <img src="https://img.shields.io/github/v/release/m1k1o/neko" alt="release">
-    </a>
-    <a href="https://github.com/m1k1o/neko/blob/master/LICENSE">
-      <img src="https://img.shields.io/github/license/m1k1o/neko" alt="license">
-    </a>
-    <a href="https://hub.docker.com/u/m1k1o/neko">
-      <img src="https://img.shields.io/docker/pulls/m1k1o/neko" alt="pulls">
-    </a>
-    <a href="https://github.com/m1k1o/neko/issues">
-      <img src="https://img.shields.io/github/issues/m1k1o/neko" alt="issues">
-    </a>
-    <a href="https://github.com/sponsors/m1k1o">
-      <img src="https://img.shields.io/badge/-sponsor-red" alt="issues">
-    </a>
-    <a href="https://discord.gg/3U6hWpC">
-      <img src="https://discordapp.com/api/guilds/665851821906067466/widget.png" alt="Chat on discord">
-    </a>
-    <a href="https://github.com/m1k1o/neko/actions">
-      <img src="https://github.com/m1k1o/neko/actions/workflows/build.yml/badge.svg" alt="build">
-    </a>
-  </p>
-  <img src="https://i.imgur.com/ZSzbQr7.gif" width="650" height="auto"/>
-</div>
+  <a href="">
+    <img src="https://img.shields.io/github/commit-activity/m/wanjohiryan/qwantify" alt="git commit activity" />
+  </a>
+</h4>
 
-# n.eko
+<pre align="center" style="width:100%;padding:50px;">
+  <img src="./imgs/play.webp" width="90%" alt="playing with qwantify"/>
+</pre>
 
-This app uses WebRTC to stream a desktop inside of a docker container, original author made this because [rabb.it](https://en.wikipedia.org/wiki/Rabb.it) went under and his internet could not handle streaming and discord kept crashing when his friend attempted to. He just wanted to watch anime with his friends ლ(ಠ益ಠლ) so he started digging throughout the internet and found a few *kinda* clones, but none of them had the virtual browser, then he found [Turtus](https://github.com/Khauri/Turtus) and he was able to figure out the rest.
+**[qwantify](https://qwantify.vercel.app)** is an open source docker image for running games (or other apps) on a shared host computer with at least one gpu.
 
-Then I found [this](https://github.com/nurdism/neko) project and started to dig into it. I really liked the idea of having collaborative browser browsing together with mutliple people, so I created a fork. Initially, I wanted to merge my changes to the upstream repository, but the original author did not have time for this project anymore and it got eventually archived.
+- **User-Friendly Interface** to intuitively play games with your friends
+- **Complete control over your game data** - play online, save your game progress locally
+- 🛠️ **Cloud and GPU Agnostic deployment** that lets you play and host games anywhere anytime, through the browser 
+- 🛠️ **Url invites for friends**
+- 🛠️ **Play with multiple gamepads** per gameroom. Turn any game into multiplayer
+- 🛠️ **Official Support for AMD and Intel Gpus**
+- 🔜 **1-Click Deploy** locally, AWS or GCP
+- 🔜 **Twitch and Youtube stream** integrations
 
-## Use-cases and comparison
+And more.
 
-Neko started as a virtual browser that is streamed using WebRTC to multiple users.
-- It is **not only limited to a browser**; it can run anything that runs on linux (e.g. VLC). Browser only happens to be the most popular and widely used use-case.
-- In fact, it is not limited to a single program either; you can install a full desktop environment (e.g. XFCE).
-- Speaking of limits, it does not need to run in a container; you could install neko on your host, connect to your X server and control your whole VM.
-- Theoretically it is not limited to only X server, anything that can be controlled and scraped periodically for images could be used instead.
-  - Like implementing RDP or VNC protocol, where neko would only act as WebRTC relay server. This is currently only future.
+<p align="center" >
+  <a href="https://qwantify.vercel.app" target="_blank"><img src="./imgs/sign-up.png" height=120 /> </a>
+  <a href="https://qwantify.vercel.app" target="_blank"><img src="./imgs/game-demo.png" height=120 /> </a>
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLSfBZDOlcdnvJwUdt5ju-v8Gx4oIqHd_jHu_p6QCvlwgaOvQ0A/viewform" target="_blank"><img src="./imgs/partner-up.png" height=120></a>
+</p>
 
-Primary use case is connecting with multiple people, leveraging real time synchronization and interactivity:
-- **Watch party** - watching video content together with multiple people and reacting to it (chat, emotes) - open source alternative to [giggl.app](https://giggl.app/).
-- **Interactive presentation** - not only screen sharing, but others can control the screen.
-- **Collaborative tool** - brainstorming ideas, cobrowsing, code debugging together.
-- **Support/Teaching** - interactively guiding people in controlled environment.
-- **Embed anything** - embed virtual browser in your web app - open source alternative to [hyperbeam](https://hyperbeam.com/).
-  - open any third-party website or application, synchronize audio and video flawlessly among multiple participants.
-  - request rooms using API with [neko-rooms](https://github.com/m1k1o/neko-rooms).
+## 🚀 Get started
 
-Other use cases that benefit from single-user:
-- **Personal workspace** - streaming containerized apps and desktops to end-users - similar to [kasm](https://www.kasmweb.com/).
-- **Persistent browser** - own browser with persistent cookies available anywhere - similar to [mightyapp](https://www.mightyapp.com/).
-  - no state is left on the host browser after terminating the connection.
-  - sensitive data like cookies are not transferred - only video is shared.
-- **Throwaway browser** - a better solution for planning secret parties and buying birthday gifts off the internet.
-  - use Tor Browser and [VPN](https://github.com/m1k1o/neko-vpn) for additional anonymity.
-  - mitigates risk of OS fingerprinting and browser vulnerabilities by running in container.
-- **Session broadcasting** - broadcast room content using RTMP (to e.g. twitch or youtube...).
-- **Session recording** - broadcast RTMP can be saved to a file using e.g. [nginx-rtmp](https://www.nginx.com/products/nginx/modules/rtmp-media-streaming/)
-  - have clean environment when recording tutorials.
-  - no need to hide bookmarks or use incognito mode.
-- **Jump host** - access your internal applications securely without the need for VPN.
-- **Automated browser** - you can install [playwright](https://playwright.dev/) or [puppeteer](https://pptr.dev/) and automate tasks while being able to actively intercept them.
+To quickly get started, pull the image and run it with docker compose (*recommended*)
 
-Compared to clientless remote desktop gateway (e.g. [Apache Guacamole](https://guacamole.apache.org/) or [websockify](https://github.com/novnc/websockify) with [noVNC](https://novnc.com/)), installed with remote desktop server along with desired program (e.g. [linuxserver/firefox](https://docs.linuxserver.io/images/docker-firefox)) provides neko additionally:
-- **Smooth video** because it uses WebRTC and not images sent over WebSockets.
-- **Built in audio** support, what is not part of Apache Guacamole or noVNC.
-- **Multi-participant control**, what is not natively supported by Apache Guacamole or noVNC.
+```bash
+version: "3.8"
+services:
+  qwantify:
+    image: wanjohiryan/qwantify:latest #or ghcr.io/wanjohiryan/qwantify:20.04
+    restart: "unless-stopped"
+    ports:
+      - "8080:8080" #web interface
+      - "52000-52100:52000-52100/udp" #webrtc 
+    volumes:
+      - /games:/games #directory with folders containing your game(s)
+    deploy:
+      resources:
+        reservations:
+          devices: #share nvidia gpu (recommended)
+            capabilities: [gpu] 
+        limits:
+          memory: 5G #depends on game (recommended is 4)
+          cpus: '4' #depends on game (recommended is 4)
+    environment:
+      - NEKO_SCREEN=1920x1080@30 #screen size
+      - NEKO_PASSWORD=neko #password for the invited guests
+      - NEKO_PASSWORD_ADMIN=admin #password for the host admin 
+      - NEKO_EPR=52000-52100 #webrtc ports(defaults to 52000-52100)
+      - NEKO_ICELITE=1
+      - APPPATH=/path/to/game/folder #folder containing the game
+      - APPFILE=/game.exe #game executable file
 
-### Supported browsers
+```
 
-<div align="center">
-  <img src="https://raw.githubusercontent.com/m1k1o/neko/master/docs/_media/icons/firefox.svg" title="m1k1o/neko:firefox" width="60" height="auto"/>
-  <img src="https://raw.githubusercontent.com/m1k1o/neko/master/docs/_media/icons/google-chrome.svg" title="m1k1o/neko:google-chrome" width="60" height="auto"/>
-  <img src="https://raw.githubusercontent.com/m1k1o/neko/master/docs/_media/icons/chromium.svg" title="m1k1o/neko:chromium" width="60" height="auto"/>
-  <img src="https://raw.githubusercontent.com/m1k1o/neko/master/docs/_media/icons/microsoft-edge.svg" title="m1k1o/neko:microsoft-edge" width="60" height="auto"/>
-  <img src="https://raw.githubusercontent.com/m1k1o/neko/master/docs/_media/icons/brave.svg" title="m1k1o/neko:brave" width="60" height="auto"/>
-  <img src="https://raw.githubusercontent.com/m1k1o/neko/master/docs/_media/icons/vivaldi.svg" title="m1k1o/neko:vivaldi" width="60" height="auto"/>
-  <img src="https://raw.githubusercontent.com/m1k1o/neko/master/docs/_media/icons/opera.svg" title="m1k1o/neko:opera" width="60" height="auto"/>
-  <img src="https://raw.githubusercontent.com/m1k1o/neko/master/docs/_media/icons/tor-browser.svg" title="m1k1o/neko:tor-browser" width="60" height="auto"/>
-</div>
+Then
 
-### Other programs
+```bash
+docker-compose up -d docker-compose.yaml
+```
 
-<div align="center">
-  <img src="https://raw.githubusercontent.com/m1k1o/neko/master/docs/_media/icons/remmina.png" title="m1k1o/neko:remmina" width="60" height="auto"/>
-  <img src="https://raw.githubusercontent.com/m1k1o/neko/master/docs/_media/icons/vlc.svg" title="m1k1o/neko:vlc" width="60" height="auto"/>
-  <img src="https://raw.githubusercontent.com/m1k1o/neko/master/docs/_media/icons/xfce.svg" title="m1k1o/neko:xfce" width="60" height="auto"/>
+## 🔥 What's cool about this?
 
-  ... others in <a href="https://github.com/m1k1o/neko-apps">m1k1o/neko-apps</a>
-</div>
+qwantify makes gaming . We're on a mission to make games more accessible to all, <i>not just gamers with expensive hardware</i>. 
 
-### Features
+We are currently working hard to make qwantify more extensive. Need any integrations or want a new feature? Feel free to [create an issue](https://github.com/wanjohiryan/qwantify/issues) or [contribute](https://github.com/wanjohiryan/qwantify/blob/master/CONTRIBUTING.md) directly to the repository.
 
-  * Text Chat (With basic markdown support, discord flavor)
-  * Admin users (Kick, Ban & Force Give/Release Controls, Lock room)
-  * Clipboard synchronization (on [supported browsers](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard/readText))
-  * Emote overlay
-  * Ignore user (chat and emotes)
-  * Persistent settings
-  * Automatic Login with custom url args. (add `?usr=<your-user-name>&pwd=<room-pass>` to the url.)
-  * Broadcasting room content using RTMP (to e.g. twitch or youtube...)
+## 🌱 Contributing
 
-### Why n.eko?
+Whether it's big or small, we love contributions ❤️ Check out our guide to see how to [get started](https://github.com/wanjohiryan/qwantify/blob/master/CONTRIBUTING.md).
 
-I like cats 🐱 (`Neko` is the Japanese word for cat), I'm a weeb/nerd.
+## 🐥 Status
 
-***But why the cat butt?*** Because cats are *assholes*, but you love them anyways.
+- [x] Public Alpha: Anyone can sign up over at the [qwantify arcade](https://qwantify.vercel.app/) 
+- [ ] Public Beta: Stable enough for most gamers.
+- [ ] Public: Production-ready.
 
-## Multiple rooms
+We're currently in Public Alpha.
+## 🔌 Integrations
 
-For n.eko room management software, visit [neko-rooms](https://github.com/m1k1o/neko-rooms).
+We're currently setting the foundation and building a gaming network so games can be played from anywhere on the planet. Any help is welcome! :)
 
-It also offers zero-knowledge [installation script (with HTTPS and Traefik)](https://github.com/m1k1o/neko-rooms/#zero-knowledge-installation-with-https-and-traefik).
+<p align="center" ><b>All Available Servers<b></p>
 
-## Documentation
+<table align="center" width="100%" >
+    <tr>
+        <th scope="col">Region</th>
+        <th scope="col">Instances</th>
+    </tr>
+    <tr>
+        <th>North America</th>
+        <td>
+        <table>
+        <tr>
+            <th>Host</th>
+            <th>Location</th>
+            <th>Online/Offline</th>
+         </tr>
+         <tr>
+         <th>AWS</th>
+         <td>us-east-1</td>
+         <td>Online ✔️</td>
+         </tr>
+        </table>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row">Africa</th>
+        <td><table>
+        <tr>
+            <th>Host</th>
+            <th>Location</th>
+            <th>Online/Offline</th>
+         </tr>
+         <tr>
+         <th>AWS</th>
+         <td>af-south-2</td>
+         <td>Online ✔️</td>
+         </tr>
+        </table></td>
+    </tr>
+     <tr>
+        <th scope="row">Europe</th>
+       <td><table>
+        <tr>
+            <th>Host</th>
+            <th>Location</th>
+            <th>Online/Offline</th>
+         </tr>
+         <tr>
+         <th>Indie</th>
+         <td>Berlin</td>
+         <td>Online ✔️</td>
+         </tr>
+        </table></td>
+    </tr>
+    <tr>
+        <th scope="row">South America</th>
+        <td>Currently not available :( ❌</td>
+    </tr>
+    <tr>
+        <th scope="row">Asia</th>
+        <td>Currently not available :( ❌</td>
+    </tr>
+</table>
 
-* [Getting Started](https://neko.m1k1o.net/#/getting-started/)
-  * [Quick Start](https://neko.m1k1o.net/#/getting-started/quick-start)
-  * [Examples](https://neko.m1k1o.net/#/getting-started/examples)
-  * [Reverse Proxy](https://neko.m1k1o.net/#/getting-started/reverse-proxy)
-  * [Configuration](https://neko.m1k1o.net/#/getting-started/configuration)
-  * [Troubleshooting](https://neko.m1k1o.net/#/getting-started/troubleshooting)
-* [Mobile Support](https://neko.m1k1o.net/#/mobile-support)
-* [Contributing](https://neko.m1k1o.net/#/contributing)
-  * [Non Goals](https://neko.m1k1o.net/#/non-goals)
-  * [Technologies](https://neko.m1k1o.net/#/technologies)
-* [Changelog](https://neko.m1k1o.net/#/changelog)
+### Rent out your GPU and help us deliver games to everyone.
 
-## How to contribute? How to build?
+<p >
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLSfBZDOlcdnvJwUdt5ju-v8Gx4oIqHd_jHu_p6QCvlwgaOvQ0A/viewform" target="_blank"><img src="./imgs/partner-up.png" height=120></a>
+</p>
 
-Navigate to [.docker](.docker) folder for further information.
 
-## Support
 
-If you want to support this project, you can do it [here](https://github.com/sponsors/m1k1o).
+**Stay frosty :)**
