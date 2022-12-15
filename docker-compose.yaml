@@ -13,7 +13,7 @@ services:
       resources:
         reservations:
           devices:
-            capabilities: [gpu]
+            - capabilities: [gpu]
         limits:
           memory: 5G
           cpus: '4' #for testing purposes only
