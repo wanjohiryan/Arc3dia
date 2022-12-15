@@ -1,5 +1,7 @@
 <!-- inspired by https://github.com/Infisical/infisical/blob/main/README.md -->
 
+<!-- !TODO: Requires better description of what we do, cut on the sales lingo-->
+
 <h3 align="center">
   <img height=120 width=300 src="./imgs/logo-black.svg#gh-light-mode-only" alt="qwantify logo">
   <img height=120 width=300 src="./imgs/logo-white.svg#gh-dark-mode-only" alt="qwantify logo">
@@ -50,6 +52,10 @@ And more.
 
 To quickly get started, pull the image and run it with docker compose (*recommended*)
 
+Requirements:
+  1. nvidia-docker 
+  2. [Nvidia container toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html) v450.80.02 or higher
+
 ```bash
 version: "3.8"
 services:
@@ -65,7 +71,7 @@ services:
       resources:
         reservations:
           devices: #share nvidia gpu (recommended)
-            capabilities: [gpu] 
+            - capabilities: [gpu] 
         limits:
           memory: 5G #depends on game (recommended is 4)
           cpus: '4' #depends on game (recommended is 4)
@@ -83,12 +89,19 @@ services:
 Then
 
 ```bash
-docker-compose up -d docker-compose.yaml
+docker-compose up -d
 ```
 
+# Know Issues
+ 1. Games running on DirectX 11 or lower show a black screen just after loading (ex. John Wick Hex) [Issue #2](https://github.com/wanjohiryan/qwantify/issues/2)
+ 2. No gamepad support yet [Issue #3](https://github.com/wanjohiryan/qwantify/issues/3)
+ 3. qwantify has not been tested on AMD and Intel GPUs. This might present unknown issues. [Issue #8](https://github.com/wanjohiryan/qwantify/issues/8)
+ 4. Games that require additional libraries (ex. .Net Framework or VCRedist) might not work. [Issue #2](https://github.com/wanjohiryan/qwantify/issues/2)
 ## 🔥 What's cool about this?
 
 We're on a mission to make games more accessible to all, <i>not just gamers with expensive hardware</i>. 
+
+
 
 We are currently working hard to make qwantify more extensive. Need any integrations or want a new feature? Feel free to [create an issue](https://github.com/wanjohiryan/qwantify/issues) or [contribute](https://github.com/wanjohiryan/qwantify/blob/master/CONTRIBUTING.md) directly to the repository.
 
