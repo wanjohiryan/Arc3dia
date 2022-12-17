@@ -93,7 +93,7 @@ Then
 docker-compose up -d
 ```
 
-# Know Issues
+# Known Issues
  1. Games running on DirectX 11 or lower show a black screen just after loading (ex. John Wick Hex) [Issue #2](https://github.com/wanjohiryan/qwantify/issues/2)
  2. No gamepad support yet [Issue #3](https://github.com/wanjohiryan/qwantify/issues/3)
  3. qwantify has not been tested on AMD and Intel GPUs. This might present unknown issues. [Issue #8](https://github.com/wanjohiryan/qwantify/issues/8)
