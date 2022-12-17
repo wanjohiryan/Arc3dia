@@ -81,6 +81,7 @@ services:
       - NEKO_PASSWORD_ADMIN=admin #password for the host admin 
       - NEKO_EPR=52000-52100 #webrtc ports(defaults to 52000-52100)
       - NEKO_ICELITE=1
+      - NEKO_NAT1TO1=your-public-ip-address #optional , use this when you cannot login
       - APPPATH=/path/to/game/folder #folder containing the game
       - APPFILE=/game.exe #game executable file
 
@@ -92,7 +93,7 @@ Then
 docker-compose up -d
 ```
 
-# Know Issues
+# Known Issues
  1. Games running on DirectX 11 or lower show a black screen just after loading (ex. John Wick Hex) [Issue #2](https://github.com/wanjohiryan/qwantify/issues/2)
  2. No gamepad support yet [Issue #3](https://github.com/wanjohiryan/qwantify/issues/3)
  3. qwantify has not been tested on AMD and Intel GPUs. This might present unknown issues. [Issue #8](https://github.com/wanjohiryan/qwantify/issues/8)

@@ -23,5 +23,6 @@ services:
       - NEKO_PASSWORD_ADMIN=admin
       - NEKO_EPR=52000-52100
       - NEKO_ICELITE=1
+      - NEKO_NAT1TO1=your-public-ip-addres #optional
       - APPPATH=/path/to/game/folder
       - APPFILE=/game.exe
