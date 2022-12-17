@@ -81,6 +81,7 @@ services:
       - NEKO_PASSWORD_ADMIN=admin #password for the host admin 
       - NEKO_EPR=52000-52100 #webrtc ports(defaults to 52000-52100)
       - NEKO_ICELITE=1
+      - NEKO_NAT1TO1=your-public-ip-address #optional , use this when you cannot login
       - APPPATH=/path/to/game/folder #folder containing the game
       - APPFILE=/game.exe #game executable file
 
