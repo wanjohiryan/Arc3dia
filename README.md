@@ -183,6 +183,10 @@ We're currently setting the foundation and building a gaming network so games ca
         <th scope="row">Asia</th>
         <td>Currently not available :( ❌</td>
     </tr>
+    <tr>
+        <th scope="row">Australia and New Zealand</th>
+        <td>Currently not available :( ❌</td>
+    </tr>
 </table>
 
 ### Rent out your GPU and help us deliver games to everyone.
