@@ -4,11 +4,11 @@ on:
   push:
     branches: [ master ]
   #
-  # Run this action periodically to keep browsers up-to-date
+  # Run this action periodically to keep docker up-to-date
   # even if there is no activity in this repo.
   #
   schedule:
-    - cron: "43 2 * * 1"
+    - cron: "5 0 * * THU" #every thursday
   # run it during pull request
   pull_request:
 
