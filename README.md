@@ -7,7 +7,7 @@
   <img height=120 width=300 src="./imgs/logo-white.svg#gh-dark-mode-only" alt="qwantify logo">
 </h3>
 <p align="center">
-  <p align="center">Play games with your friends right from the browser. No installations needed</p>
+  <p align="center">Self hosted cloud gaming with friends, right from the browser</p>
 </p>
 <h4 align="center">
   <a href="https://qwantify.vercel.app/">Arcade</a> |
@@ -17,6 +17,13 @@
 </h4>
 
 <h4 align="center">
+  <a href="https://hub.docker.com/u/wanjohiryan/qwantify">
+      <img src="https://img.shields.io/docker/pulls/wanjohiryan/qwantify" alt="pulls">
+    </a>
+    <!-- Not ready for discord yet -->
+  <a href="https://github.com/wanjohiryan/qwantify/releases">
+      <img src="https://img.shields.io/github/v/release/wanjohiryan/qwantify" alt="release">
+    </a>
   <a href="https://github.com/wanjohiryan/qwantify">
     <img src="https://img.shields.io/badge/PRs-Welcome-brightgreen" alt="PRs welcome!" />
   </a>
@@ -29,9 +36,13 @@
   <img src="./imgs/play.gif" width="95%" alt="playing with qwantify"/>
 </pre>
 
+
+
 **[qwantify](https://qwantify.vercel.app)** is an open source docker image for running games (or other apps) on a shared host computer with at least one gpu.
 
-- **User-Friendly Interface** to intuitively play games with your friends
+>Note: this was previously a fork of m1k1o's n.eko as a proof of concept. However, qwantify is no longer compatible with n.eko as of v0.1.1 prelease
+
+- **User-Friendly Interface** - intuitively play games with your friends
 - **Complete control over your game data** - play online, save your game progress locally
 - 🛠️ **Cloud and GPU Agnostic deployment** that lets you play and host games anywhere anytime, through the browser 
 - 🛠️ **Url invites for friends**
