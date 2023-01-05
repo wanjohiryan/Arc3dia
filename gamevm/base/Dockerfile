@@ -6,7 +6,8 @@ WORKDIR /src
 
 #
 # install dependencies
-RUN set -eux; apt-get update; \
+RUN set -eux;\
+     apt-get update; \
     apt-get install -y --no-install-recommends git cmake make libx11-dev libxrandr-dev libxtst-dev \
     #
     # clean up
