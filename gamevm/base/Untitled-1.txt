@@ -1,4 +1,0 @@
-
-[x] download egl-ehd-nvidia and test whether xvfb is better if so, move onto it
-[] why won't any game run?
-[] change resolution?!
