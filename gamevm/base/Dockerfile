@@ -32,7 +32,8 @@ ENV USER=$USERNAME
 ARG GO_VERSION=1.18.9
 ENV GO_VERSION=${GO_VERSION}
 
-RUN apt-get update; \
+RUN set -eux; \
+    apt-get update; \
     apt-get install -y git gcc; \
     wget -P /tmp "https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz"; \
     tar -C /usr/local -xzf "/tmp/go${GO_VERSION}.linux-amd64.tar.gz"; \
@@ -46,7 +47,8 @@ RUN mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 777 "$GOPATH"
 
 #
 #Install nodejs
-RUN apt-get update; \
+RUN set -eux; \
+    apt-get update; \
     apt-get install curl  -y; \
     curl -sL https://deb.nodesource.com/setup_18.x | bash; \
     apt-get install nodejs -y;
