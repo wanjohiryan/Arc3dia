@@ -1,0 +1,13 @@
+{
+  "source": "src/index.html",
+  "scripts": {
+    "serve": "parcel serve --https --host localhost --port 8080 --cert ../cert/localhost.crt --key ../cert/localhost.key",
+    "build": "parcel build",
+    "check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@parcel/validator-typescript": "^2.6.0",
+    "parcel": "^2.6.0",
+    "typescript": ">=3.0.0"
+  }
+}

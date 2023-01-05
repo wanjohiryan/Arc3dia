@@ -1,116 +1,123 @@
-#
-# STAGE 1: SERVER
-#
-FROM golang:1.18-bullseye as server
-WORKDIR /src
+ARG UBUNTU_RELEASE=20.04
+ARG CUDA_VERSION=11.2.2
+FROM nvcr.io/nvidia/cudagl:${CUDA_VERSION}-runtime-ubuntu${UBUNTU_RELEASE}
 
 #
-# install dependencies
-RUN set -eux; apt-get update; \
-    apt-get install -y --no-install-recommends git cmake make libx11-dev libxrandr-dev libxtst-dev \
-    libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly; \
-    #
-    # install libclipboard
-    set -eux; \
-    cd /tmp; \
-    git clone --depth=1 https://github.com/jtanx/libclipboard; \
-    cd libclipboard; \
-    cmake .; \
-    make -j4; \
-    make install; \
-    rm -rf /tmp/libclipboard; \
+## for ghcr
+LABEL maintainer "https://github.com/wanjohiryan"
+
+# Make all NVIDIA GPUs visible by default
+ARG NVIDIA_VISIBLE_DEVICES=all
+# All NVIDIA driver capabilities should preferably be used, check `NVIDIA_DRIVER_CAPABILITIES` inside the container if things do not work
+ENV NVIDIA_DRIVER_CAPABILITIES all
+#
+# avoid warnings by switching to noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
+#
+# set vgl-display to headless 3d gpu card
+# correct values are egl[n] or /dev/dri/card0:if this is passed into container
+ENV VGL_DISPLAY egl
+#
+#for vulkan //creates complications
+ENV XDG_RUNTIME_DIR /tmp
+#
+# set custom user
+ARG USERNAME=qwantify
+ARG USER_UID=1000
+ARG USER_GID=$USER_UID
+ENV USER=$USERNAME
+
+#
+#Install go v1.18 //quic-go does not work on v1.19 (as of 1-1-23)
+ARG GO_VERSION=1.18.9
+ENV GO_VERSION=${GO_VERSION}
+
+RUN apt-get update; \
+    apt-get install -y git gcc; \
+    wget -P /tmp "https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz"; \
+    tar -C /usr/local -xzf "/tmp/go${GO_VERSION}.linux-amd64.tar.gz"; \
+    rm "/tmp/go${GO_VERSION}.linux-amd64.tar.gz";
+
+ENV GOPATH /go
+
+ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
+
+RUN mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 777 "$GOPATH"
+
+#
+#Install nodejs
+RUN apt-get update; \
+    apt-get install curl  -y; \
+    curl -sL https://deb.nodesource.com/setup_18.x | bash; \
+    apt-get install nodejs -y;
+
+#
+# Install locales to prevent Xvfb errors
+RUN apt-get clean && \
+    apt-get update && apt-get install --no-install-recommends -y locales && \
+    rm -rf /var/lib/apt/lists/* && \
+    locale-gen en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+
+#
+# xvfb display
+ENV DISPLAY=:99.0
+
+#
+# install dependencies: xvfb pulseaudio dbus etc
+RUN set -eux; \
+    apt-get update; \
+    apt-get install -y --no-install-recommends wget ca-certificates supervisor; \
+    apt-get install -y --no-install-recommends pulseaudio dbus-x11 xvfb mingw-w64 ffmpeg; \
+    apt-get install -y --no-install-recommends libcairo2 libxcb1 libxrandr2 libxv1 libopus0 libvpx6; \
+    apt-get install -y gnupg2 software-properties-common cabextract aptitude vim curl;\
     #
     # clean up
     apt-get clean -y; \
     rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 
 #
-# build server
-COPY server/ .
-RUN go get -v -t -d . && go build -o bin/neko cmd/neko/main.go
-
-#
-# STAGE 2: CLIENT
-#
-FROM node:14-bullseye-slim as client
-WORKDIR /src
-
-#
-# install dependencies
-COPY client/package*.json ./
-RUN npm install
-
-#
-# build client
-COPY client/ .
-RUN npm run build
-
-#
-# STAGE 3: RUNTIME
-#
-# FROM debian:bullseye-slim
-FROM nvcr.io/nvidia/cudagl:11.2.2-runtime-ubuntu20.04
-
-ARG UBUNTU_RELEASE=20.04
-ARG CUDA_VERSION=11.2.2
-
-LABEL maintainer "https://github.com/wanjohiryan"
-
-ARG UBUNTU_RELEASE
-ARG CUDA_VERSION
-# Make all NVIDIA GPUs visible by default
-ARG NVIDIA_VISIBLE_DEVICES=all
-# All NVIDIA driver capabilities should preferably be used, check `NVIDIA_DRIVER_CAPABILITIES` inside the container if things do not work
-ENV NVIDIA_DRIVER_CAPABILITIES all
-ENV REFRESH 60
-ENV DPI 96
-ENV CDEPTH 24
-#
-# avoid warnings by switching to noninteractive
-ENV DEBIAN_FRONTEND=noninteractive
-#
-# set vgl-display to headless 3d gpu card/// correct values are egl[n] or /dev/dri/card0:if this is passed into container
-ENV VGL_DISPLAY egl
-#
-#for vulkan //creates complications
-# ENV XDG_RUNTIME_DIR /tmp
-#
-# set custom user
-ARG USERNAME=neko
-ARG USER_UID=1000
-ARG USER_GID=$USER_UID
-
+# mkcert install
 RUN set -eux; \
     apt-get update; \
-    #
-    # install dependencies 
-    apt-get install -y --no-install-recommends wget ca-certificates supervisor; \
-    apt-get install -y --no-install-recommends pulseaudio dbus-x11 xserver-xorg-video-dummy; \
-    apt-get install -y --no-install-recommends libcairo2 libxcb1 libxrandr2 libxv1 libopus0 libvpx6; \
-    apt-get install -y gnupg2 software-properties-common cabextract aptitude vim curl; \
-    #
-    # hardware acclerations utilities
+    apt install libnss3-tools -y;\
+    wget -nv -O /usr/local/bin/mkcert https://github.com/FiloSottile/mkcert/releases/download/v1.4.3/mkcert-v1.4.3-linux-amd64; \
+    chmod +x /usr/local/bin/mkcert;
+
+# 
+#On second thought, let the user change this from the frontend rather than on startup
+#TODO: implement this on from the webpage
+# #1920x1080@60fps default
+# ENV SCREEN_WIDTH 1920
+# ENV SCREEN_HEIGHT 1080
+# ENV VIDEO_FPS 60
+
+#TODO: implement this
+#video encoder: valid values are: nvenc(nvidia), vaapi(amd/intel) or x264(software-rendering)#must have 6cores or more
+ENV VIDEO_ENCODER x264
+
+#
+## hardware encoding for /dev/dri
+ENV RENDER_GID=
+
+#
+# hardware acclerations utilities
+RUN set -eux; \
+    apt-get update; \
     apt-get install --no-install-recommends -y libgtk-3-bin mesa-utils mesa-utils-extra mesa-va-drivers mesa-vulkan-drivers libvulkan-dev libvulkan-dev:i386 vdpauinfo; \
     #
     # intel driver + vaapi
-    apt-get install -y --no-install-recommends intel-media-va-driver-non-free libva2 vainfo; \
+    apt-get install -y --no-install-recommends intel-media-va-driver-non-free libva2 vainfo;\
     #
-    # gst + vaapi plugin
-    apt-get install -y --no-install-recommends libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev \
-                    gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-pulseaudio \
-                    gstreamer1.0-vaapi ;\
-    #
-    # install fonts
-    apt-get install -y --no-install-recommends \
-        # Google emojis
-        fonts-noto-color-emoji \
-        # Japanese fonts
-        fonts-takao-mincho \
-        # Chinese fonts
-        fonts-wqy-zenhei; \
-    #
-    # create a non-root user
-    groupadd --gid $USER_GID $USERNAME; \
+    # clean up
+    apt-get clean -y; \
+    rm -rf /var/lib/apt/lists/* /var/cache/apt/*
+
+#
+# create a non-root user
+RUN groupadd --gid $USER_GID $USERNAME; \
     useradd --uid $USER_UID --gid $USERNAME --shell /bin/bash --create-home $USERNAME; \
     adduser $USERNAME audio; \
     adduser $USERNAME video; \
@@ -124,12 +131,6 @@ RUN set -eux; \
     mkdir /tmp/.X11-unix; \
     chmod 1777 /tmp/.X11-unix; \
     chown $USERNAME /tmp/.X11-unix/; \
-    #
-    # make directories for neko
-    mkdir -p /etc/neko /var/www /var/log/neko; \
-    chmod 1777 /var/log/neko; \
-    chown $USERNAME /var/log/neko/; \
-    chown -R $USERNAME:$USERNAME /home/$USERNAME; \
     #
     # clean up
     apt-get clean -y; \
@@ -185,7 +186,7 @@ COPY gamevm/base/download_gecko_and_mono.sh /root/download_gecko_and_mono.sh
 RUN chmod +x /root/download_gecko_and_mono.sh \
     && /root/download_gecko_and_mono.sh "$(dpkg -s wine-${WINE_BRANCH} | grep "^Version:\s" | awk '{print $2}' | sed -E 's/~.*$//')"
 
-#
+#TODO: replace with dxvk
 #install dx11
 RUN winetricks d3dx11_43
 
@@ -193,36 +194,44 @@ RUN winetricks d3dx11_43
 # Silence all fixme warnings from wine
 ENV WINEDEBUG fixme-all
 
+WORKDIR /qwantify
+
+#
+# Copy client and install node-modules
+COPY internal/client/ ./client
+
+RUN cd ./client && npm install
+#
+# Copy cert folder and make certs
+COPY internal/cert ./cert
+
+RUN cd ./cert && ./generate-cert.sh
+
+#
+# Make a directory to store files from ffmpeg
+RUN mkdir ./media
+
+#
+# Copy server
+COPY internal/server ./server
+
 #
 #volume for mounting games
 VOLUME [ "/games" ]
 
 #
+#expose only one port
+EXPOSE 8080
+
+#
 # copy config files
 COPY gamevm/base/dbus /usr/bin/dbus
 COPY gamevm/base/default.pa /etc/pulse/default.pa
-COPY gamevm/base/supervisord.conf /etc/neko/supervisord.conf
-COPY gamevm/base/xorg.conf /etc/neko/xorg.conf
+COPY gamevm/base/supervisord.conf /etc/qwantify/supervisord.conf
 COPY gamevm/base/add-render-group.sh /usr/bin/add-render-group.sh
-COPY gamevm/base/entrypoint.sh /etc/entrypoint.sh
+COPY gamevm/base/run-the-game.sh /etc/run-the-game.sh
+COPY gamevm/base/ffmpeg.sh /etc/ffmpeg.sh
 
 #
-# set default envs
-ENV USER=$USERNAME
-ENV DISPLAY=:99.0
-ENV NEKO_PASSWORD=neko
-ENV NEKO_PASSWORD_ADMIN=admin
-ENV NEKO_BIND=:8080
-ENV RENDER_GID=
-
-#
-# copy static files from previous stages
-COPY --from=server /src/bin/neko /usr/bin/neko
-COPY --from=client /src/dist/ /var/www
-
-HEALTHCHECK --interval=10s --timeout=5s --retries=8 \
-    CMD wget -O - http://localhost:${NEKO_BIND#*:}/health || exit 1
-
-#
-# run neko
-CMD ["/usr/bin/supervisord", "-c", "/etc/neko/supervisord.conf"]
+# run qwantify using CMD, this way it's easier to ssh into a running container
+CMD ["/usr/bin/supervisord", "-c", "/etc/qwantify/supervisord.conf"]

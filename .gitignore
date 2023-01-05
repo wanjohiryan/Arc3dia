@@ -35,8 +35,5 @@ node_modules
 dist
 bin
 
-#not on this branch
-internal
-
 # Environment files
 *.env
