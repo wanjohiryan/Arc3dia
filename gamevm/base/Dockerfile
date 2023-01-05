@@ -32,8 +32,30 @@ ENV USER=$USERNAME
 ARG GO_VERSION=1.18.9
 ENV GO_VERSION=${GO_VERSION}
 
+#
+# Install locales to prevent Xvfb errors
+RUN apt-get clean && \
+    apt-get update && apt-get install --no-install-recommends -y locales && \
+    rm -rf /var/lib/apt/lists/* && \
+    locale-gen en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+
+#
+# install dependencies: xvfb pulseaudio dbus wget curl supervisoretc
 RUN set -eux; \
     apt-get update; \
+    apt-get install -y --no-install-recommends wget ca-certificates supervisor; \
+    apt-get install -y --no-install-recommends pulseaudio dbus-x11 xvfb mingw-w64 ffmpeg; \
+    apt-get install -y --no-install-recommends libcairo2 libxcb1 libxrandr2 libxv1 libopus0 libvpx6; \
+    apt-get install -y gnupg2 software-properties-common cabextract aptitude vim curl;\
+    #
+    # clean up
+    apt-get clean -y; \
+    rm -rf /var/lib/apt/lists/* /var/cache/apt/*
+
+RUN apt-get update; \
     apt-get install -y git gcc; \
     wget -P /tmp "https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz"; \
     tar -C /usr/local -xzf "/tmp/go${GO_VERSION}.linux-amd64.tar.gz"; \
@@ -47,43 +69,18 @@ RUN mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 777 "$GOPATH"
 
 #
 #Install nodejs
-RUN set -eux; \
-    apt-get update; \
+RUN apt-get update; \
     apt-get install curl  -y; \
     curl -sL https://deb.nodesource.com/setup_18.x | bash; \
     apt-get install nodejs -y;
-
-#
-# Install locales to prevent Xvfb errors
-RUN apt-get clean && \
-    apt-get update && apt-get install --no-install-recommends -y locales && \
-    rm -rf /var/lib/apt/lists/* && \
-    locale-gen en_US.UTF-8
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US:en
-ENV LC_ALL en_US.UTF-8
 
 #
 # xvfb display
 ENV DISPLAY=:99.0
 
 #
-# install dependencies: xvfb pulseaudio dbus etc
-RUN set -eux; \
-    apt-get update; \
-    apt-get install -y --no-install-recommends wget ca-certificates supervisor; \
-    apt-get install -y --no-install-recommends pulseaudio dbus-x11 xvfb mingw-w64 ffmpeg; \
-    apt-get install -y --no-install-recommends libcairo2 libxcb1 libxrandr2 libxv1 libopus0 libvpx6; \
-    apt-get install -y gnupg2 software-properties-common cabextract aptitude vim curl;\
-    #
-    # clean up
-    apt-get clean -y; \
-    rm -rf /var/lib/apt/lists/* /var/cache/apt/*
-
-#
 # mkcert install
-RUN set -eux; \
-    apt-get update; \
+RUN apt-get update; \
     apt install libnss3-tools -y;\
     wget -nv -O /usr/local/bin/mkcert https://github.com/FiloSottile/mkcert/releases/download/v1.4.3/mkcert-v1.4.3-linux-amd64; \
     chmod +x /usr/local/bin/mkcert;
