@@ -36,20 +36,37 @@
   <img src="./imgs/play.gif" width="95%" alt="playing with qwantify"/>
 </pre>
 
+**[qwantify](https://qwantify.vercel.app)** lets you run games (or other apps) on a shared host computer with at least one gpu with no extra configurations. _Everything just runs perfectly._
 
+>Note: this was previously a fork of m1k1o's n.eko as a proof of concept. However, as of v0.1.1, they are no  longer backwards compatible
 
-**[qwantify](https://qwantify.vercel.app)** is an open source docker image for running games (or other apps) on a shared host computer with at least one gpu.
+## 🌞 Motivation
+I've always wanted to stream games from different devices while playing them on the fly, and occasionally I even wanted to invite others.
+ 
+Although cloud gaming providers offered this, I preferred a self-hosted version so that I could manage and run my own games.
 
->Note: this was previously a fork of m1k1o's n.eko as a proof of concept. However, qwantify is no longer compatible with n.eko as of v0.1.1 prelease
+I then discovered [Parsec](https://www.parsec.app), which was fantastic when it functioned but absolutely useless when the network experienced any little instability.The lack of a web interface and the requirement to install native apps only served to magnify the issue.
 
-- **User-Friendly Interface** - intuitively play games with your friends
-- **Complete control over your game data** - play online, save your game progress locally
-- 🛠️ **Cloud and GPU Agnostic deployment** that lets you play and host games anywhere anytime, through the browser 
-- 🛠️ **Url invites for friends**
-- 🛠️ **Play with multiple gamepads** per gameroom. Turn any game into multiplayer
-- 🛠️ **Official Support for AMD and Intel Gpus**
-- 🔜 **1-Click Deploy** locally, AWS or GCP
-- 🔜 **Twitch and Youtube stream** integrations
+I came upon m1k1o's [n.eko](https://github.com/m1k1o/neko) and after making some adjustments for my nvidia GPU, it worked!
+
+I could now play online with anyone, run multiple games on the same machine, save and sync game progress between computers. It was a miracle.
+
+>And that's how qwantify was born :)
+
+## 💘 Features
+
+> qwantify was (and still is) highly inspired by Google's Stadia
+> Long live Linux 💝
+
+- **Crowd Play** - play online together with friends, right from your browser. Turn any game into multiplayer.
+- **State Share** - transfer game play progress between devices or to friends
+- **Automated performance optimisations** - without any further installations and performance optimisations, launch your game in a matter of seconds.
+- **Get low latency 1080p@60fps video streaming to any browser**
+- **Automated or manual gamepad mapping for all your games**
+- **Mobile support for all your PC games**
+- **Live stream to Youtube and Twitch**
+- **Get automated AMD, Intel, and Nvidia GPU performance tweaks**
+- **Url Invites** - send url invitations to friends, even on self-hosted qwantify instances at no extra cost
 
 And more.
 
@@ -64,8 +81,14 @@ And more.
 To quickly get started, pull the image and run it with docker compose (*recommended*)
 
 Requirements:
-  1. nvidia-docker 
-  2. [Nvidia container toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html) v450.80.02 or higher
+
+1. Linux or WSL
+   >qwantify doesn't work on windows/Mac as they cannot pass gpus to linux containers
+
+2. A machine with GPU: **nvidia, amd or intel**
+  
+  >For machines with nvidia GPUs you will need: `nvidia-docker` and
+   `nvidia container toolkit` v450.80.02 or higher
 
 ```bash
 version: "3.8"
@@ -75,47 +98,43 @@ services:
     restart: "unless-stopped"
     ports:
       - "8080:8080" #web interface
-      - "52000-52100:52000-52100/udp" #webrtc 
     volumes:
       - /games:/games #directory with folders containing your game(s)
+    shm_size:'5gb' #size of shared memory
     deploy:
       resources:
         reservations:
           devices: #share nvidia gpu (recommended)
             - capabilities: [gpu] 
         limits:
-          memory: 5G #depends on game (recommended is 4)
-          cpus: '4' #depends on game (recommended is 4)
+          memory: 5G #depends on the game (recommended is 4)
+          cpus: '4' #depends on the game (recommended is 4)
     environment:
-      - NEKO_SCREEN=1920x1080@30 #screen size
-      - NEKO_PASSWORD=neko #password for the invited guests
-      - NEKO_PASSWORD_ADMIN=admin #password for the host admin 
-      - NEKO_EPR=52000-52100 #webrtc ports(defaults to 52000-52100)
-      - NEKO_ICELITE=1
-      - NEKO_NAT1TO1=your-public-ip-address #optional , use this when you cannot login
       - APPPATH=/path/to/game/folder #folder containing the game
       - APPFILE=/game.exe #game executable file
 
 ```
 
-Then
+Then run
 
 ```bash
 docker-compose up -d
 ```
 
-# Known Issues
- 1. Games running on DirectX 11 or lower show a black screen just after loading (ex. John Wick Hex) [Issue #2](https://github.com/wanjohiryan/qwantify/issues/2)
- 2. No gamepad support yet [Issue #3](https://github.com/wanjohiryan/qwantify/issues/3)
- 3. qwantify has not been tested on AMD and Intel GPUs. This might present unknown issues. [Issue #8](https://github.com/wanjohiryan/qwantify/issues/8)
- 4. Games that require additional libraries (ex. .Net Framework or VCRedist) might not work. [Issue #2](https://github.com/wanjohiryan/qwantify/issues/2)
 ## 🔥 What's cool about this?
 
-We're on a mission to make games more accessible to all, <i>not just gamers with expensive hardware</i>. 
+ Not only do you stream games with qwantify, you get the best GPU & CPU performance optimisations, all specifically tailored for the game you're playing.
 
+Additionally, you get high quality 1080p@60fps streams to any browser on the same LAN or online.
 
+## 🔄 Comparisons with other software
+>Note: qwantify is not **JUST** streaming software
 
-We are currently working hard to make qwantify more extensive. Need any integrations or want a new feature? Feel free to [create an issue](https://github.com/wanjohiryan/qwantify/issues) or [contribute](https://github.com/wanjohiryan/qwantify/blob/master/CONTRIBUTING.md) directly to the repository.
+[Parsec](https://parsec.app/):Parsec is not open-source. . It only offers the best performance on Windows or Mac hosts, though and does not function in the browser. It also does not come with performance optimizations pre-installed.
+
+[CloudMorph](https://github.com/giongto35/cloud-morph): Cloudmorph uses WebRTC as opposed to qwantify, which uses QUIC/HTTP3. Additionally, it doesn't implement any hardware acceleration.
+
+[n.eko](https://github.com/m1k1o/neko): neko uses WebRTC as opposed to qwantify, which uses QUIC/HTTP3. It also does not support gamepads/joysticks.
 
 ## 🌱 Contributing
 
@@ -123,7 +142,7 @@ Whether it's big or small, we love contributions ❤️ Check out our guide to s
 
 ## 🐥 Status
 
-- [x] Public Alpha: Anyone can sign up over at the [qwantify arcade](https://qwantify.vercel.app/) 
+- [x] Public Alpha: Anyone can sign up over at the [qwantify arcade](https://qwantify.vercel.app/)
 - [ ] Public Beta: Stable enough for most gamers.
 - [ ] Public: Production-ready.
 
@@ -182,7 +201,7 @@ We're currently setting the foundation and building a gaming network so games ca
          <tr>
          <th>Indie</th>
          <td>Berlin</td>
-         <td>Online ✔️</td>
+         <td>Offline ❗</td>
          </tr>
         </table></td>
     </tr>
@@ -200,7 +219,7 @@ We're currently setting the foundation and building a gaming network so games ca
     </tr>
 </table>
 
-### Rent out your GPU and help us deliver games to everyone.
+### Rent out your GPU and help us deliver games to everyone
 
 <p >
   <a href="https://docs.google.com/forms/d/e/1FAIpQLSfBZDOlcdnvJwUdt5ju-v8Gx4oIqHd_jHu_p6QCvlwgaOvQ0A/viewform" target="_blank"><img src="./imgs/partner-up.png" height=120></a>
@@ -208,4 +227,4 @@ We're currently setting the foundation and building a gaming network so games ca
 
 
 
-**Stay frosty :)**
+>**Stay frosty :)**
