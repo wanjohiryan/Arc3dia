@@ -49,14 +49,15 @@ I then discovered [Parsec](https://www.parsec.app), which was fantastic when it 
 
 I came upon m1k1o's [n.eko](https://github.com/m1k1o/neko) and after making some adjustments for my nvidia GPU, it worked!
 
-I could now play online with anyone, run multiple games on the same machine, save and sync game progress between computers. It was a miracle.
+Now i could play online with anyone, run multiple games on the same machine, save and sync game progress between computers. It was a miracle.
 
 >And that's how qwantify was born :)
 
 ## 💘 Features
 
 > qwantify was (and still is) highly inspired by Google's Stadia
-> Long live Linux 💝
+
+_Long live Linux 💝_
 
 - **Crowd Play** - play online together with friends, right from your browser. Turn any game into multiplayer.
 - **State Share** - transfer game play progress between devices or to friends
@@ -84,10 +85,11 @@ Requirements:
 
 1. Linux or WSL
    >qwantify doesn't work on windows/Mac as they cannot pass gpus to linux containers
-
-2. A machine with GPU: **nvidia, amd or intel**
+   
+2. Latest version of docker and docker compose
+3. A machine with GPU: **Nvidia, AMD or Intel**
   
-  >For machines with nvidia GPUs you will need: `nvidia-docker` and
+  >For machines with Nvidia GPUs you will need: `nvidia-docker` and
    `nvidia container toolkit` v450.80.02 or higher
 
 ```bash
@@ -123,9 +125,11 @@ docker-compose up -d
 
 ## 🔥 What's cool about this?
 
- Not only do you stream games with qwantify, you get the best GPU & CPU performance optimisations, all specifically tailored for the game you're playing.
+Not only do you stream games with qwantify, you get the best GPU & CPU performance optimisations, all specifically tailored for the game you're playing.
 
 Additionally, you get high quality 1080p@60fps streams to any browser on the same LAN or online.
+
+>We're on a mission to make games more accessible to all, <i>not just gamers with expensive hardware</i>. 
 
 ## 🔄 Comparisons with other software
 >Note: qwantify is not **JUST** streaming software
