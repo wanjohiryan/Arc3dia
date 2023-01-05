@@ -204,7 +204,7 @@ RUN cd ./client && npm install
 # Copy cert folder and make certs
 COPY internal/cert ./cert
 
-RUN cd ./cert && ./generate-cert.sh
+RUN cd ./cert && chmod +x ./generate-cert.sh && ./generate-cert.sh
 
 #
 # Make a directory to store files from ffmpeg
