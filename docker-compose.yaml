@@ -3,10 +3,9 @@ services:
   neko:
     image: wanjohiryan/qwantify:latest
     restart: "unless-stopped"
-    # shm_size: "2gb"
+    shm_size: "5gb"
     ports:
       - "8080:8080"
-      - "52000-52100:52000-52100/udp"
     volumes:
       - /games:/games
     deploy:
@@ -18,11 +17,5 @@ services:
           memory: 5G
           cpus: '4' #for testing purposes only
     environment:
-      - NEKO_SCREEN=1920x1080@30
-      - NEKO_PASSWORD=neko
-      - NEKO_PASSWORD_ADMIN=admin
-      - NEKO_EPR=52000-52100
-      - NEKO_ICELITE=1
-      - NEKO_NAT1TO1=your-public-ip-addres #optional
       - APPPATH=/path/to/game/folder
       - APPFILE=/game.exe
