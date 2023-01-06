@@ -36,7 +36,7 @@
   <img src="./imgs/play.gif" width="95%" alt="playing with qwantify"/>
 </pre>
 
-**[qwantify](https://qwantify.vercel.app)** lets you run games (or other apps) on a shared host computer with at least one gpu with no extra configurations. _Everything just runs perfectly._
+**[qwantify](https://qwantify.vercel.app)** lets you run PC games (.exe) on a shared host computer with at least one gpu with no extra configurations. _Everything just runs perfectly._
 
 >Note: this was previously a fork of m1k1o's n.eko as a proof of concept. However, as of v0.1.1, they are no  longer backwards compatible
 
