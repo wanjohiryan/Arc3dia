@@ -55,19 +55,21 @@ Now i could play online with anyone, run multiple games on the same machine, sav
 
 ## 💘 Features
 
-> qwantify was (and still is) highly inspired by Google's Stadia
+> qwantify was, to some degree, inspired by Google Stadia
 
 _Long live Linux 💝_
 
-- **Crowd Play** - play online together with friends, right from your browser. Turn any game into multiplayer.
+- **Crowd Play** - play games online with your pals, directly from your browser. Turn any game into multiplayer.
 - **State Share** - transfer game play progress between devices or to friends
-- **Automated performance optimisations** - without any further installations and performance optimisations, launch your game in a matter of seconds.
-- **Get low latency 1080p@60fps video streaming to any browser**
-- **Automated or manual gamepad mapping for all your games**
-- **Mobile support for all your PC games**
+- **Run Android and Mac executables** - Play games from the Google Play store and the Mac App Store.
+- **Get low latency 1080p@60fps game streaming to any browser**
+- **Automated and manual gamepad mapping**
+- **Multi-device support for all your games**
 - **Live stream to Youtube and Twitch**
 - **Get automated AMD, Intel, and Nvidia GPU performance tweaks**
-- **Url Invites** - send url invitations to friends, even on self-hosted qwantify instances at no extra cost
+- **Url Invites** - send url invitations to friends, even on self-hosted qwantify instances for free
+
+>Check out the [projects tab](https://github.com/wanjohiryan/qwantify/projects?query=is%3Aopen) to get a view on what features have already been shipped
 
 And more.
 
@@ -111,6 +113,8 @@ services:
         limits:
           memory: 5G #depends on the game (recommended is 4)
           cpus: '4' #depends on the game (recommended is 4)
+    devices:
+      - /dev/dri:/dev/dri #pass in Intel or AMD GPUs
     environment:
       - APPPATH=/path/to/game/folder #folder containing the game
       - APPFILE=/game.exe #game executable file
@@ -225,7 +229,7 @@ We're currently setting the foundation and building a gaming network so games ca
 
 ### Rent out your GPU and help us deliver games to everyone
 
-<p >
+<p  align="center">
   <a href="https://docs.google.com/forms/d/e/1FAIpQLSfBZDOlcdnvJwUdt5ju-v8Gx4oIqHd_jHu_p6QCvlwgaOvQ0A/viewform" target="_blank"><img src="./imgs/partner-up.png" height=120></a>
 </p>
 
