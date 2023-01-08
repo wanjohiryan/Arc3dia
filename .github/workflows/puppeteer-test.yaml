@@ -16,14 +16,17 @@ jobs:
         
         - 
           name: Build docker image with docker compose
-          working-directory: ./gamevm/base/
-          run: docker build -t wanjohiryan/qwantify:latest .
+          run: |
+            cp gamevm/base/Dockerfile .
+            docker build -t wanjohiryan/qwantify:latest .
         # -
         #   name: check if image is available
         #   run: docker image inspect wanjohiryan/qwantify:latest >/dev/null 2>&1 && echo yes || echo no 
         -
           name: Run container with docker compose
-          run: docker compose up -d
+          run: |
+            cp ./tests/docker-compose.yaml .
+            docker compose up -d
         
         - 
           name: Install Dependencies
