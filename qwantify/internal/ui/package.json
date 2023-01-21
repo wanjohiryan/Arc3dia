@@ -1,0 +1,20 @@
+{
+  "source": "src/index.html",
+  "scripts": {
+    "dev":"esbuild src/index.tsx src/index.css  --bundle --outdir=static --watch",
+    "build":"esbuild src/index.tsx src/index.css  --bundle --outdir=static",
+    "check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@parcel/validator-typescript": "^2.6.0",
+    "@types/react": "^18.0.26",
+    "@types/react-dom": "^18.0.10",
+    "esbuild": "^0.17.0",
+    "parcel": "^2.6.0",
+    "typescript": ">=3.0.0"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
