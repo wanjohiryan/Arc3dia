@@ -1,0 +1,9 @@
+[] automatically change video fps or bitrate on shitty unreliable networks
+[] on button press/ special events show notification
+[] show extra info on buttons for easier navigation
+[] use low-level WebGL with canvas instead of MSE
+[] embed heartbeat stream in video stream. This should show when congestion happens
+
+//TODO soonest
+[x] Get latency from server to client using multidirectional stream via a heartbeat
+[]Expose server and client from one udp port.
