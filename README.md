@@ -38,7 +38,8 @@
 
 **[qwantify](https://qwantify.vercel.app)** lets you run PC games (.exe) on a shared host computer with at least one gpu with no extra configurations. _Everything just runs perfectly._
 
->Note: this was previously a fork of m1k1o's n.eko as a proof of concept. However, as of v0.1.1, they are no  longer backwards compatible
+>Note: this was previously a fork of m1k1o's n.eko as a proof of concept. However, as of v0.1.1, they are no  longer backwards compatible.
+>This project is (still) in active maintenance. Currently working on the qwantify-core 'engine' [here](https://github.com/wanjohiryan/warp) - gamepad support and nvenc/vaapi encoding.
 
 ## 🌞 Motivation
 I've always wanted to stream games from different devices while playing them on the fly, and occasionally I even wanted to invite others.
