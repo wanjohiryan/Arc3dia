@@ -2,14 +2,19 @@ name: "Push image to ghcr"
 
 on:
   push:
-   branches: [ master ]
+    branches: [main]
+    tags:
+      - v*.*.*
+  release:
+    types: [created]
 
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: wanjohiryan/qwantify
+  BASE_TAG_PREFIX: nvidia
 
 jobs:
-  build-git-package:
+  build-git-h264-base:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -19,30 +24,35 @@ jobs:
     #
     if: github.repository_owner == 'wanjohiryan'
     steps:
-      -
-        name: Checkout
+      - name: Checkout
         uses: actions/checkout@v3
-      - 
-        name: Log into registry ${{ env.REGISTRY }}
+
+      - name: Log into registry ${{ env.REGISTRY }}
         uses: docker/login-action@v2
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GIT_TOKEN }}
-      - 
-        name: Extract Container metadata
+
+      - name: Extract Container metadata
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-      - 
-        name: Build and push Ubuntu 20.04 Container image
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/${{ env.BASE_TAG_PREFIX }}
+          flavor: |
+            latest=${{github.event_name == 'release'}}
+          #tag on release, and a nightly build for 'dev'
+          tags: |
+            type=raw,value=nightly,enable={{is_default_branch}}
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+
+      - name: Build and push image
         uses: docker/build-push-action@v3
         with:
           context: ./
           file: gamevm/base/Dockerfile
           push: true
-          tags: |
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:20.04
+          tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
