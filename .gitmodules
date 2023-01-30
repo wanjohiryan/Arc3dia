@@ -1,0 +1,6 @@
+[submodule "qwantify-core"]
+    path = qwantify core
+    url = https://github.com/wanjohiryan/warp.git
+[submodule "warp"]
+	path = warp
+	url = https://github.com/wanjohiryan/warp
