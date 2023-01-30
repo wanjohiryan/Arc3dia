@@ -49,7 +49,7 @@ RUN npm run build
 # STAGE 3: RUNTIME
 #
 # FROM debian:bullseye-slim
-FROM nvcr.io/nvidia/cudagl:11.2.2-runtime-ubuntu20.04
+FROM nvcr.io/nvidia/cudagl:11.4.2-runtime-ubuntu20.04
 
 ARG UBUNTU_RELEASE=20.04
 ARG CUDA_VERSION=11.2.2
