@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   qwantify:
-    image: wanjohiryan/qwantify:latest
+    image: ghcr.io/wanjohiryan/qwantify:latest
     restart: "unless-stopped"
     shm_size: "5gb"
     ports:
