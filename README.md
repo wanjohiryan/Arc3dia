@@ -38,11 +38,13 @@
 
 **[qwantify](https://qwantify.vercel.app)** lets you run PC games (.exe) on a shared host computer with at least one gpu with no extra configurations. _Everything just runs perfectly._
 
->**Note**this was previously a fork of m1k1o's n.eko as a proof of concept. However, as of v0.1.1, they are no  longer backwards compatible.
+>**Note**
+>this was previously a fork of m1k1o's n.eko as a proof of concept. However, as of v0.1.1, they are no  longer backwards compatible.
 
 >This project is (still) in active maintenance. Currently working on the qwantify-core 'engine' [here](https://github.com/wanjohiryan/warp) - gamepad support and nvenc/vaapi encoding.
 
->**Warning**this project is not ready yet. At the moment, it won't work at all as there are some known issues i am ironing out. Please check back in a while :)
+>**Warning**
+>this project is not ready yet. At the moment, it won't work at all as there are some known issues i am ironing out. Please check back in a while :)
 
 ## 🌞 Motivation
 I've always wanted to stream games from different devices while playing them on the fly, and occasionally I even wanted to invite others.
@@ -73,7 +75,7 @@ _Long live Linux 💝_
 - **Get automated AMD, Intel, and Nvidia GPU performance tweaks**
 - **Url Invites** - send url invitations to friends, even on self-hosted qwantify instances for free
 
->Check out the [projects tab](https://github.com/wanjohiryan/qwantify/projects?query=is%3Aopen) to get a view on what features have already been shipped
+>Check out the [projects tab](https://github.com/users/wanjohiryan/projects/2) to get a view on what features have already been shipped
 
 And more.
 
@@ -102,7 +104,7 @@ Requirements:
 version: "3.8"
 services:
   qwantify:
-    image: wanjohiryan/qwantify:latest #or ghcr.io/wanjohiryan/qwantify:20.04
+    image: ghcr.io/wanjohiryan/qwantify:latest
     restart: "unless-stopped"
     ports:
       - "8080:8080" #web interface
@@ -140,7 +142,8 @@ Additionally, you get high quality 1080p@60fps streams to any browser on the sam
 >We're on a mission to make games more accessible to all, <i>not just gamers with expensive hardware</i>. 
 
 ## 🔄 Comparisons with other software
->Note: qwantify is not **JUST** streaming software
+>**Note**
+> qwantify is not **JUST** streaming software
 
 [Parsec](https://parsec.app/):Parsec is not open-source. . It only offers the best performance on Windows or Mac hosts, though and does not function in the browser. It also does not come with performance optimizations pre-installed.
 
