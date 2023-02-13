@@ -14,7 +14,7 @@ env:
   BASE_TAG_PREFIX: nvidia
 
 jobs:
-  build-git-h264-base:
+  build-and-push-git-pkg:
     runs-on: ubuntu-latest
     permissions:
       contents: read
