@@ -28,7 +28,7 @@ jobs:
           version: ${{ steps.version.outputs.version }}
           publish: true
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_RELEASES }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: force update major tag
         run: |
