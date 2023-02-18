@@ -17,9 +17,6 @@
 </h4>
 
 <h4 align="center">
-  <a href="https://hub.docker.com/u/wanjohiryan/qwantify">
-      <img src="https://img.shields.io/docker/pulls/wanjohiryan/qwantify" alt="pulls">
-    </a>
     <!-- Not ready for discord yet -->
   <a href="https://github.com/wanjohiryan/qwantify/releases">
       <img src="https://img.shields.io/github/v/release/wanjohiryan/qwantify" alt="release">
