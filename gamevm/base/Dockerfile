@@ -78,9 +78,9 @@ ENV WINEDEBUG fixme-all
 VOLUME [ "/games" ]
 
 #
-#Copy config files
-COPY gamevm/base/qwantify /etc/warp/entrypoint.d/brave.sh
-RUN chmod +x /etc/warp/entrypoint.d/brave.sh
+#Copy entrypoint and movr it to where warp can see
+COPY gamevm/base/qwantify.sh /etc/warp/entrypoint.d/qwantify.sh
+RUN chmod +x /etc/warp/entrypoint.d/qwantify.sh
 
 #
 #return back to our designated user
