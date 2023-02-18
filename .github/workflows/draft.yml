@@ -12,4 +12,4 @@ jobs:
     steps:
       - uses: release-drafter/release-drafter@master
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_RELEASES }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
