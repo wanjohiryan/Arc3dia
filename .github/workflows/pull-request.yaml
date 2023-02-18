@@ -1,21 +1,26 @@
 name: Get screenshot of running container
-#TODO: find a way to log errors from docker container onto github
 #TODO: find a way to test client and server before running the docker container, seems effective in catching any errors
+
 on:
   pull_request:
 
 jobs:
-  build-docker-image:
-      name: Build docker image for testing
+  build-docker-nvidia:
+      name: Build nvidia Docker image
       runs-on: ubuntu-latest
-              
       steps:
         -
           name: Checkout repo
           uses: actions/checkout@v3
-        
         - 
-          name: Build docker image with docker compose
-          run: |
-            cp docker/nvidia/Dockerfile .
-            docker build -t qwantify:nvidia .
+          name: Setup Docker Buildx
+          uses: docker/setup-buildx-action@v2
+        - 
+          name: Build Docker image
+          uses: docker/build-push-action@v4
+          with:
+            context: ./
+            file: docker/nvidia/Dockerfile
+            push: false
+            load: true
+            tags: warp:latest
