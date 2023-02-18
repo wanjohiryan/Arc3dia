@@ -17,5 +17,5 @@ jobs:
         - 
           name: Build docker image with docker compose
           run: |
-            cp gamevm/base/Dockerfile .
-            docker build -t wanjohiryan/qwantify:latest .
+            cp docker/nvidia/Dockerfile .
+            docker build -t qwantify:nvidia .

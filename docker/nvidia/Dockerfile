@@ -60,7 +60,7 @@ RUN wget -nv -O /usr/bin/winetricks https://raw.githubusercontent.com/Winetricks
 
 #
 # Download gecko and mono installers
-COPY gamevm/base/download_gecko_and_mono.sh /root/download_gecko_and_mono.sh
+COPY docker/nvidia/download_gecko_and_mono.sh /root/download_gecko_and_mono.sh
 RUN chmod +x /root/download_gecko_and_mono.sh \
     && /root/download_gecko_and_mono.sh "$(dpkg -s wine-${WINE_BRANCH} | grep "^Version:\s" | awk '{print $2}' | sed -E 's/~.*$//')"
 
@@ -79,7 +79,7 @@ VOLUME [ "/games" ]
 
 #
 #Copy entrypoint and movr it to where warp can see
-COPY gamevm/base/qwantify.sh /etc/warp/entrypoint.d/qwantify.sh
+COPY docker/nvidia/qwantify.sh /etc/warp/entrypoint.d/qwantify.sh
 RUN chmod +x /etc/warp/entrypoint.d/qwantify.sh
 
 #
