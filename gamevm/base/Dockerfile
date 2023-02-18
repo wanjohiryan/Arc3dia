@@ -65,8 +65,9 @@ RUN chmod +x /root/download_gecko_and_mono.sh \
     && /root/download_gecko_and_mono.sh "$(dpkg -s wine-${WINE_BRANCH} | grep "^Version:\s" | awk '{print $2}' | sed -E 's/~.*$//')"
 
 #
-#install dx11
-RUN winetricks -q vcrun2008 xact d3dx9  d3dx11
+#install dx11 and dx9
+#! Use dxvk instead, winetricks adds >600mb  
+# RUN winetricks -q d3dx9  d3dx11
 
 #
 # Silence all fixme warnings from wine
