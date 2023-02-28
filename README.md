@@ -13,11 +13,14 @@
   <a href="https://qwantify.vercel.app/">Arcade</a> |
   <a href="https://docs.google.com/forms/d/e/1FAIpQLSfBZDOlcdnvJwUdt5ju-v8Gx4oIqHd_jHu_p6QCvlwgaOvQ0A/viewform">Hosting</a> |
   <a href="https://qwantify.vercel.app/">Docs</a> |
-  <a href="https://qwantify.vercel.app/">Website</a>
+  <a href="https://qwantify.vercel.app/">Website</a>|
+  <a href="https://discord.com/invite/Y6etn3qKZ3">Discord</a>
 </h4>
 
 <h4 align="center">
-    <!-- Not ready for discord yet -->
+   <a href="https://discord.com/invite/Y6etn3qKZ3">
+      <img src="https://discordapp.com/api/guilds/1080111004698021909/widget.png?style=shield" alt="Chat on discord">
+    </a>
   <a href="https://github.com/wanjohiryan/qwantify/releases">
       <img src="https://img.shields.io/github/v/release/wanjohiryan/qwantify" alt="release">
     </a>
