@@ -3,10 +3,10 @@
 # Thanks ehfd :)
 
 #
-#Import from warp, no gpu hw acceleration support yet :(
-# Latest stable major version is 0
-# Do not use this, it will probably break your game
-FROM ghcr.io/wanjohiryan/warp/x264:0
+#Import base image from warp
+# Latest stable major version is 0 but nvenc is at nightly for now
+# 
+FROM ghcr.io/wanjohiryan/warp/nvenc:nightly
 
 #
 #Probably unsafe but we will use the root user from here
