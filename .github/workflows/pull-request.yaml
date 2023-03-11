@@ -23,4 +23,20 @@ jobs:
             file: docker/nvidia/Dockerfile
             push: false
             load: true
-            tags: warp:latest
+            tags: qwantify:nvidia
+        - 
+          name: Run Docker Container
+          #error code 124 is timeout error
+          run: |
+            set -o pipefail
+            output=$(timeout 20s docker run qwantify:nvidia 2>&1) || exitcode=$?
+
+            if [[ $exitcode != 0 && $exitcode != 124 ]]; then
+              echo "$output"
+              exit $exitcode
+            else 
+              echo "$output"
+             echo -e "\033[01;34mDocker run successful\033[0m"
+              exit 0
+            fi
+          shell: bash
