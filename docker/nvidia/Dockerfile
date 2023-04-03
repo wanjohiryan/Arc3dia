@@ -6,6 +6,6 @@ RUN go build -o arcadia
 
 FROM docker:latest
 
-COPY --from=builder /app/arcadia /usr/local/bin/
+COPY --from=builder /app/arcadia /usr/local/bin/arcadia
 
-CMD ["arcadia"]
+CMD ["/usr/local/bin/arcadia"]
