@@ -1,5 +1,5 @@
 <h3 align="center">
-  <img height=120 width=700 src="./imgs/logo name gradient.png" alt= "Arc3dia  light logo">
+  <img height=120 width=450 src="./imgs/logo name gradient.png" alt= "Arc3dia  light logo">
 </h3>
 <p align="center">
   <p align="center">Game with Friends, Anywhere, Anytime; instantly from your browser</p>
