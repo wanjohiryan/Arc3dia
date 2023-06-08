@@ -1,59 +1,47 @@
-#! Some code was copied or inspired by https://github.com/selkies-project/docker-nvidia-glx-desktop
+#! Some code was copied or inspired by https://github.com/ehfd/nvidia-dind/blob/main/Dockerfile
 # Which is licensed under  MPL-2.0 license
 # Thanks ehfd :)
+ARG UBUNTU_RELEASE=22.04
+FROM ubuntu:${UBUNTU_RELEASE}
 
 #
-#Import base image from warp
-# Latest stable major version is 0 but nvenc is at nightly for now
-# Comes with vulkan and egl installed
-#
-FROM ghcr.io/wanjohiryan/warp/nvenc:latest
+#Install essential libraries
+RUN apt-get update && apt-get install -y \
+        apt-utils ca-certificates openssh-client vim\
+        curl iptables git gnupg; \
+        #
+        #clean
+        rm -rf /var/lib/apt/list/*
 
 #
-#Use the root user from here
-#
-USER root
-
-
-#
-# Install wine >= 7.2 for vk3d capabilities // probably not that stable :)
-ARG WINE_BRANCH="staging"
-RUN wget -nv -O- https://dl.winehq.org/wine-builds/winehq.key | APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1 apt-key add - \
-    && apt-add-repository "deb https://dl.winehq.org/wine-builds/ubuntu/ $(grep VERSION_CODENAME= /etc/os-release | cut -d= -f2) main" \
-    && dpkg --add-architecture i386 \
-    && apt-get update \
-    && DEBIAN_FRONTEND="noninteractive" apt-get install -y --install-recommends winehq-${WINE_BRANCH} \
-    && rm -rf /var/lib/apt/lists/*
+# NVIDIA Container Toolkit & Docker
+RUN distribution=$(. /etc/os-release;echo $ID$VERSION_ID); \
+    curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | apt-key add - ; \
+    curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | tee /etc/apt/sources.list.d/nvidia-docker.list; \
+    apt-get update && apt-get install -y nvidia-docker2 docker.io docker-compose; \
+    #
+    #clean
+    rm -rf /var/lib/apt/list/*
 
 #
-# Install winetricks
-RUN wget -nv -O /usr/bin/winetricks https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks \
-    && chmod +x /usr/bin/winetricks
+#volume for mounting 
+#1.preinstalled game #2. config file #3. game data for persisting games
+VOLUME [ "/game", "/arc3dia", "/data" ]
 
 #
-# Download gecko and mono installers
-COPY docker/nvidia/download_gecko_and_mono.sh /root/download_gecko_and_mono.sh
-RUN chmod +x /root/download_gecko_and_mono.sh \
-    && /root/download_gecko_and_mono.sh "$(dpkg -s wine-${WINE_BRANCH} | grep "^Version:\s" | awk '{print $2}' | sed -E 's/~.*$//')"
+#Copy files
+COPY docker/nvidia/modprobe docker/nvidia/entrypoint.sh /usr/local/bin/
+COPY docker/nvidia/logger.sh /opt/bash-utils/logger.sh
 
 #
-#install dx11 and dx9
-#! Use dxvk instead, winetricks adds >600mb  
-# RUN winetricks -q d3dx9  d3dx11
+#Add execution permissions
+RUN chmod +x /usr/local/bin/entrypoint.sh /usr/local/bin/modprobe
 
 #
-# Silence all fixme warnings from wine
-ENV WINEDEBUG fixme-all
+#Install tini https://github.com/krallin/tini
+ARG TINI_VERSION=v0.19.0
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/bin/tini
+RUN chmod +x /usr/bin/tini
+ENTRYPOINT [ "/usr/bin/tini","--", "/usr/local/bin/entrypoint.sh" ]
 
-#
-#volume for mounting games
-VOLUME [ "/games" ]
-
-#
-#Copy entrypoint and movr it to where warp can see
-COPY docker/nvidia/qwantify.sh /etc/warp/entrypoint.d/qwantify.sh
-RUN chmod +x /etc/warp/entrypoint.d/qwantify.sh
-
-#
-#return back to our designated user
-USER ${USERNAME}
+CMD ["sh"]
