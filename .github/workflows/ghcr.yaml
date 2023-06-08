@@ -10,7 +10,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: wanjohiryan/qwantify
+  IMAGE_NAME: wanjohiryan/arc3dia
   BASE_TAG_PREFIX: nvidia
 
 jobs:
@@ -21,7 +21,6 @@ jobs:
       packages: write
     #
     # do not run on forks
-    #
     if: github.repository_owner == 'wanjohiryan'
     steps:
       - name: Checkout
@@ -32,13 +31,14 @@ jobs:
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
-          password: ${{ secrets.GIT_TOKEN }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Extract Container metadata
         id: meta
         uses: docker/metadata-action@v4
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/${{ env.BASE_TAG_PREFIX }}
+          #
           #tag on release, and a nightly build for 'dev'
           tags: |
             type=raw,value=nightly,enable={{is_default_branch}}
