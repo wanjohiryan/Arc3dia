@@ -4,6 +4,8 @@
 ARG UBUNTU_RELEASE=22.04
 FROM ubuntu:${UBUNTU_RELEASE}
 
+ARG DEBIAN_FRONTEND=noninteractive
+
 #
 #Install essential libraries
 RUN apt-get update && apt-get install -y \
@@ -23,10 +25,23 @@ RUN distribution=$(. /etc/os-release;echo $ID$VERSION_ID); \
     #clean
     rm -rf /var/lib/apt/list/*
 
+ARG USERNAME=arc3dia
+ARG USER_UID=100
+ARG USER_GID=${USER_UID}
+
 #
-#volume for mounting 
-#1.preinstalled game #2. config file #3. game data for persisting games
-VOLUME [ "/game", "/arc3dia", "/data" ]
+#Install SteamCMD
+RUN  dpkg --add-architecture i386 && apt-get update; \
+        apt-get install -y --no-install-recommends wget lib32gcc1;\
+        #
+        #Add non-root user
+        groupadd --gid ${USER_GID} ${USERNAME}; \
+        useradd --uid ${USER_UID} --gid ${USERNAME} --shell /bin/bash --create-home ${USERNAME};\
+        usermod -a -G adm,audio,input,pulse-access,sudo,tape,tty,video ${USERNAME} ;\
+        echo "${USERNAME} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers; \
+        #
+        #Make sure the home directory is owned by user
+        chown -R $USERNAME:$USERNAME /home/${USERNAME}
 
 #
 #Copy files
@@ -43,5 +58,20 @@ ARG TINI_VERSION=v0.19.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/bin/tini
 RUN chmod +x /usr/bin/tini
 ENTRYPOINT [ "/usr/bin/tini","--", "/usr/local/bin/entrypoint.sh" ]
+
+#
+#Add env variables
+ENV USER ${USERNAME}
+ENV SHELL /bin/bash
+
+#
+#volume for mounting 
+#1.preinstalled game #2. config file #3. game data for persisting games
+VOLUME [ "/game", "/arc3dia", "/data" ]
+
+#
+#Run the bash shell as a non-root user
+USER ${USERNAME}
+WORKDIR /home/${USERNAME}
 
 CMD ["sh"]
