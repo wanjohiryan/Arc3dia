@@ -26,18 +26,18 @@ RUN distribution=$(. /etc/os-release;echo $ID$VERSION_ID); \
     rm -rf /var/lib/apt/list/*
 
 ARG USERNAME=arc3dia
-ARG USER_UID=100
+ARG USER_UID=1000
 ARG USER_GID=${USER_UID}
 
 #
 #Install SteamCMD
 RUN  dpkg --add-architecture i386 && apt-get update; \
-        apt-get install -y --no-install-recommends wget lib32gcc1;\
+        apt-get install -y --no-install-recommends wget lib32gcc1 sudo;\
         #
         #Add non-root user
         groupadd --gid ${USER_GID} ${USERNAME}; \
         useradd --uid ${USER_UID} --gid ${USERNAME} --shell /bin/bash --create-home ${USERNAME};\
-        usermod -a -G adm,audio,input,pulse-access,sudo,tape,tty,video ${USERNAME} ;\
+        usermod -a -G sudo ${USERNAME} ;\
         echo "${USERNAME} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers; \
         #
         #Make sure the home directory is owned by user
