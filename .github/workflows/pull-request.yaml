@@ -23,7 +23,7 @@ jobs:
             file: docker/nvidia/Dockerfile
             push: false
             load: true
-            tags: qwantify:nvidia
+            tags: arc3dia:nvidia
         - 
           name: Run Docker Container
           #error code 124 is timeout error
