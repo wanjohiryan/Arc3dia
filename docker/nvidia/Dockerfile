@@ -17,14 +17,13 @@ RUN apt-get update && dpkg --add-architecture i386 && apt-get install -y \
         apt-utils ca-certificates openssh-client vim wget \
         curl iptables git gnupg sudo locales\
         #SteamCMD
-        steamcmd ;\
+        steamcmd; \
         #
         #clean
-        rm -rf /var/lib/apt/list/*
-
-#
-# Update SteamCMD and verify latest version
-RUN steamcmd +quit
+        rm -rf /var/lib/apt/list/*;\
+        #
+        # Update SteamCMD and verify latest version
+        locale-gen en_US.UTF-8 && steamcmd +quit
 
 #
 # NVIDIA Container Toolkit & Docker
@@ -70,7 +69,6 @@ ENTRYPOINT [ "/usr/bin/tini","--", "/usr/local/bin/entrypoint.sh" ]
 #Add env variables
 ENV USER ${USERNAME}
 ENV SHELL /bin/bash
-RUN locale-gen en_US.UTF-8
 ENV LANG 'en_US.UTF-8'
 ENV LANGUAGE 'en_US:en'
 #
