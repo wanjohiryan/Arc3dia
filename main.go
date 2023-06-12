@@ -11,6 +11,8 @@ import (
 	"sync"
 )
 
+//TODO: support Steam Guard
+
 func main() {
 	// Get the Steam login credentials from the user
 	reader := bufio.NewReader(os.Stdin)

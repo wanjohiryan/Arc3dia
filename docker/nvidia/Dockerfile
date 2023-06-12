@@ -6,14 +6,25 @@ FROM ubuntu:${UBUNTU_RELEASE}
 
 ARG DEBIAN_FRONTEND=noninteractive
 
+#Accept Steam Terms automatically
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+RUN echo steam steam/question select "I AGREE" | debconf-set-selections \
+ && echo steam steam/license note '' | debconf-set-selections
+
 #
 #Install essential libraries
-RUN apt-get update && apt-get install -y \
-        apt-utils ca-certificates openssh-client vim\
-        curl iptables git gnupg; \
+RUN apt-get update && dpkg --add-architecture i386 && apt-get install -y \
+        apt-utils ca-certificates openssh-client vim wget \
+        curl iptables git gnupg sudo locales\
+        #SteamCMD
+        steamcmd ;\
         #
         #clean
         rm -rf /var/lib/apt/list/*
+
+#
+# Update SteamCMD and verify latest version
+RUN steamcmd +quit
 
 #
 # NVIDIA Container Toolkit & Docker
@@ -30,12 +41,8 @@ ARG USER_UID=1000
 ARG USER_GID=${USER_UID}
 
 #
-#Install SteamCMD
-RUN  dpkg --add-architecture i386 && apt-get update; \
-        apt-get install -y --no-install-recommends wget lib32gcc1 sudo;\
-        #
-        #Add non-root user
-        groupadd --gid ${USER_GID} ${USERNAME}; \
+# Add non-root user
+RUN groupadd --gid ${USER_GID} ${USERNAME}; \
         useradd --uid ${USER_UID} --gid ${USERNAME} --shell /bin/bash --create-home ${USERNAME};\
         usermod -a -G sudo ${USERNAME} ;\
         echo "${USERNAME} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers; \
@@ -63,7 +70,9 @@ ENTRYPOINT [ "/usr/bin/tini","--", "/usr/local/bin/entrypoint.sh" ]
 #Add env variables
 ENV USER ${USERNAME}
 ENV SHELL /bin/bash
-
+RUN locale-gen en_US.UTF-8
+ENV LANG 'en_US.UTF-8'
+ENV LANGUAGE 'en_US:en'
 #
 #volume for mounting 
 #1.preinstalled game #2. config file #3. game data for persisting games
