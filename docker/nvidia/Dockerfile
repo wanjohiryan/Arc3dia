@@ -13,17 +13,20 @@ RUN echo steam steam/question select "I AGREE" | debconf-set-selections \
 
 #
 #Install essential libraries
-RUN dpkg --add-architecture i386 && apt-get update && apt-get install -y \
+RUN dpkg --add-architecture i386 && apt-get update -y && apt-get install -y --no-install-recommends \
         apt-utils ca-certificates openssh-client vim wget \
         curl iptables git gnupg sudo locales\
         #SteamCMD
         steamcmd; \
         #
         #clean
-        rm -rf /var/lib/apt/list/*;\
-        #
-        # Update SteamCMD and verify latest version
-        locale-gen en_US.UTF-8 && steamcmd +quit
+        rm -rf /var/lib/apt/list/*
+
+#
+# Update SteamCMD and verify latest version
+RUN locale-gen en_US.UTF-8;\ 
+        ln -s /usr/games/steamcmd /usr/bin/steamcmd;\
+        steamcmd +quit
 
 #
 # NVIDIA Container Toolkit & Docker
