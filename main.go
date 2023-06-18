@@ -26,7 +26,7 @@ func run(ctx context.Context) (err error) {
 	logDir := flag.String("log-dir", "", "logs will be written to the provided directory")
 
 	dash := flag.String("dash", "./media/playlist.mpd", "DASH playlist path")
-	game := flag.String("game", "", "path to game executable")
+	// game := flag.String("game", "", "path to game executable")
 
 	flag.Parse()
 
@@ -45,7 +45,7 @@ func run(ctx context.Context) (err error) {
 		Cert:   &tlsCert,
 		LogDir: *logDir,
 		Media:  media,
-		Game:   *game,
+		// Game:   *game,
 	}
 
 	warpServer, err := server.New(warpConfig)

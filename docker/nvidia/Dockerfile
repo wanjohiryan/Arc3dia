@@ -56,7 +56,7 @@ RUN groupadd --gid ${USER_GID} ${USERNAME}; \
 #Copy files
 COPY docker/nvidia/modprobe docker/nvidia/entrypoint.sh /usr/local/bin/
 COPY docker/nvidia/logger.sh /opt/bash-utils/logger.sh
-
+COPY ./arc3dia /usr/local/bin/
 #
 #Add execution permissions
 RUN chmod +x /usr/local/bin/entrypoint.sh /usr/local/bin/modprobe
@@ -77,7 +77,8 @@ ENV LANGUAGE 'en_US:en'
 #
 #volume for mounting 
 #1.preinstalled game #2. config file #3. game data for persisting games
-VOLUME [ "/game", "/arc3dia", "/data" ]
+#directories /certs and /media are for testing only
+VOLUME [ "/game", "/arc3dia", "/data", "/certs", "/media" ]
 
 #
 #Run the bash shell as a non-root user

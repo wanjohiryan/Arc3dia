@@ -17,11 +17,14 @@ function wait_for_process () {
     return 0
 }
 
-INFO "Starting supervisor"
-/usr/bin/dockerd -d >> /dev/null 2>&1 &
+INFO "Starting dockerd"
+sudo /usr/bin/dockerd -d >> /dev/null 2>&1 &
+
+INFO "Starting arc3dia server" #FIXME: this is for testing purposes only
+/usr/local/bin/arc3dia -cert /certs/cert.crt -key /certs/private.key -dash /media/playlist.mpd >> /dev/null 2>&1 &
 
 INFO "Waiting for processes to be running"
-processes=(dockerd)
+processes=(dockerd arc3dia)
 
 for process in "${processes[@]}"; do
     wait_for_process "$process"
