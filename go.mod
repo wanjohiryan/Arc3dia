@@ -1,4 +1,4 @@
-module github.com/wanjohiryan/Arc3dia
+module github.com/wanjohiryan/arc3dia
 
 go 1.19
 
