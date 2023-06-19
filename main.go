@@ -8,8 +8,8 @@ import (
 	"log"
 
 	"github.com/kixelated/invoker"
-	"github.com/wanjohiryan/arc3dia/internal/server"
-	"github.com/wanjohiryan/arc3dia/internal/warp"
+	"github.com/wanjohiryan/warp/internal/server"
+	"github.com/wanjohiryan/warp/internal/warp"
 )
 
 func main() {

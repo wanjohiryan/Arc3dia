@@ -1,4 +1,4 @@
-module github.com/wanjohiryan/arc3dia
+module github.com/wanjohiryan/warp
 
 go 1.19
 
