@@ -8,8 +8,8 @@ dmitri.shuralyov.com/service/change v0.0.0-20181023043359-a85b471d5412/go.mod h1
 dmitri.shuralyov.com/state v0.0.0-20180228185332-28bcc343414c/go.mod h1:0PRwlb0D6DFvNNtx+9ybjezNCa8XF0xaYcETyp6rHWU=
 git.apache.org/thrift.git v0.0.0-20180902110319-2566ecd5d999/go.mod h1:fPE2ZNJGynbRyZ4dJvy6G277gSllfV2HJqblrnkyeyg=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
-github.com/abema/go-mp4 v0.10.1 h1:wOhZgNxjduc8r4FJdwPa5x/gdBSSX+8MTnfNj/xkJaE=
-github.com/abema/go-mp4 v0.10.1/go.mod h1:vPl9t5ZK7K0x68jh12/+ECWBCXoWuIDtNgPtU2f04ws=
+github.com/abema/go-mp4 v0.7.2 h1:ugTC8gfEmjyaDKpXs3vi2QzgJbDu9B8m6UMMIpbYbGg=
+github.com/abema/go-mp4 v0.7.2/go.mod h1:vPl9t5ZK7K0x68jh12/+ECWBCXoWuIDtNgPtU2f04ws=
 github.com/anmitsu/go-shlex v0.0.0-20161002113705-648efa622239/go.mod h1:2FmKhYUyUczH0OGQWaF5ceTx0UBShxjsH6f8oGKYe2c=
 github.com/beorn7/perks v0.0.0-20180321164747-3a771d992973/go.mod h1:Dwedo/Wpr24TaqPxmxbtue+5NUziq4I4S80YR8gNf3Q=
 github.com/bradfitz/go-smtpd v0.0.0-20170404230938-deb6d6237625/go.mod h1:HYsPBTaaSFSlLx/70C2HPIMNZpVV8+vt/A+FMnYP11g=
@@ -66,8 +66,8 @@ github.com/json-iterator/go v1.1.6/go.mod h1:+SdeFBvtyEkXs7REEP0seUULqWtbJapLOCV
 github.com/jstemmer/go-junit-report v0.0.0-20190106144839-af01ea7f8024/go.mod h1:6v2b51hI/fHJwM22ozAgKL4VKDeJcHhJFhtBdhmNjmU=
 github.com/kisielk/errcheck v1.4.0/go.mod h1:pFxgyoBC7bSaBwPgfKdkLd5X25qrDl4LWUI2bnpBCr8=
 github.com/kisielk/gotool v1.0.0/go.mod h1:XhKaO+MFFWcvkIS/tQcRk01m1F5IRFswLeQ+oQHNcck=
-github.com/kixelated/invoker v1.0.2 h1:bEGHp58sU5tl1FoO2mlAmciyoKdIG3P0fZzG6dT7kAg=
-github.com/kixelated/invoker v1.0.2/go.mod h1:RjG3iqm/sKwZjOpcW4SGq+l+4DJCDR/yUtc70VjCRB8=
+github.com/kixelated/invoker v1.0.0 h1:0wYlvK39yQPbkwIFy+YN41AhF89WOtGyWqV2pZB39xw=
+github.com/kixelated/invoker v1.0.0/go.mod h1:RjG3iqm/sKwZjOpcW4SGq+l+4DJCDR/yUtc70VjCRB8=
 github.com/kixelated/quic-go v1.31.0 h1:p2vq3Otvtmz+0EP23vjumnO/HU4Q/DFxNF6xNryVfmA=
 github.com/kixelated/quic-go v1.31.0/go.mod h1:AO7pURnb8HXHmdalp5e09UxQfsuwseEhl0NLmwiSOFY=
 github.com/kixelated/webtransport-go v1.4.1 h1:ZtY3P7hVe1wK5fAt71b+HHnNISFDcQ913v+bvaNATxA=
@@ -143,8 +143,8 @@ github.com/viant/assertly v0.4.8/go.mod h1:aGifi++jvCrUaklKEKT0BU95igDNaqkvz+49u
 github.com/viant/toolbox v0.24.0/go.mod h1:OxMCG57V0PXuIP2HNQrtJf2CjqdmbrOx5EkMILuUhzM=
 github.com/yuin/goldmark v1.1.27/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
 github.com/yuin/goldmark v1.3.5/go.mod h1:mwnBkeHKe2W/ZEtQ+71ViKU8L12m81fl3OWwC1Zlc8k=
-github.com/zencoder/go-dash/v3 v3.0.3 h1:xqwGJ2fJCSArwONGx6sY26Z1lxQ7zTURoxdRjCpuodM=
-github.com/zencoder/go-dash/v3 v3.0.3/go.mod h1:30R5bKy1aUYY45yesjtZ9l8trNc2TwNqbS17WVQmCzk=
+github.com/zencoder/go-dash/v3 v3.0.2 h1:oP1+dOh+Gp57PkvdCyMfbHtrHaxfl3w4kR3KBBbuqQE=
+github.com/zencoder/go-dash/v3 v3.0.2/go.mod h1:30R5bKy1aUYY45yesjtZ9l8trNc2TwNqbS17WVQmCzk=
 go.opencensus.io v0.18.0/go.mod h1:vKdFvxhtzZ9onBp9VKHK8z/sRpBMnKAsufL7wlDrCOA=
 go4.org v0.0.0-20180809161055-417644f6feb5/go.mod h1:MkTOUMDaeVYJUOUsaDXIhWPZYa1yOyC1qaOBpL57BhE=
 golang.org/x/build v0.0.0-20190111050920-041ab4dc3f9d/go.mod h1:OWs+y06UdEOHN4y+MfF/py+xQ/tYqIWW03b70/CG9Rw=
