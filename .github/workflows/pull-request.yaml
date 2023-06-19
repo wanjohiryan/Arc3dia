@@ -17,8 +17,11 @@ jobs:
         with:
           go-version: 1.18
       - 
+        name: Download dependencies
+        run: go get -v -t -d .
+      - 
         name: Build binary
-        run: go build -v ./
+        run: go build -o arc3dia ./main.go
       -
        name: Upload artifact
        uses: actions/upload-artifact@v3
