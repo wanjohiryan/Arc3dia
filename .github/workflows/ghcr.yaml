@@ -27,13 +27,13 @@ jobs:
           go-version: 1.18
       - 
         name: Build binary
-        run: go build -o arc3dia -v ./
+        run: go build -v ./
       -
        name: Upload artifact
        uses: actions/upload-artifact@v3
        with:
          name: gobinary
-         path: ./arc3dia
+         path: ./Arc3dia
          retention-days: 5
 
   build-and-push-git-pkg:
