@@ -27,7 +27,7 @@ jobs:
        uses: actions/upload-artifact@v3
        with:
          name: gobinary
-         path: ./Arc3dia
+         path: ./arc3dia
          retention-days: 5
 
   build-docker-nvidia:
