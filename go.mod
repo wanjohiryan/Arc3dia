@@ -1,6 +1,6 @@
 module github.com/wanjohiryan/warp
 
-go 1.19
+go 1.18
 
 require (
 	github.com/abema/go-mp4 v0.7.2
