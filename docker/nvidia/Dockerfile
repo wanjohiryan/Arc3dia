@@ -50,11 +50,11 @@ RUN wget -nv -O /usr/bin/winetricks https://raw.githubusercontent.com/Winetricks
     && chmod +x /usr/bin/winetricks
 
 #
-#Install ffmpeg6
+#Install ffmpeg5
 RUN apt update -y; \ 
     apt upgrade -y; \
     add-apt-repository ppa:savoury1/ffmpeg4 -y; \
-    add-apt-repository ppa:savoury1/ffmpeg6 -y; \
+    add-apt-repository ppa:savoury1/ffmpeg5 -y; \
     apt update -y; \
     apt upgrade -y; \
     apt install --no-install-recommends --assume-yes ffmpeg; \
