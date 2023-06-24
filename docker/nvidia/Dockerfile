@@ -14,7 +14,7 @@ RUN echo steam steam/question select "I AGREE" | debconf-set-selections \
 #
 #Install essential libraries
 RUN dpkg --add-architecture i386 && apt-get update -y && apt-get install -y --no-install-recommends \
-        apt-utils ca-certificates openssh-client vim wget \
+        apt-utils ca-certificates openssh-client vim wget software-properties-common\
         curl iptables git gnupg sudo locales\
         #SteamCMD
         steamcmd; \
