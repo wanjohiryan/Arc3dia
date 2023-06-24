@@ -5,7 +5,7 @@ function INFO(){
     local function_name="${FUNCNAME[1]}"
     local msg="$1"
     timeAndDate=`date`
-    echo "\033[01;34m[$timeAndDate] [INFO] [${0}] $msg\033[0m"
+    echo "[$timeAndDate] [INFO] [${0}] $msg"
 }
 
 function DEBUG(){
