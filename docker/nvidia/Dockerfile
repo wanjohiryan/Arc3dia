@@ -57,7 +57,7 @@ RUN apt update -y; \
     add-apt-repository ppa:savoury1/ffmpeg5 -y; \
     apt update -y; \
     apt upgrade -y; \
-    apt install --no-install-recommends --assume-yes ffmpeg; \
+    apt install --assume-yes ffmpeg; \
     #check the installed version
     ffmpeg -version; \
     #
