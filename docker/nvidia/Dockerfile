@@ -29,6 +29,27 @@ RUN locale-gen en_US.UTF-8;\
         steamcmd +quit
 
 #
+#Install wine
+ARG WINE_BRANCH="staging"
+RUN wget -nv -O- https://dl.winehq.org/wine-builds/winehq.key | APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1 apt-key add - \
+    && apt-add-repository "deb https://dl.winehq.org/wine-builds/ubuntu/ $(grep VERSION_CODENAME= /etc/os-release | cut -d= -f2) main" \
+    && dpkg --add-architecture i386 \
+    && apt-get update \
+    && DEBIAN_FRONTEND="noninteractive" apt-get install -y --install-recommends winehq-${WINE_BRANCH} \
+    && rm -rf /var/lib/apt/lists/*
+
+#
+#Install gecko and mono installers
+COPY docker/nvidia/download_gecko_and_mono.sh /root/download_gecko_and_mono.sh
+RUN chmod +x /root/download_gecko_and_mono.sh \
+    && /root/download_gecko_and_mono.sh "$(dpkg -s wine-${WINE_BRANCH} | grep "^Version:\s" | awk '{print $2}' | sed -E 's/~.*$//')"
+
+#
+# Install winetricks
+RUN wget -nv -O /usr/bin/winetricks https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks \
+    && chmod +x /usr/bin/winetricks
+
+#
 # NVIDIA Container Toolkit & Docker
 RUN distribution=$(. /etc/os-release;echo $ID$VERSION_ID); \
     curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | apt-key add - ; \
