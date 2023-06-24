@@ -21,10 +21,11 @@ INFO "Starting dockerd"
 sudo /usr/bin/dockerd -d >> /dev/null 2>&1 &
 
 INFO "Starting arc3dia server" #FIXME: this is for testing purposes only #-cert /certs/cert.crt -key /certs/private.key -dash /media/playlist.mpd
-/usr/local/bin/arc3dia >> /dev/null 2>&1 &
+/usr/local/bin/arc3dia -key /certs/key.pem -cert /certs/cert.pem >> /dev/null 2>&1 &
+wait 5
 
 INFO "Waiting for processes to be running"
-processes=(dockerd arc3dia)
+processes=(dockerd)
 
 for process in "${processes[@]}"; do
     wait_for_process "$process"
