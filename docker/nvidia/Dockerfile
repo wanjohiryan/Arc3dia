@@ -75,19 +75,19 @@ RUN groupadd --gid ${USER_GID} ${USERNAME}; \
 
 #
 #Copy files
-COPY docker/nvidia/modprobe docker/nvidia/entrypoint.sh /usr/local/bin/
+COPY docker/nvidia/modprobe docker/nvidia/entrypoint.sh docker/nvidia/dockerd.sh /usr/local/bin/
 COPY docker/nvidia/logger.sh /opt/bash-utils/logger.sh
 COPY ./arc3dia /usr/local/bin/
 #
 #Add execution permissions
-RUN chmod +x /usr/local/bin/entrypoint.sh /usr/local/bin/modprobe
+RUN chmod +x /usr/local/bin/entrypoint.sh /usr/local/bin/dockerd.sh /usr/local/bin/modprobe /usr/local/bin/arc3dia
 
 #
 #Install tini https://github.com/krallin/tini
 ARG TINI_VERSION=v0.19.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/bin/tini
 RUN chmod +x /usr/bin/tini
-ENTRYPOINT [ "/usr/bin/tini","--", "/usr/local/bin/entrypoint.sh" ]
+ENTRYPOINT [ "/usr/bin/tini","--", "/usr/local/bin/dockerd.sh" ]
 
 #
 #Add env variables
@@ -106,4 +106,4 @@ VOLUME [ "/game", "/arc3dia", "/data", "/certs", "/media" ]
 USER ${USERNAME}
 WORKDIR /home/${USERNAME}
 
-CMD ["sh"]
+CMD ["/usr/local/bin/entrypoint.sh"]
