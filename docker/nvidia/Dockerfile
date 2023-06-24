@@ -1,6 +1,8 @@
 #! Some code was copied or inspired by https://github.com/ehfd/nvidia-dind/blob/main/Dockerfile
 # Which is licensed under  MPL-2.0 license
 # Thanks ehfd :)
+FROM ghcr.io/jrottenberg/ffmpeg/5.0.1-ubuntu2004:latest as ffmpeg
+
 ARG UBUNTU_RELEASE=22.04
 FROM ubuntu:${UBUNTU_RELEASE}
 
@@ -51,15 +53,10 @@ RUN wget -nv -O /usr/bin/winetricks https://raw.githubusercontent.com/Winetricks
 
 #
 #Install ffmpeg5
-RUN apt update -y; \ 
-    apt upgrade -y; \
-    apt install -y ffmpeg; \
-    #check the installed version
-    ffmpeg -version; \
-    #
-    #clean up
-    #
-    rm -rf /var/lib/apt/lists/* /var/cache/apt/*
+COPY  --from=ffmpeg /usr/local /usr/local/
+
+#check the installed version
+RUN ffmpeg -version;
 
 #
 # NVIDIA Container Toolkit & Docker
