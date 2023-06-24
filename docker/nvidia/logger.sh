@@ -5,19 +5,19 @@ function INFO(){
     local function_name="${FUNCNAME[1]}"
     local msg="$1"
     timeAndDate=`date`
-    echo "[$timeAndDate] [INFO] [${0}] $msg"
+    echo "\033[01;34m[$timeAndDate] [INFO] [${0}] $msg\033[0m"
 }
 
 function DEBUG(){
     local function_name="${FUNCNAME[1]}"
     local msg="$1"
     timeAndDate=`date`
-    echo "[$timeAndDate] [DEBUG] [${0}] $msg"
+    echo "\033[01;33m[$timeAndDate] [DEBUG] [${0}] $msg\033[0m"
 }
 
 function ERROR(){
     local function_name="${FUNCNAME[1]}"
     local msg="$1"
     timeAndDate=`date`
-    echo "[$timeAndDate] [ERROR]  $msg"
+    echo "\033[01;31m[$timeAndDate] [ERROR] $msg033[0m"
 }
