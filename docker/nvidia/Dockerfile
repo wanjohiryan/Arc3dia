@@ -2,7 +2,7 @@
 # Which is licensed under  MPL-2.0 license
 # Thanks ehfd :)
 ARG UBUNTU_RELEASE=22.04
-FROM ghcr.io/jrottenberg/ffmpeg/5.0.1-ubuntu2004:latest as ffmpeg
+FROM ghcr.io/linuxserver/ffmpeg:amd64-latest as ffmpeg
 
 FROM ubuntu:${UBUNTU_RELEASE}
 
@@ -53,7 +53,18 @@ RUN wget -nv -O /usr/bin/winetricks https://raw.githubusercontent.com/Winetricks
 
 #
 #Install ffmpeg5
+RUN mkdir -p etc/OpenCL/vendors
 COPY  --from=ffmpeg /usr/local /usr/local/
+COPY  --from=ffmpeg /etc/OpenCL/vendors/nvidia.icd /etc/OpenCL/vendors/
+
+RUN apt-get update; \
+    apt-get install -y \
+    libexpat1 libglib2.0-0 libgomp1 libharfbuzz0b libv4l-0 \
+    libwayland-client0 libx11-6 libx11-xcb1 libxcb1 libxcb-dri3-0 \
+    libxcb-shape0 libxcb-xfixes0 libxext6 libxfixes3 libxml2 ocl-icd-libopencl1; \
+    #
+    #clean up
+    rm -rf /var/lib/apt/lists/* /var/tmp/*
 
 #check the installed version
 RUN ffmpeg -version;
