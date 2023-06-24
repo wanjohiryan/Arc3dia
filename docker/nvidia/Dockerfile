@@ -1,9 +1,9 @@
 #! Some code was copied or inspired by https://github.com/ehfd/nvidia-dind/blob/main/Dockerfile
 # Which is licensed under  MPL-2.0 license
 # Thanks ehfd :)
+ARG UBUNTU_RELEASE=22.04
 FROM ghcr.io/jrottenberg/ffmpeg/5.0.1-ubuntu2004:latest as ffmpeg
 
-ARG UBUNTU_RELEASE=22.04
 FROM ubuntu:${UBUNTU_RELEASE}
 
 ARG DEBIAN_FRONTEND=noninteractive
