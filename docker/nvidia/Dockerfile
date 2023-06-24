@@ -50,6 +50,22 @@ RUN wget -nv -O /usr/bin/winetricks https://raw.githubusercontent.com/Winetricks
     && chmod +x /usr/bin/winetricks
 
 #
+#Install ffmpeg6
+RUN apt update -y; \ 
+    apt upgrade -y; \
+    add-apt-repository ppa:savoury1/ffmpeg4 -y; \
+    add-apt-repository ppa:savoury1/ffmpeg6 -y; \
+    apt update -y; \
+    apt upgrade -y; \
+    apt install --no-install-recommends --assume-yes ffmpeg; \
+    #check the installed version
+    ffmpeg -version; \
+    #
+    #clean up
+    #
+    rm -rf /var/lib/apt/lists/* /var/cache/apt/*
+
+#
 # NVIDIA Container Toolkit & Docker
 RUN distribution=$(. /etc/os-release;echo $ID$VERSION_ID); \
     curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | apt-key add - ; \
