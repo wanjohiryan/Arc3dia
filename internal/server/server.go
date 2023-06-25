@@ -71,7 +71,7 @@ func New(config Config) (s *Server, err error) {
 	// Host a HTTP/3 server to serve the WebTransport endpoint
 	mux := http.NewServeMux()
 
-	mux.HandleFunc("/watch", s.handleWatch)
+	mux.HandleFunc("/", s.handleWatch)
 	//TODO: come back to this and fix it
 	// mux.HandleFunc("/play", s.handlePlay)
 	//TODO: add state share, state snapshot here

@@ -9,6 +9,7 @@ import (
 
 	"github.com/kixelated/invoker"
 	"github.com/wanjohiryan/Arc3dia/internal/server"
+	"github.com/wanjohiryan/Arc3dia/internal/warp"
 )
 
 //FIXME: add media, game and certs
@@ -26,15 +27,15 @@ func run(ctx context.Context) (err error) {
 	key := flag.String("key", "./cert/localhost.key", "TLS certificate file path")
 	logDir := flag.String("log-dir", "", "logs will be written to the provided directory")
 
-	// dash := flag.String("dash", "./media/playlist.mpd", "DASH playlist path")
+	dash := flag.String("dash", "./media/playlist.mpd", "DASH playlist path")
 	// game := flag.String("game", "", "path to game executable")
 
 	flag.Parse()
 
-	// media, err := warp.NewMedia(*dash)
-	// if err != nil {
-	// 	return fmt.Errorf("failed to open media: %w", err)
-	// }
+	media, err := warp.NewMedia(*dash)
+	if err != nil {
+		return fmt.Errorf("failed to open media: %w", err)
+	}
 
 	tlsCert, err := tls.LoadX509KeyPair(*cert, *key)
 	if err != nil {
@@ -45,19 +46,19 @@ func run(ctx context.Context) (err error) {
 		Addr:   *addr,
 		Cert:   &tlsCert,
 		LogDir: *logDir,
-		// Media:  media,
+		Media:  media,
 		// Game:   *game,
 	}
 
 	fmt.Print(warpConfig)
 
-	// warpServer, err := server.New(warpConfig)
-	// if err != nil {
-	// 	return fmt.Errorf("failed to create warp server: %w", err)
-	// }
+	warpServer, err := server.New(warpConfig)
+	if err != nil {
+		return fmt.Errorf("failed to create warp server: %w", err)
+	}
 
 	log.Printf("listening on %s", *addr)
 	//warpServer.Run
 
-	return invoker.Run(ctx, invoker.Interrupt)
+	return invoker.Run(ctx, warpServer.Run, invoker.Interrupt)
 }

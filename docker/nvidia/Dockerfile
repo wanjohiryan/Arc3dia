@@ -74,13 +74,13 @@ RUN groupadd --gid ${USER_GID} ${USERNAME}; \
 
 #
 #Copy files
-COPY docker/nvidia/modprobe docker/nvidia/entrypoint.sh docker/nvidia/dockerd.sh /usr/local/bin/
+COPY docker/nvidia/modprobe docker/nvidia/ffmpeg.sh docker/nvidia/entrypoint.sh docker/nvidia/dockerd.sh /usr/local/bin/
 COPY docker/nvidia/logger.sh /opt/bash-utils/logger.sh
 COPY ./arc3dia /usr/local/bin/
 
 #
 #Add execution permissions
-RUN chmod +x /usr/local/bin/entrypoint.sh /usr/local/bin/dockerd.sh /usr/local/bin/modprobe /usr/local/bin/arc3dia
+RUN chmod +x /usr/local/bin/entrypoint.sh /usr/local/bin/dockerd.sh /usr/local/bin/modprobe /usr/local/bin/arc3dia /usr/local/bin/ffmpeg.sh
 
 #
 #Install tini https://github.com/krallin/tini
