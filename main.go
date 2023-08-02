@@ -20,8 +20,8 @@ func main() {
 
 func run(ctx context.Context) (err error) {
 	addr := flag.String("addr", ":443", "HTTPS server address")
-	cert := flag.String("cert", "./assets/cert/cert.pem", "TLS certificate file path")
-	key := flag.String("key", "./assets/cert/key.pem", "TLS certificate file path")
+	cert := flag.String("cert", "./assets/certs/cert.pem", "TLS certificate file path")
+	key := flag.String("key", "./assets/certs/key.pem", "TLS certificate file path")
 	logDir := flag.String("log-dir", "", "logs will be written to the provided directory")
 
 	dash := flag.String("dash", "./media/playlist.mpd", "DASH playlist path")
