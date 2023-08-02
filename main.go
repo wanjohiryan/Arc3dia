@@ -50,8 +50,6 @@ func run(ctx context.Context) (err error) {
 		// Game:   *game,
 	}
 
-	fmt.Print(warpConfig)
-
 	warpServer, err := server.New(warpConfig)
 	if err != nil {
 		return fmt.Errorf("failed to create warp server: %w", err)

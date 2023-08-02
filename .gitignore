@@ -17,6 +17,10 @@ logs/
 core
 .build
 
+# Test directory
+tests/
+test/
+
 # Runtime data
 pids
 *.pid
