@@ -38,6 +38,7 @@ jobs:
          retention-days: 5
 
   build-and-push-git-pkg:
+    name: Build docker base image
     runs-on: ubuntu-latest
     needs:
       - build-go
