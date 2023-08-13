@@ -1,11 +1,13 @@
 name: Build docker nvidia
 #TODO: find a way to test client and server before running the docker container, seems effective in catching any errors
+#FIXME: find a way to run this base image
 
 on:
   pull_request:
 
 jobs:
   build-go:
+    name: Set up arc3dia executable
     runs-on: ubuntu-latest
     steps: 
       -
@@ -30,8 +32,8 @@ jobs:
          path: ./arc3dia
          retention-days: 5
 
-  build-docker-nvidia:
-      name: Build nvidia Docker image
+  build-docker-base:
+      name: Build base Docker image
       runs-on: ubuntu-latest
       needs:
         - build-go
@@ -53,23 +55,7 @@ jobs:
           uses: docker/build-push-action@v4
           with:
             context: ./
-            file: docker/nvidia/Dockerfile
+            file: docker/base/Dockerfile
             push: false
             load: true
-            tags: arc3dia:nvidia
-        - 
-          name: Run Docker Container
-          #error code 124 is timeout error
-          run: |
-            set -o pipefail
-            output=$(timeout 20s docker run arc3dia:nvidia 2>&1) || exitcode=$?
-
-            if [[ $exitcode != 0 && $exitcode != 124 ]]; then
-              echo "$output"
-              exit $exitcode
-            else 
-              echo "$output"
-             echo -e "\033[01;34mDocker run successful\033[0m"
-              exit 0
-            fi
-          shell: bash
+            tags: arc3dia:base
