@@ -11,10 +11,11 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: wanjohiryan/arc3dia
-  BASE_TAG_PREFIX: nvidia
+  BASE_TAG_PREFIX: base
 
 jobs:
   build-go:
+    name: Build arc3dia go executable
     runs-on: ubuntu-latest
     steps: 
       -
@@ -82,7 +83,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: ./
-          file: docker/nvidia/Dockerfile
+          file: docker/base/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
