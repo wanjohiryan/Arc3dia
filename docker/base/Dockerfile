@@ -4,8 +4,7 @@
 #
 # This will run systemd, sshd and docker;
 #https://github.com/nestybox/dockerfiles/blob/master/ubuntu-jammy-systemd/Dockerfile
-FROM ubuntu:jammy
-
+FROM ghcr.io/wanjohiryan/ffmpeg/v6:nightly
 #
 # Systemd installation
 #
