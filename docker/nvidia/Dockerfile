@@ -1,8 +1,7 @@
 #! Some code was copied or inspired by https://github.com/ehfd/nvidia-dind/blob/main/Dockerfile
 # Which is licensed under  MPL-2.0 license
 # Thanks ehfd :)
-ARG UBUNTU_RELEASE=22.04
-FROM ubuntu:${UBUNTU_RELEASE}
+FROM ghcr.io/wanjohiryan/ffmpeg/v6:nightly
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -14,7 +13,7 @@ RUN echo steam steam/question select "I AGREE" | debconf-set-selections \
 #
 #Install essential libraries
 RUN dpkg --add-architecture i386 && apt-get update -y && apt-get install -y --no-install-recommends \
-        apt-utils ca-certificates openssh-client vim wget \
+        apt-utils ca-certificates openssh-client vim wget software-properties-common\
         curl iptables git gnupg sudo locales\
         #SteamCMD
         steamcmd; \
@@ -27,6 +26,27 @@ RUN dpkg --add-architecture i386 && apt-get update -y && apt-get install -y --no
 RUN locale-gen en_US.UTF-8;\ 
         ln -s /usr/games/steamcmd /usr/bin/steamcmd;\
         steamcmd +quit
+
+#
+#Install wine
+ARG WINE_BRANCH="staging"
+RUN wget -nv -O- https://dl.winehq.org/wine-builds/winehq.key | APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1 apt-key add - \
+    && apt-add-repository "deb https://dl.winehq.org/wine-builds/ubuntu/ $(grep VERSION_CODENAME= /etc/os-release | cut -d= -f2) main" \
+    && dpkg --add-architecture i386 \
+    && apt-get update \
+    && DEBIAN_FRONTEND="noninteractive" apt-get install -y --install-recommends winehq-${WINE_BRANCH} \
+    && rm -rf /var/lib/apt/lists/*
+
+#
+#Install gecko and mono installers
+COPY docker/nvidia/download_gecko_and_mono.sh /root/download_gecko_and_mono.sh
+RUN chmod +x /root/download_gecko_and_mono.sh \
+    && /root/download_gecko_and_mono.sh "$(dpkg -s wine-${WINE_BRANCH} | grep "^Version:\s" | awk '{print $2}' | sed -E 's/~.*$//')"
+
+#
+# Install winetricks
+RUN wget -nv -O /usr/bin/winetricks https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks \
+    && chmod +x /usr/bin/winetricks
 
 #
 # NVIDIA Container Toolkit & Docker
@@ -54,19 +74,20 @@ RUN groupadd --gid ${USER_GID} ${USERNAME}; \
 
 #
 #Copy files
-COPY docker/nvidia/modprobe docker/nvidia/entrypoint.sh /usr/local/bin/
+COPY docker/nvidia/modprobe docker/nvidia/ffmpeg.sh docker/nvidia/entrypoint.sh docker/nvidia/dockerd.sh /usr/local/bin/
 COPY docker/nvidia/logger.sh /opt/bash-utils/logger.sh
+COPY ./arc3dia /usr/local/bin/
 
 #
 #Add execution permissions
-RUN chmod +x /usr/local/bin/entrypoint.sh /usr/local/bin/modprobe
+RUN chmod +x /usr/local/bin/entrypoint.sh /usr/local/bin/dockerd.sh /usr/local/bin/modprobe /usr/local/bin/arc3dia /usr/local/bin/ffmpeg.sh
 
 #
 #Install tini https://github.com/krallin/tini
 ARG TINI_VERSION=v0.19.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/bin/tini
 RUN chmod +x /usr/bin/tini
-ENTRYPOINT [ "/usr/bin/tini","--", "/usr/local/bin/entrypoint.sh" ]
+ENTRYPOINT [ "/usr/bin/tini","--", "/usr/local/bin/dockerd.sh" ]
 
 #
 #Add env variables
@@ -77,11 +98,12 @@ ENV LANGUAGE 'en_US:en'
 #
 #volume for mounting 
 #1.preinstalled game #2. config file #3. game data for persisting games
-VOLUME [ "/game", "/arc3dia", "/data" ]
+#directories /certs and /media are for testing only
+VOLUME [ "/game", "/arc3dia", "/data", "/certs", "/media" ]
 
 #
 #Run the bash shell as a non-root user
 USER ${USERNAME}
 WORKDIR /home/${USERNAME}
 
-CMD ["sh"]
+CMD ["/usr/local/bin/entrypoint.sh"]

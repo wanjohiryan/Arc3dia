@@ -17,6 +17,10 @@ logs/
 core
 .build
 
+# Test directory
+tests/
+test/
+
 # Runtime data
 pids
 *.pid
@@ -34,9 +38,6 @@ package-lock.json
 node_modules
 dist
 bin
-
-#not on this branch
-internal
 
 # Environment files
 *.env
