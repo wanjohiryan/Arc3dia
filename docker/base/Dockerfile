@@ -99,6 +99,24 @@ RUN apt-get update && apt-get install --no-install-recommends -y openssh-server 
 STOPSIGNAL SIGRTMIN+3
 
 #
+#Copy the go server into `/usr/bin/warp`
+#
+COPY arc3dia /usr/bin/warp
+RUN chmod +x /usr/bin/warp
+
+#
+#Copy certs needed by the server
+#
+COPY assets/certs/cert.pem assets/certs/key.pem /certs/
+
+#
+#Copy the systemd.service file for starting the server
+#
+COPY docker/base/server.service /lib/systemd/system/
+RUN ln -sf /lib/systemd/system/server.service \
+       /etc/systemd/system/multi-user.target.wants/server.service
+
+#
 # For ssh, and http3 connections respectively
 #
 EXPOSE 22 443/udp 443 80
