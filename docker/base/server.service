@@ -4,7 +4,7 @@ After=docker.service
 StartLimitIntervalSec=0
 
 [Service]
-ExecStart=/usr/bin/warp
+ExecStart=/usr/bin/warp -dash /media/playlist.mpd -cert /certs/cert.pem -key /certs/key.pem
 Restart=always
 RestartSec=10
 StandardOutput=syslog
