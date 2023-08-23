@@ -1,4 +1,4 @@
-module github.com/kixelated/warp/server
+module github.com/wanjohiryan/arc3dia
 
 go 1.18
 
