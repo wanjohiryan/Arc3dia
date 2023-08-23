@@ -61,6 +61,13 @@ func New(config Config) (s *Server, err error) {
 	// Host a HTTP/3 server to serve the WebTransport endpoint
 	mux := http.NewServeMux()
 	mux.HandleFunc("/watch", s.handleWatch)
+	// Define the /health route handler
+	mux.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
+		// You can perform any necessary health checks here
+		// For now, let's just respond with a simple message
+		w.WriteHeader(http.StatusOK)
+		fmt.Fprintln(w, "Service is healthy")
+	})
 
 	s.inner = &webtransport.Server{
 		H3: http3.Server{
