@@ -1,5 +1,0 @@
-[x] Add SteamCMD and a go script to log in and install programmatically
-[] Add warp frontend
-[] Add support for .yaml config files
-[] Add Keyboard/Mouse using uinput
-[] Add child containers for games
