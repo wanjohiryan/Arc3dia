@@ -30,10 +30,9 @@ Arc3dia is a plug-and-play Docker image that allows users to games, the SteamOS,
 
 <div align="center" >
 
-  ![Arc3dia Gameplay](/imgs/play.gif)
+  ![Arc3dia Gameplay](/imgs/play.webp)
 
 </div>
-
 
 ## Installation
 
