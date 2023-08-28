@@ -40,7 +40,7 @@ Arc3dia is a plug-and-play Docker image that allows users to games, the SteamOS,
 Detailed installation instructions are coming soon. Stay tuned!
 
 > [!NOTE]  
-> The development process has taken longer than anticipated however we are expecting to launch the alpha version by late September. So stay tuned
+> The development process has taken longer than anticipated, however we are expecting to launch the alpha version by late September. So stay tuned
 
 ## Features
 
