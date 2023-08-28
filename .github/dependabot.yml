@@ -1,19 +1,26 @@
 version: 2
 updates:
   - package-ecosystem: docker
-    directory: '/docker/nvidia'
+    directory: '/docker/base'
     schedule:
       interval: daily
     open-pull-requests-limit: 10
     labels:
       - 'type: dependencies'
-  - package-ecosystem: "gitsubmodule"
-    directory: "/"
+  - package-ecosystem: docker
+    directory: '/docker/ffmpeg'
     schedule:
-      interval: "daily"
+      interval: daily
+    open-pull-requests-limit: 10
     labels:
       - 'type: dependencies'
   - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'daily'
+    labels:
+      - 'type: dependencies'
+  - package-ecosystem: 'gomod'
     directory: '/'
     schedule:
       interval: 'daily'
