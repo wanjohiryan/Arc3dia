@@ -1,5 +1,5 @@
 package main
-
+//FIXME: Remove this
 import (
 	"bufio"
 	"fmt"

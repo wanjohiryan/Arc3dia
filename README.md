@@ -7,8 +7,7 @@
   <p align="center">Game with Friends, Anywhere, Anytime; instantly from your browser</p>
 </p>
 <h4 align="center">
-  <a href="https://arc3dia.com/">Website</a>|
-  <a href="https://discord.com/invite/Y6etn3qKZ3">Discord</a>
+  <a href="https://arc3dia.com/">Website</a> | <a href="https://discord.com/invite/Y6etn3qKZ3">Discord</a>
 </h4>
 
 <h4 align="center">
@@ -26,13 +25,13 @@
   </a>
 </h4>
 
-Arc3dia is a plug-and-play Docker image that allows users to games, the SteamOS, and stream them to any web browser regardless of their location. It provides an accessible way to enjoy your favorite games with friends remotely.  
-
 <div align="center" >
 
   ![Arc3dia Gameplay](/imgs/play.webp)
 
 </div>
+
+Arc3dia is a plug-and-play Docker image that allows users to games, the SteamOS, and stream them to any web browser regardless of their location. It provides an accessible way to enjoy your favorite games with friends remotely.  
 
 ## Installation
 
