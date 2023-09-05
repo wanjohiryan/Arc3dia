@@ -31,7 +31,7 @@
 
 </div>
 
-Arc3dia is a plug-and-play Docker image that allows users to games, the SteamOS, and stream them to any web browser regardless of their location. It provides an accessible way to enjoy your favorite games with friends remotely.  
+Arc3dia is a plug-and-play Docker image that allows you to play games and stream them to a remote chromium browser on any device. It provides an accessible way to enjoy your favourite games with friends remotely.
 
 ## Installation
 
