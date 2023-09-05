@@ -4,7 +4,7 @@
 
 </h3>
 <p align="center">
-  <p align="center">Game with Friends, Anywhere, Anytime; instantly from your browser</p>
+  <p align="center">Game with friends from anywhere and at anytime; instantly from your chrome browser.</p>
 </p>
 <h4 align="center">
   <a href="https://arc3dia.com/">Website</a> | <a href="https://discord.com/invite/Y6etn3qKZ3">Discord</a>
