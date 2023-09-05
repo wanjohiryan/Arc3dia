@@ -4,7 +4,7 @@
 
 </h3>
 <p align="center">
-  <p align="center">Game with Friends, Anywhere, Anytime; instantly from your browser</p>
+  <p align="center">Game with friends from anywhere and at anytime; instantly from your chrome browser.</p>
 </p>
 <h4 align="center">
   <a href="https://arc3dia.com/">Website</a> | <a href="https://discord.com/invite/Y6etn3qKZ3">Discord</a>
@@ -31,7 +31,7 @@
 
 </div>
 
-Arc3dia is a plug-and-play Docker image that allows users to games, the SteamOS, and stream them to any web browser regardless of their location. It provides an accessible way to enjoy your favorite games with friends remotely.  
+Arc3dia is a plug-and-play Docker image that allows you to play games and stream them to a remote chromium browser on any device. It provides an accessible way to enjoy your favourite games with friends remotely.
 
 ## Installation
 
