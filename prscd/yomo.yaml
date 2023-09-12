@@ -1,0 +1,6 @@
+name: yomo_prscd_bridge
+host: 0.0.0.0
+port: 9000
+functions:
+  - name: prscd-sender
+  - name: prscd-receiver

@@ -1,0 +1,7 @@
+.DS_Store
+build/
+bin/
+dist/
+.vscode/
+test_pages/
+prscd.pid
