@@ -4,7 +4,9 @@ name: Build docker nvidia
 
 on:
   pull_request:
-
+    paths-ignore:
+      - '.github/**'
+      - 'docs/**'
 jobs:
   build-go:
     name: Set up arc3dia executable
