@@ -13,6 +13,8 @@
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
     "autoprefixer": "10.4.15",
+    "clsx": "^2.0.0",
+    "framer-motion": "^10.16.4",
     "next": "13.4.19",
     "nextra": "^2.12.3",
     "nextra-theme-docs": "^2.12.3",
