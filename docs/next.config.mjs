@@ -1,5 +1,5 @@
 import nextra from "nextra";
-
+{/**TODO: add app route */}
 const withNextra = nextra({
   theme: "nextra-theme-docs",
   themeConfig: "./theme.config.tsx",
