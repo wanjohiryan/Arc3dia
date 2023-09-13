@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@types/node':
+    specifier: 20.6.0
+    version: 20.6.0
   '@types/react':
     specifier: 18.2.21
     version: 18.2.21
@@ -38,11 +41,6 @@ dependencies:
   typescript:
     specifier: 5.2.2
     version: 5.2.2
-
-devDependencies:
-  '@types/node':
-    specifier: 20.6.0
-    version: 20.6.0
 
 packages:
 
@@ -471,7 +469,7 @@ packages:
 
   /@types/node@20.6.0:
     resolution: {integrity: sha512-najjVq5KN2vsH2U/xyh2opaSEz6cZMR2SetLIlxlj08nOcmPOemJmUK2o4kUzfLqfrWE0PIrNeE16XhYDd3nqg==}
-    dev: true
+    dev: false
 
   /@types/prop-types@15.7.5:
     resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
@@ -579,7 +577,7 @@ packages:
       postcss: ^8.1.0
     dependencies:
       browserslist: 4.21.10
-      caniuse-lite: 1.0.30001533
+      caniuse-lite: 1.0.30001534
       fraction.js: 4.3.6
       normalize-range: 0.1.2
       picocolors: 1.0.0
@@ -619,8 +617,8 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001533
-      electron-to-chromium: 1.4.515
+      caniuse-lite: 1.0.30001534
+      electron-to-chromium: 1.4.518
       node-releases: 2.0.13
       update-browserslist-db: 1.0.11(browserslist@4.21.10)
     dev: false
@@ -637,8 +635,8 @@ packages:
     engines: {node: '>= 6'}
     dev: false
 
-  /caniuse-lite@1.0.30001533:
-    resolution: {integrity: sha512-9aY/b05NKU4Yl2sbcJhn4A7MsGwR1EPfW/nrqsnqVA0Oq50wpmPaGI+R1Z0UKlUl96oxUkGEOILWtOHck0eCWw==}
+  /caniuse-lite@1.0.30001534:
+    resolution: {integrity: sha512-vlPVrhsCS7XaSh2VvWluIQEzVhefrUQcEsQWSS5A5V+dM07uv1qHeQzAOTGIMy9i3e9bH15+muvI/UHojVgS/Q==}
     dev: false
 
   /ccount@2.0.1:
@@ -1129,8 +1127,8 @@ packages:
     resolution: {integrity: sha512-F9e6wPGtY+8KNMRAVfxeCOHU0/NPWMSENNq4pQctuXRqqdEPW7q3CrLbR5Nse044WwacyjHGOMlvNsBe1y6z9A==}
     dev: false
 
-  /electron-to-chromium@1.4.515:
-    resolution: {integrity: sha512-VTq6vjk3kCfG2qdzQRd/i9dIyVVm0dbtZIgFzrLgfB73mXDQT2HPKVRc1EoZcAVUv9XhXAu08DWqJuababdGGg==}
+  /electron-to-chromium@1.4.518:
+    resolution: {integrity: sha512-eqbfyW9i/en/qgIPsddW+cuxQvjq3KZmfH+/gc3f/gnynYj0qxee0yRmll69W0SGwiVD+goeU1J9LT6zDHDzlg==}
     dev: false
 
   /elkjs@0.8.2:
@@ -2484,7 +2482,7 @@ packages:
       '@next/env': 13.4.19
       '@swc/helpers': 0.5.1
       busboy: 1.6.0
-      caniuse-lite: 1.0.30001533
+      caniuse-lite: 1.0.30001534
       postcss: 8.4.14
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
