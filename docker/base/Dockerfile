@@ -57,9 +57,9 @@ RUN apt-get update; \
     #
     #make directories for arc3dia
     #
-    mkdir -p /certs /media;\
-    chmod 1777 /certs /media; \
-    chown ${USERNAME} /certs /media; \
+    mkdir -p /certs /scripts;\
+    chmod 1777 /certs /scripts; \
+    chown ${USERNAME} /certs /scripts; \
     chown -R $USERNAME:$USERNAME /home/${USERNAME} ;\
     ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime && echo "$TZ" > /etc/timezone
 
@@ -86,7 +86,7 @@ RUN apt-get update && apt-get install -y curl; \
 ADD https://raw.githubusercontent.com/docker/docker-ce/master/components/cli/contrib/completion/bash/docker /etc/bash_completion.d/docker.sh
 
 #
-# Install Sshd
+# Install sshd
 #
 RUN apt-get update && apt-get install --no-install-recommends -y openssh-server \
     && rm -rf /var/lib/apt/lists/* \
@@ -99,17 +99,33 @@ RUN apt-get update && apt-get install --no-install-recommends -y openssh-server 
 STOPSIGNAL SIGRTMIN+3
 
 #
+#Copy Warp [CLIENT] linux binary and the start script into the container
+#
+COPY docker/base/warp /usr/bin/
+COPY docker/base/ffmpeg.sh /scripts/
+RUN chmod +x /scripts/ffmpeg.sh
+#
 #Copy the systemd.service file for starting the server
 #
-#TODO:
-# COPY docker/base/server.service /lib/systemd/system/
-# RUN ln -sf /lib/systemd/system/server.service \
-#        /etc/systemd/system/multi-user.target.wants/server.service
+COPY docker/base/warp.service /lib/systemd/system/
+RUN ln -sf /lib/systemd/system/server.service \
+       /etc/systemd/system/multi-user.target.wants/server.service
 
 #
 # For ssh, and http3 connections respectively
+# Warp runs on port 4443 
 #
-EXPOSE 22 443/udp 443 80
+
+# FIXME: Remove this
+#After a lot of thought, i commented out this as running the warp relay server on a local machine might not be the ideal way to do this.
+#Ideally we should have the client run locally, transmit the audio and video to a remote warp relay server that will transmit the content to all available clients.
+
+# EXPOSE 22 4443/udp 4443 80
+
+#the volume that houses the key and cert files as `/certs/key.pem` and `/certs/cert.pem`
+VOLUME [ "/certs" ]
+
+ENV DISPLAY=:0
 
 #
 # Set systemd as entrypoint.
