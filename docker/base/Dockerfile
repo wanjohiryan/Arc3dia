@@ -47,9 +47,10 @@ RUN apt-get update; \
 #
 RUN apt-get update; \
     apt-get upgrade; \
+    apt-get install -y --no-install-recommends \
     #
-    # Xserver
-    apt-get install xorg openbox \
+    #Xserver
+    xorg openbox \
     #
     #Pulseaudio
     pulseaudio; \
