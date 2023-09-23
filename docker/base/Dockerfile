@@ -101,9 +101,9 @@ STOPSIGNAL SIGRTMIN+3
 #
 #Copy Warp [CLIENT] linux binary and the start script into the container
 #
-COPY docker/base/warp /usr/bin/
+COPY temp/warp /usr/bin/
 COPY docker/base/ffmpeg.sh /scripts/
-RUN chmod +x /scripts/ffmpeg.sh
+RUN chmod +x /scripts/ffmpeg.sh /usr/bin/warp
 #
 #Copy the systemd.service file for starting the server
 #
