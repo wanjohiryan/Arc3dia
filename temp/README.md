@@ -1,0 +1,3 @@
+This is a temporary folder for Warp ubuntu binary... 
+
+It will stay here until [warp](https://github.com/wanjohiryan/warp) gets a release... probably v1 release
