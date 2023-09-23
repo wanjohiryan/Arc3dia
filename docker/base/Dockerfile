@@ -39,6 +39,34 @@ RUN apt-get update; \
        /usr/share/man/* \
        /usr/share/local/*
 
+
+
+
+#
+#Add xserver and pulseaudio
+#
+RUN apt-get update; \
+    apt-get upgrade; \
+    #
+    # Xserver
+    apt-get install xorg openbox \
+    #
+    #Pulseaudio
+    pulseaudio; \
+    #
+    # Housekeeping
+    #
+    apt-get clean -y; \
+    rm -rf \
+       /var/cache/debconf/* \
+       /var/lib/apt/lists/* \
+       /var/log/* \
+       /tmp/* \
+       /var/tmp/* \
+       /usr/share/doc/* \
+       /usr/share/man/* \
+       /usr/share/local/*
+
 ARG USERNAME=admin
 ARG USER_UID=1000 
 ARG USER_GID=${USER_UID}
