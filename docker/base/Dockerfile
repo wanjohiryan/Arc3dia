@@ -51,6 +51,10 @@ ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 ENV TZ UTC
 
+ARG USERNAME=admin
+ARG USER_UID=1000 
+ARG USER_GID=${USER_UID}
+
 #
 #Add dependencies
 #
@@ -59,10 +63,16 @@ RUN apt-get update; \
     apt-get install -y --no-install-recommends \
     #
     #Xserver 
-    wget ca-certificates xvfb dbus-user-session dbus-x11 libdbus-c++-1-0v5 xorg openbox\
+    wget vim ca-certificates software-properties-common gpg-agent xvfb dbus-user-session dbus-x11 libdbus-c++-1-0v5\
     #
     #Pulseaudio
     pulseaudio libcairo2 libxcb1 libxrandr2 libxv1 libopus0 libvpx6; \
+    #
+    # workaround for an X11 problem: http://blog.tigerteufel.de/?p=476
+    #
+    mkdir /tmp/.X11-unix; \
+    chmod 1777 /tmp/.X11-unix; \
+    chown $USERNAME /tmp/.X11-unix/; \
     #
     # Housekeeping
     #
@@ -76,10 +86,6 @@ RUN apt-get update; \
        /usr/share/doc/* \
        /usr/share/man/* \
        /usr/share/local/*
-
-ARG USERNAME=admin
-ARG USER_UID=1000 
-ARG USER_GID=${USER_UID}
 
 #
 #Create a non-root user `admin`
@@ -143,6 +149,10 @@ STOPSIGNAL SIGRTMIN+3
 COPY temp/warp /usr/bin/
 COPY docker/base/ffmpeg.sh /scripts/
 RUN chmod +x /scripts/ffmpeg.sh /usr/bin/warp
+
+COPY docker/base/dbus /usr/bin/dbus
+COPY docker/base/default.pa /etc/pulse/
+
 #
 #Copy the systemd.service file for starting the server
 #
