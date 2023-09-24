@@ -94,7 +94,7 @@ RUN apt-get update -y; \
     add-apt-repository ppa:savoury1/ffmpeg4 \
     add-apt-repository ppa:savoury1/ffmpeg6 \
     apt-get update -y; \
-    apt-get upgrade && sudo apt-get dist-upgrade; \
+    apt-get upgrade -y && apt-get dist-upgrade -y; \
     apt-get install ffmpeg -y; \
     #
     # Log out the ffmpeg version
