@@ -142,7 +142,9 @@ RUN apt-get update -y && apt-get install -y curl; \
     #
     # Add user "admin" to the Docker group
     #
-    usermod -a -G docker $USERNAME
+    groupadd docker; \
+    usermod -a -G docker $USERNAME; \
+    newgrp docker
 
 ADD https://raw.githubusercontent.com/docker/docker-ce/master/components/cli/contrib/completion/bash/docker /etc/bash_completion.d/docker.sh
 
@@ -189,6 +191,8 @@ VOLUME [ "/certs" ]
 ENV DISPLAY :0
 ENV DPI 96
 ENV CDEPTH 24
+ENV USER ${USERNAME}
+ENV SHELL /bin/bash
 
 #
 # Set systemd as entrypoint.
