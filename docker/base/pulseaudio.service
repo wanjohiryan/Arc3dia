@@ -1,6 +1,6 @@
 [Unit]
 Description=Pulseaudio server
-After=docker.service
+After=xserver.service
 StartLimitIntervalSec=0
 
 [Service]

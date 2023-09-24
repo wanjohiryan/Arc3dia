@@ -1,6 +1,6 @@
 [Unit]
 Description=Xvfb server
-After=docker.service
+After=dbus.service
 StartLimitIntervalSec=0
 
 [Service]

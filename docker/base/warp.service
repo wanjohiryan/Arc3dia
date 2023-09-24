@@ -1,6 +1,6 @@
 [Unit]
 Description=Arc3dia server
-After=docker.service
+After=pulseaudio.service
 StartLimitIntervalSec=0
 
 [Service]
