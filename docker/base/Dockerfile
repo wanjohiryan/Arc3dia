@@ -98,7 +98,7 @@ RUN apt-get update -y; \
     apt-get install ffmpeg -y; \
     #
     # Log out the ffmpeg version
-    ffmpeg --version
+    ffmpeg -version
 
 
 #
