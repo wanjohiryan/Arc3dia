@@ -104,22 +104,24 @@ RUN apt-get update -y; \
 #
 #Create a non-root user `admin`
 #
-#RUN apt-get update; \
+RUN apt-get update; \
     #
     #create a non-root user
     #
-#    groupadd --gid ${USER_GID} ${USERNAME}; \
-#   useradd --uid ${USER_UID} --gid ${USERNAME} --shell /bin/bash --create-home ${USERNAME};\
-    #usermod -a -G adm,audio,input,pulse-access,sudo,tape,tty,video,ffmpeg ${USERNAME} ;\
-    #echo "${USERNAME} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers; \
+    groupadd --gid ${USER_GID} ${USERNAME}; \
+    useradd --uid ${USER_UID} --gid ${USERNAME} --shell /bin/bash --create-home ${USERNAME};\
+    usermod -a -G adm,audio,input,pulse-access,sudo,tape,tty,video,ffmpeg ${USERNAME} ;\
+    #
+    #Remove sudo password
+    echo "${USERNAME} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers; \
     #
     #make directories for arc3dia
     #
-    #mkdir -p /certs /scripts;\
-    #chmod 1777 /certs /scripts; \
-    #chown ${USERNAME} /certs /scripts; \
-    #chown -R $USERNAME:$USERNAME /home/${USERNAME} ;\
-    #ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime && echo "$TZ" > /etc/timezone
+    mkdir -p /certs /scripts;\
+    chmod 1777 /certs /scripts; \
+    chown ${USERNAME} /certs /scripts; \
+    chown -R $USERNAME:$USERNAME /home/${USERNAME} ;\
+    ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime && echo "$TZ" > /etc/timezone
 
 #
 # Disable systemd services/units that are unnecessary within a container.
@@ -136,21 +138,21 @@ RUN systemctl mask systemd-udevd.service \
 #
 RUN apt-get update -y && apt-get install -y curl; \
     rm -rf /var/lib/apt/lists/*; \
-    curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh;
+    curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh; \
     #
     # Add user "admin" to the Docker group
     #
-    #usermod -a -G docker admin
+    usermod -a -G docker $USERNAME
 
 ADD https://raw.githubusercontent.com/docker/docker-ce/master/components/cli/contrib/completion/bash/docker /etc/bash_completion.d/docker.sh
 
 #
 # Install sshd
 #
-RUN apt-get update && apt-get install --no-install-recommends -y openssh-server \
-    && rm -rf /var/lib/apt/lists/* 
-    #&& mkdir /home/admin/.ssh \
-    #&& chown admin:admin /home/admin/.ssh
+RUN apt-get update && apt-get install --no-install-recommends -y openssh-server; \
+    rm -rf /var/lib/apt/lists/* ;\
+    mkdir /home/${USERNAME}/.ssh; \
+    chown $USERNAME:$USERNAME /home/${USERNAME}/.ssh
 
 #
 # Make use of stopsignal (instead of sigterm) to stop systemd containers.
@@ -163,8 +165,6 @@ STOPSIGNAL SIGRTMIN+3
 COPY temp/warp /usr/bin/
 COPY docker/base/ffmpeg.sh /scripts/
 RUN chmod +x /scripts/ffmpeg.sh /usr/bin/warp
-
-COPY docker/base/default.pa /etc/pulse/
 
 #
 #Copy the systemd.service file for starting the server
