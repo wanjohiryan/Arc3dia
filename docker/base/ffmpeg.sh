@@ -25,7 +25,7 @@ echo "Waiting for X socket"
 until [ -S "/tmp/.X11-unix/X${DISPLAY/:/}" ]; do sleep 1; done
 echo "X socket is ready"
 
-pulseaudio --log-level=info --disallow-module-loading --disallow-exit --exit-idle-time=-1 &
+pulseaudio --system --log-level=info --disallow-module-loading --disallow-exit --exit-idle-time=-1 &
 sleep 20
 
 CMD=(

@@ -4,7 +4,8 @@
 #
 # This will run systemd, sshd and docker;
 #https://github.com/nestybox/dockerfiles/blob/master/ubuntu-jammy-systemd/Dockerfile
-FROM ghcr.io/wanjohiryan/ffmpeg/v6:nightly
+#FROM ghcr.io/wanjohiryan/ffmpeg/v6:nightly
+FROM ubuntu:jammy
 #
 # Systemd installation
 #
@@ -84,6 +85,21 @@ RUN apt-get update -y; \
        /usr/share/doc/* \
        /usr/share/man/* \
        /usr/share/local/*
+
+#
+#Install ffmpeg v6 this has never been reliable for me. Do imma get swap this for a better alternative later on
+#
+RUN apt-get update -y; \
+    apt-get upgrade -y; \
+    add-apt-repository ppa:savoury1/ffmpeg4 \
+    add-apt-repository ppa:savoury1/ffmpeg6 \
+    apt-get update -y; \
+    apt-get upgrade && sudo apt-get dist-upgrade; \
+    apt-get install ffmpeg -y; \
+    #
+    # Log out the ffmpeg version
+    ffmpeg --version
+
 
 #
 #Create a non-root user `admin`
