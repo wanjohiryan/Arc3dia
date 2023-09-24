@@ -42,10 +42,7 @@ RUN apt-get update; \
 #
 # Install locales to prevent X11 errors
 #
-RUN apt-get clean && \
-    apt-get update && apt-get install --no-install-recommends -y locales && \
-    rm -rf /var/lib/apt/lists/* && \
-    locale-gen en_US.UTF-8
+RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
@@ -61,18 +58,19 @@ ARG USER_GID=${USER_UID}
 RUN apt-get update; \
     apt-get upgrade; \
     apt-get install -y --no-install-recommends \
+    wget \
+    vim \
+    software-properties-common \
+    gpg-agent \
+    dbus-user-session \
+    dbus-x11 \
+    libdbus-c++-1-0v5\
     #
-    #Xserver 
-    wget vim ca-certificates software-properties-common gpg-agent xvfb dbus-user-session dbus-x11 libdbus-c++-1-0v5\
+    #Xvfb
+    xvfb \
     #
     #Pulseaudio
-    pulseaudio libcairo2 libxcb1 libxrandr2 libxv1 libopus0 libvpx6; \
-    #
-    # workaround for an X11 problem: http://blog.tigerteufel.de/?p=476
-    #
-    mkdir /tmp/.X11-unix; \
-    chmod 1777 /tmp/.X11-unix; \
-    chown $USERNAME /tmp/.X11-unix/; \
+    pulseaudio; \
     #
     # Housekeeping
     #
@@ -90,22 +88,22 @@ RUN apt-get update; \
 #
 #Create a non-root user `admin`
 #
-RUN apt-get update; \
+#RUN apt-get update; \
     #
     #create a non-root user
     #
-    groupadd --gid ${USER_GID} ${USERNAME}; \
-    useradd --uid ${USER_UID} --gid ${USERNAME} --shell /bin/bash --create-home ${USERNAME};\
-    usermod -a -G adm,audio,input,pulse-access,sudo,tape,tty,video,ffmpeg ${USERNAME} ;\
-    echo "${USERNAME} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers; \
+#    groupadd --gid ${USER_GID} ${USERNAME}; \
+#   useradd --uid ${USER_UID} --gid ${USERNAME} --shell /bin/bash --create-home ${USERNAME};\
+    #usermod -a -G adm,audio,input,pulse-access,sudo,tape,tty,video,ffmpeg ${USERNAME} ;\
+    #echo "${USERNAME} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers; \
     #
     #make directories for arc3dia
     #
-    mkdir -p /certs /scripts;\
-    chmod 1777 /certs /scripts; \
-    chown ${USERNAME} /certs /scripts; \
-    chown -R $USERNAME:$USERNAME /home/${USERNAME} ;\
-    ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime && echo "$TZ" > /etc/timezone
+    #mkdir -p /certs /scripts;\
+    #chmod 1777 /certs /scripts; \
+    #chown ${USERNAME} /certs /scripts; \
+    #chown -R $USERNAME:$USERNAME /home/${USERNAME} ;\
+    #ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime && echo "$TZ" > /etc/timezone
 
 #
 # Disable systemd services/units that are unnecessary within a container.
@@ -122,11 +120,11 @@ RUN systemctl mask systemd-udevd.service \
 #
 RUN apt-get update && apt-get install -y curl; \
     rm -rf /var/lib/apt/lists/*; \
-    curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh; \
+    curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh;
     #
     # Add user "admin" to the Docker group
     #
-    usermod -a -G docker admin
+    #usermod -a -G docker admin
 
 ADD https://raw.githubusercontent.com/docker/docker-ce/master/components/cli/contrib/completion/bash/docker /etc/bash_completion.d/docker.sh
 
@@ -159,12 +157,6 @@ COPY docker/base/default.pa /etc/pulse/
 COPY docker/base/*.service /lib/systemd/system/
 RUN ln -sf /lib/systemd/system/warp.service \
        /etc/systemd/system/multi-user.target.wants/warp.service
-RUN ln -sf /lib/systemd/system/xserver.service \
-       /etc/systemd/system/multi-user.target.wants/xserver.service
-RUN ln -sf /lib/systemd/system/dbus.service \
-       /etc/systemd/system/multi-user.target.wants/dbus.service
-RUN ln -sf /lib/systemd/system/pulseaudio.service \
-       /etc/systemd/system/multi-user.target.wants/pulseaudio.service
 #
 # For ssh, and http3 connections respectively
 # Warp runs on port 4443 

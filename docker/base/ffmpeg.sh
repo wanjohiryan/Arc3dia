@@ -10,10 +10,21 @@ WARP_SERVER_PORT="${WARP_SERVER_PORT:-4443}"
 #Full server url
 WARP_SERVER_FULL_URL="${WARP_SERVER_URL}:${WARP_SERVER_PORT}"
 
+chmod +x /usr/bin/dbus
+/usr/bin/dbus &
+
+# Default display is :0 across the container
+export DISPLAY=":0"
+# Run Xvfb server with required extensions
+/usr/bin/Xvfb "${DISPLAY}" -screen 0 "8192x4096x${CDEPTH}" -dpi "${DPI}" &
+
 # Wait for X11 to start
 echo "Waiting for X socket"
 until [ -S "/tmp/.X11-unix/X${DISPLAY/:/}" ]; do sleep 1; done
 echo "X socket is ready"
+
+pulseaudio --log-level=info --disallow-module-loading --disallow-exit --exit-idle-time=-1
+sleep 20
 
 CMD=(
     ffmpeg

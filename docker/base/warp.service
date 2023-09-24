@@ -1,6 +1,6 @@
 [Unit]
 Description=Arc3dia server
-After=pulseaudio.service
+After=docker.service
 StartLimitIntervalSec=0
 
 [Service]
@@ -10,7 +10,6 @@ RestartSec=10
 StandardOutput=syslog
 StandardError=syslog
 SyslogIdentifier=arc3dia-server
-User=admin
 
 [Install]
 WantedBy=multi-user.target
