@@ -8,7 +8,7 @@ FROM ghcr.io/wanjohiryan/ffmpeg/v6:nightly
 #
 # Systemd installation
 #
-RUN apt-get update; \
+RUN apt-get update -y; \
     apt-get install -y --no-install-recommends   \
             systemd \
             systemd-sysv \
@@ -55,8 +55,8 @@ ARG USER_GID=${USER_UID}
 #
 #Add dependencies
 #
-RUN apt-get update; \
-    apt-get upgrade; \
+RUN apt-get update -y; \
+    apt-get upgrade -y; \
     apt-get install -y --no-install-recommends \
     wget \
     vim \
@@ -118,7 +118,7 @@ RUN systemctl mask systemd-udevd.service \
 #
 # Install Docker
 #
-RUN apt-get update && apt-get install -y curl; \
+RUN apt-get update -y && apt-get install -y curl; \
     rm -rf /var/lib/apt/lists/*; \
     curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh;
     #
@@ -132,9 +132,9 @@ ADD https://raw.githubusercontent.com/docker/docker-ce/master/components/cli/con
 # Install sshd
 #
 RUN apt-get update && apt-get install --no-install-recommends -y openssh-server \
-    && rm -rf /var/lib/apt/lists/* \
-    && mkdir /home/admin/.ssh \
-    && chown admin:admin /home/admin/.ssh
+    && rm -rf /var/lib/apt/lists/* 
+    #&& mkdir /home/admin/.ssh \
+    #&& chown admin:admin /home/admin/.ssh
 
 #
 # Make use of stopsignal (instead of sigterm) to stop systemd containers.
