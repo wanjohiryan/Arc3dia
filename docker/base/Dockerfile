@@ -148,7 +148,6 @@ COPY temp/warp /usr/bin/
 COPY docker/base/ffmpeg.sh /scripts/
 RUN chmod +x /scripts/ffmpeg.sh /usr/bin/warp
 
-COPY docker/base/dbus /usr/bin/dbus
 COPY docker/base/default.pa /etc/pulse/
 
 #

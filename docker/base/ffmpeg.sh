@@ -10,9 +10,11 @@ WARP_SERVER_PORT="${WARP_SERVER_PORT:-4443}"
 #Full server url
 WARP_SERVER_FULL_URL="${WARP_SERVER_URL}:${WARP_SERVER_PORT}"
 
-chmod +x /usr/bin/dbus
-/usr/bin/dbus &
+#Start dbus for pulseaudio
+/etc/init.d/dbus start
 
+#Change time zone from environment variable
+ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime && echo "$TZ" | sudo tee /etc/timezone >/dev/null
 # Default display is :0 across the container
 export DISPLAY=":0"
 # Run Xvfb server with required extensions
@@ -23,7 +25,7 @@ echo "Waiting for X socket"
 until [ -S "/tmp/.X11-unix/X${DISPLAY/:/}" ]; do sleep 1; done
 echo "X socket is ready"
 
-pulseaudio --log-level=info --disallow-module-loading --disallow-exit --exit-idle-time=-1
+pulseaudio --log-level=info --disallow-module-loading --disallow-exit --exit-idle-time=-1 &
 sleep 20
 
 CMD=(
@@ -59,8 +61,9 @@ CMD=(
     -streaming 1
     -movflags empty_moov+frag_every_frame+separate_moof+omit_tfhd_offset
 
+    ./playlist.mpd
     #Then send this to our remote/local warp-relay server
-    - | RUST_LOG=warp=info /usr/bin/warp -i - -u $WARP_SERVER_FULL_URL
+    #- | RUST_LOG=warp=info /usr/bin/warp -i - -u $WARP_SERVER_FULL_URL
 )
 
 exec "${CMD[@]}"
