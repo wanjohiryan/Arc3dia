@@ -10,7 +10,10 @@ WARP_SERVER_PORT="${WARP_SERVER_PORT:-4443}"
 #Full server url
 WARP_SERVER_FULL_URL="${WARP_SERVER_URL}:${WARP_SERVER_PORT}"
 
-
+# Wait for X11 to start
+echo "Waiting for X socket"
+until [ -S "/tmp/.X11-unix/X${DISPLAY/:/}" ]; do sleep 1; done
+echo "X socket is ready"
 
 CMD=(
     ffmpeg

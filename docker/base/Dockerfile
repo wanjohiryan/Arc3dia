@@ -39,21 +39,30 @@ RUN apt-get update; \
        /usr/share/man/* \
        /usr/share/local/*
 
-
-
+#
+# Install locales to prevent X11 errors
+#
+RUN apt-get clean && \
+    apt-get update && apt-get install --no-install-recommends -y locales && \
+    rm -rf /var/lib/apt/lists/* && \
+    locale-gen en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+ENV TZ UTC
 
 #
-#Add xserver and pulseaudio
+#Add dependencies
 #
 RUN apt-get update; \
     apt-get upgrade; \
     apt-get install -y --no-install-recommends \
     #
-    #Xserver
-    xorg openbox \
+    #Xserver 
+    wget ca-certificates xvfb dbus-user-session dbus-x11 libdbus-c++-1-0v5 xorg openbox\
     #
     #Pulseaudio
-    pulseaudio; \
+    pulseaudio libcairo2 libxcb1 libxrandr2 libxv1 libopus0 libvpx6; \
     #
     # Housekeeping
     #
@@ -112,6 +121,7 @@ RUN apt-get update && apt-get install -y curl; \
     # Add user "admin" to the Docker group
     #
     usermod -a -G docker admin
+    
 ADD https://raw.githubusercontent.com/docker/docker-ce/master/components/cli/contrib/completion/bash/docker /etc/bash_completion.d/docker.sh
 
 #
@@ -136,9 +146,9 @@ RUN chmod +x /scripts/ffmpeg.sh /usr/bin/warp
 #
 #Copy the systemd.service file for starting the server
 #
-COPY docker/base/warp.service /lib/systemd/system/
-RUN ln -sf /lib/systemd/system/server.service \
-       /etc/systemd/system/multi-user.target.wants/server.service
+COPY docker/base/*.service /lib/systemd/system/
+RUN ln -sf /lib/systemd/system/*.service \
+       /etc/systemd/system/multi-user.target.wants/*.service
 
 #
 # For ssh, and http3 connections respectively
@@ -154,7 +164,9 @@ RUN ln -sf /lib/systemd/system/server.service \
 #the volume that houses the key and cert files as `/certs/key.pem` and `/certs/cert.pem`
 VOLUME [ "/certs" ]
 
-ENV DISPLAY=:0
+ENV DISPLAY :0
+ENV DPI 96
+ENV CDEPTH 24
 
 #
 # Set systemd as entrypoint.

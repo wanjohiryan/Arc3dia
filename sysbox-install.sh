@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#Make the amd gpu available inside the container
+#chmod -R 777 /dev/dri
+
 #
 #This script is for anyone who has trouble installing sybox on their system
 #

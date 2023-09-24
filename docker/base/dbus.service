@@ -1,0 +1,16 @@
+[Unit]
+Description=dbus
+After=docker.service
+StartLimitIntervalSec=0
+
+[Service]
+ExecStart=/usr/bin/dbus
+Restart=always
+RestartSec=10
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=dbus-daemon
+User=root
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,16 @@
+[Unit]
+Description=Pulseaudio server
+After=docker.service
+StartLimitIntervalSec=0
+
+[Service]
+ExecStart=/usr/bin/pulseaudio --log-level=info --disallow-module-loading --disallow-exit --exit-idle-time=-1
+Restart=always
+RestartSec=10
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=pulseaudio
+User=admin
+
+[Install]
+WantedBy=multi-user.target
