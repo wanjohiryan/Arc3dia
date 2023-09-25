@@ -1,0 +1,15 @@
+[Unit]
+Description=X server
+After=docker.service
+StartLimitIntervalSec=0
+
+[Service]
+ExecStart=bash -c "/usr/bin/Xvfb ${DISPLAY} -screen 0 8192x4096x${CDEPTH} -dpi ${DPI}"
+Restart=always
+RestartSec=10
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=x-server
+
+[Install]
+WantedBy=multi-user.target

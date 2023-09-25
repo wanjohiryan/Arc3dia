@@ -10,29 +10,10 @@ WARP_SERVER_PORT="${WARP_SERVER_PORT:-4443}"
 #Full server url
 WARP_SERVER_FULL_URL="${WARP_SERVER_URL}:${WARP_SERVER_PORT}"
 
-#Start dbus for pulseaudio
-sudo /etc/init.d/dbus start
-
-#Change time zone from environment variable
-sudo ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime && echo "$TZ" | sudo tee /etc/timezone >/dev/null
-# Default display is :0 across the container
-export DISPLAY=":0"
-
-# Run Xvfb server with required extensions
-/usr/bin/Xvfb "${DISPLAY}" -screen 0 "8192x4096x${CDEPTH}" -dpi "${DPI}" &
-
 # Wait for X11 to start
 echo "Waiting for X socket"
 until [ -S "/tmp/.X11-unix/X${DISPLAY/:/}" ]; do sleep 1; done
 echo "X socket is ready"
-
-#Start pulseaudio
-pulseaudio --fail -D --exit-idle-time=-1
-pacmd load-module module-virtual-sink sink_name=vsink #load a virtual sink as `vsink`
-pacmd set-default-sink vsink
-pacmd set-default-source vsink.monitor
-
-sleep 20
 
 CMD=(
     ffmpeg

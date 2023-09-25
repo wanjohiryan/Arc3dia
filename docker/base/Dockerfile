@@ -174,10 +174,18 @@ RUN chmod +x /scripts/ffmpeg.sh /usr/bin/warp
 COPY docker/base/*.service /lib/systemd/system/
 RUN ln -sf /lib/systemd/system/warp.service \
        /etc/systemd/system/multi-user.target.wants/warp.service
+RUN ln -sf /lib/systemd/system/dbus.service \
+       /etc/systemd/system/multi-user.target.wants/dbus.service
+RUN ln -sf /lib/systemd/system/pulseaudio.service \
+       /etc/systemd/system/multi-user.target.wants/pulseaudio.service
+RUN ln -sf /lib/systemd/system/xserver.service \
+       /etc/systemd/system/multi-user.target.wants/xserver.service
 #
 # For ssh, and http3 connections respectively
 # Warp runs on port 4443 
 #
+
+#RUN ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime && echo "$TZ" | sudo tee /etc/timezone
 
 # FIXME: Remove this
 #After a lot of thought, i commented out this as running the warp relay server on a local machine might not be the ideal way to do this.
