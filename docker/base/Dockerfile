@@ -202,6 +202,12 @@ ENV CDEPTH 24
 ENV USER ${USERNAME}
 ENV SHELL /bin/bash
 
+ENV WARP_SERVER_URL "${WARP_SERVER_URL:-"https://localhost"}"
+ENV WARP_SERVER_PORT "${WARP_SERVER_PORT:-4443}"
+
+#Full server url
+ENV WARP_SERVER_FULL_URL="${WARP_SERVER_URL}:${WARP_SERVER_PORT}"
+
 #
 # Set systemd as entrypoint.
 #

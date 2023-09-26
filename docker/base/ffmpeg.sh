@@ -1,15 +1,5 @@
 #!/bin/bash
 
-#Start XServer and Pulseaudio from here? or systemd will do that for us?
-set -xeuo pipefail
-
-#Fallback values
-WARP_SERVER_URL="${WARP_SERVER_URL:-"https://localhost"}"
-WARP_SERVER_PORT="${WARP_SERVER_PORT:-4443}"
-
-#Full server url
-WARP_SERVER_FULL_URL="${WARP_SERVER_URL}:${WARP_SERVER_PORT}"
-
 # Wait for X11 to start
 echo "Waiting for X socket"
 until [ -S "/tmp/.X11-unix/X${DISPLAY/:/}" ]; do sleep 1; done
