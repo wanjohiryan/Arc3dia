@@ -5,7 +5,7 @@ StartLimitIntervalSec=0
 
 [Service]
 ExecStart=/usr/bin/ffmpeg -hide_banner -loglevel error -s 1920x1080 -r 30 -f x11grab -i :0 -f pulse -re -i default -c:v libx264 -preset veryfast -tune zerolatency -profile main-pix_fmt yuv420p -c:a aac -b:a 128k -ar 44100 -ac 2 -map v:0 -s:v:0 1280x720 -b:v:0 3M -map 1:a -streaming 1 -movflags empty_moov+frag_every_frame+separate_moof+omit_tfhd_offset ./playlist.mpd
-ExecStartPre=/bin/bash -c 'until [ -S "/tmp/.X11-unix/X${DISPLAY/:/}" ]; do echo "Waiting for xserver to start..." ls -la /tmp/.X11-unix/ sleep 1 done echo "X server is ready" echo "X server is ready" sleep 1'
+ExecStartPre=/bin/bash -c 'echo "Waiting for X socket"; until [ -S "/tmp/.X11-unix/X${DISPLAY/:/}" ]; do sleep 1; done; echo "X socket is ready"'
 Restart=always
 RestartSec=10
 StandardOutput=syslog
