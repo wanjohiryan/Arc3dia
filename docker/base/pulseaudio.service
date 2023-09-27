@@ -1,0 +1,16 @@
+[Unit]
+Description=Pulseaudio server
+After=xserver.service
+StartLimitIntervalSec=0
+
+[Service]
+ExecStart=/usr/bin/pulseaudio --disallow-exit --disallow-module-loading --exit-idle-time=-1
+Restart=always
+RestartSec=10
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=pulse-server
+User=admin
+
+[Install]
+WantedBy=multi-user.target

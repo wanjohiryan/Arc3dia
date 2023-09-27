@@ -4,6 +4,10 @@ name: Build docker nvidia
 
 on:
   pull_request:
+   paths:
+    - "docker/**"
+    #when dependabot bumps a workflow version, we want to see how it works
+    - ".github/**"
 
 jobs:
   build-go:

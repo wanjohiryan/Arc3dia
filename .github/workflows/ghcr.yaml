@@ -3,6 +3,11 @@ name: "Push image to ghcr"
 on:
   push:
     branches: [master]
+    paths:
+      #FIXME: include the go binary here, when the time comes
+      - 'docker/**'
+      #when dependabot bumps a workflow version, we want to see how it works
+      - ".github/**"
     tags:
       - v*.*.*
   release:
