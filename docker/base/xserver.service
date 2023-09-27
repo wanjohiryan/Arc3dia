@@ -1,0 +1,14 @@
+[Unit]
+Description=X server
+StartLimitIntervalSec=0
+
+[Service]
+ExecStart=/usr/bin/Xvfb :0 -screen 0 8192x4096x24 -dpi 96
+Restart=always
+RestartSec=10
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=x-server
+
+[Install]
+WantedBy=multi-user.target
