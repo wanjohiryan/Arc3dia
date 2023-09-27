@@ -117,9 +117,9 @@ RUN apt-get update; \
     #
     #make directories for arc3dia
     #
-    mkdir -p /certs /scripts;\
-    chmod 1777 /certs /scripts; \
-    chown ${USERNAME} /certs /scripts; \
+    mkdir -p /certs /scripts /media;\
+    chmod 1777 /certs /scripts /media; \
+    chown ${USERNAME} /certs /media /scripts; \
     chown -R $USERNAME:$USERNAME /home/${USERNAME} ;\
     ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime && echo "$TZ" > /etc/timezone
 
