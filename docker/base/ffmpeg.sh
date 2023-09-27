@@ -1,5 +1,10 @@
 #!/bin/bash
 
+#
+#FIXME: Remove this file (it is here for refence) then fix this ffmpeg error ``Sep 27 05:27:13 2f07ec1815e1 arc3dia-server[1140]: [mp4 @ 0x56057dc86140] Application provided duration: -1 / timestamp: 2744278 is out of range for mov/mp4 format``
+# i think it is the ``streaming 1`` option.
+#
+
 CMD=(
     ffmpeg
     -hide_banner
