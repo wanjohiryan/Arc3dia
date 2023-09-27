@@ -4,8 +4,7 @@ After=xserver.service
 StartLimitIntervalSec=0
 
 [Service]
-ExecStart=bash -c "sudo /usr/bin/pulseaudio -k >/dev/null 2>&1 || /usr/bin/pulseaudio --disallow-exit --disallow-module-loading --exit-idle-time=-1"
-ExecStartPre=/bin/sleep 30
+ExecStart=/usr/bin/pulseaudio --disallow-exit --disallow-module-loading --exit-idle-time=-1
 Restart=always
 RestartSec=10
 StandardOutput=syslog
