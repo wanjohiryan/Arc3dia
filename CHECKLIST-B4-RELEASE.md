@@ -1,4 +1,7 @@
-[] Warp and ffmpeg in base container
-[] Steam container as a sidecar
-[] Input inside base container
-[] Launch a test run on AWS
+ - [x] Xserver, pulseaudio  and ffmpeg in base container
+ - [ ] Add warp client and hook it up to ffmpeg
+ - [ ] Steam container as a sidecar
+ - [ ] Input inside base container
+ - [ ] Launch a test run on AWS:
+      - [x] Test ffmpeg, xserver and pulseaudio
+      - [ ] Test warp
