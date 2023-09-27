@@ -1,6 +1,5 @@
 [Unit]
 Description=Dbus server
-After=docker.service
 StartLimitIntervalSec=0
 
 [Service]
