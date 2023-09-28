@@ -1,10 +1,11 @@
 # Usage:
+# 
+# $ sudo chmod 777 ./certs
+# $ docker run --runtime=sysbox-runc -it --rm --device=/dev/uinput --device=/dev/dri  -v ./certs:/certs --name=arc3dia ghcr.io/wanjohiryan/arc3dia:base 
 #
-# $ docker run --runtime=sysbox-runc -it --rm --name=syscont ghcr.io/wanjohiryan/arc3dia:base
-#
-# This will run systemd, sshd and docker;
-#https://github.com/nestybox/dockerfiles/blob/master/ubuntu-jammy-systemd/Dockerfile
-#FROM ghcr.io/wanjohiryan/ffmpeg/v6:nightly
+#   This will run systemd, sshd and docker;
+#   https://github.com/nestybox/dockerfiles/blob/master/ubuntu-jammy-systemd/Dockerfile
+#   FROM ghcr.io/wanjohiryan/ffmpeg/v6:nightly
 FROM ubuntu:jammy
 #
 # Systemd installation
@@ -54,7 +55,7 @@ ARG USER_UID=1000
 ARG USER_GID=${USER_UID}
 
 #
-#Add dependencies
+# Add dependencies
 #
 RUN apt-get update -y; \
     apt-get upgrade -y; \
