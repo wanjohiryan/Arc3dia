@@ -173,12 +173,13 @@ RUN chmod +x /scripts/ffmpeg.sh /usr/bin/warp
 #Copy the systemd.service file for starting the server
 #
 COPY docker/base/*.service /lib/systemd/system/
+
 RUN ln -sf /lib/systemd/system/warp.service \
        /etc/systemd/system/multi-user.target.wants/warp.service
-# RUN ln -sf /lib/systemd/system/dbus.service \
-#        /etc/systemd/system/multi-user.target.wants/dbus-server.service
+
 RUN ln -sf /lib/systemd/system/pulseaudio.service \
        /etc/systemd/system/multi-user.target.wants/pulseaudio.service
+       
 RUN ln -sf /lib/systemd/system/xserver.service \
        /etc/systemd/system/multi-user.target.wants/xserver.service
 #

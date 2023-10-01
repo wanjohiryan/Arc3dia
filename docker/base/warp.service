@@ -4,7 +4,7 @@ After=pulseaudio.service
 StartLimitIntervalSec=0
 
 [Service]
-ExecStart=/usr/bin/ffmpeg -hide_banner -loglevel error -s 1920x1080 -r 30 -f x11grab -i :0 -f pulse -re -i default -f mp4 -streaming 1 -movflags empty_moov+frag_every_frame+separate_moof+omit_tfhd_offset - | /usr/bin/warp -i -  --host localhost:4443
+ExecStart=/usr/bin/ffmpeg -hide_banner -loglevel error -s 1920x1080 -r 30 -f x11grab -i :0 -f pulse -re -i default -f mp4 -streaming 1 -movflags empty_moov+frag_every_frame+separate_moof+omit_tfhd_offset - | /usr/bin/warp -i - --host localhost:4443
 Restart=always
 RestartSec=10
 StandardOutput=syslog
