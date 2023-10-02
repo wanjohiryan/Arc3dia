@@ -9,17 +9,19 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "next": "latest",
+    "nextra": "^2.13.1",
+    "nextra-theme-docs": "^2.13.1",
     "react": "latest",
-    "react-dom": "latest",
-    "next": "latest"
+    "react-dom": "latest"
   },
   "devDependencies": {
-    "typescript": "latest",
-    "@types/react": "latest",
     "@types/node": "latest",
+    "@types/react": "latest",
     "@types/react-dom": "latest",
     "autoprefixer": "latest",
     "postcss": "latest",
-    "tailwindcss": "latest"
+    "tailwindcss": "latest",
+    "typescript": "latest"
   }
 }
