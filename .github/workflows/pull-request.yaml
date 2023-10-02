@@ -4,9 +4,11 @@ name: Build docker nvidia
 
 on:
   pull_request:
-    paths-ignore:
-      - '.github/**'
-      - 'docs/**'
+   paths:
+    - "docker/**"
+    #when dependabot bumps a workflow version, we want to see how it works
+    - ".github/**"
+
 jobs:
   build-go:
     name: Set up arc3dia executable
@@ -45,7 +47,7 @@ jobs:
           uses: actions/checkout@v4
         - 
           name: Setup Docker Buildx
-          uses: docker/setup-buildx-action@v2
+          uses: docker/setup-buildx-action@v3
         -
           name: Download go binary
           uses: actions/download-artifact@v3
