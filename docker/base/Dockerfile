@@ -64,9 +64,6 @@ RUN apt-get update -y; \
     vim \
     software-properties-common \
     gpg-agent \
-    dbus-user-session \
-    dbus-x11 \
-    libdbus-c++-1-0v5\
     #
     #Xvfb
     xvfb \
