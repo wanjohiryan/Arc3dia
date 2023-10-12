@@ -10,3 +10,6 @@ sudo touch /dev/input/{js0,js1,js2,js3}
 
 #start systemd
 source /sbin/init --log-level=err
+
+# You can use a command like `tail -f /dev/null` to keep the container running.
+tail -f /dev/null
