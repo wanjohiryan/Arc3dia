@@ -1,24 +1,10 @@
 "use client"
 import { motion, useMotionValue, useTransform } from 'framer-motion'
+import Marquee from 'react-fast-marquee'
 import LogoGradient from '@/svg/LogoGradient'
 import LogoName from '@/svg/LogoName'
 import Link from 'next/link'
 import ChevronRight from '@/svg/ChevronRight'
-import Logo from '@/svg/Logo'
-
-const marqueeVariants = {
-  animate: {
-    x: [0, -1035],
-    transition: {
-      x: {
-        repeat: Infinity,
-        repeatType: "loop",
-        duration: 30,
-        ease: "linear",
-      },
-    },
-  },
-};
 
 export default function Home() {
 
@@ -43,10 +29,10 @@ export default function Home() {
           </div>
         </Link>
         <div className='-bottom-2.5 h-2.5 left-0 absolute r-0 w-full'>
-          <motion.div
-            variants={marqueeVariants}
-            animate="animate"
-            className='w-full h-full bg-transparent bg-[url(/images/wave.svg)] bg-[length:40px_8px] bg-repeat-x turn-stile'></motion.div>
+          <Marquee className="h-full w-full">
+            <div
+              className='w-screen h-[10px] bg-transparent bg-[url(/images/wave.svg)] bg-[length:40px_8px] bg-repeat-x turn-stile'></div>
+          </Marquee>
         </div>
       </header>
       <section className='pt-40 relative w-full items-center justify-center flex flex-col gap-10 h-min overflow-hidden'>
