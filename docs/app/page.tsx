@@ -34,7 +34,7 @@ export default function Home() {
           </div>
           <LogoName className='w-[8rem] sm:w-[10rem] sm:h-[4rem]' />
         </a>
-        <Link href="/join" className="group relative inline-flex items-center overflow-hidden rounded-2xl h-min w-min py-1.5 px-2.5 text-lg outline-none text-black transition duration-300 bg-white focus:ring-[0.1875rem] focus:ring-accent sm:flex">
+        <Link target="_blank" href="https://github.com/wanjohiryan/arc3dia" className="group relative inline-flex items-center overflow-hidden rounded-2xl h-min w-min py-1.5 px-2.5 text-lg outline-none text-black transition duration-300 bg-white focus:ring-[0.1875rem] focus:ring-accent sm:flex">
           <div className="ease translate-x-0 font-semibold transition duration-300 group-hover:-translate-x-8">
             Github
           </div>
