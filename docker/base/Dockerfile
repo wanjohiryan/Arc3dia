@@ -221,16 +221,6 @@ ENV CDEPTH 24
 ENV USER ${USERNAME}
 ENV SHELL /bin/bash
 
-ENV WARP_SERVER_URL "${WARP_SERVER_URL:-"localhost"}"
-ENV WARP_SERVER_PORT "${WARP_SERVER_PORT:-4443}"
-ENV WARP_ADDRESS "${ADDR:-$HOST:$PORT}"
-
-# Generate a random 16 character name by default. for each container
-ENV URL_NAME "${NAME:-$(head /dev/urandom | LC_ALL=C tr -dc 'a-zA-Z0-9' | head -c 16)}"
-
-#Full server url
-ENV WARP_SERVER_FULL_URL "${URL:-"https://$WARP_ADDRESS/$URL_NAME"}"
-
 #
 # Run entrypoint.sh then set systemd as entrypoint.
 #
