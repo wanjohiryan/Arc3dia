@@ -1,29 +1,11 @@
 "use client"
-import { motion, useMotionValue, useTransform } from 'framer-motion'
+import Marquee from 'react-fast-marquee'
 import LogoGradient from '@/svg/LogoGradient'
 import LogoName from '@/svg/LogoName'
 import Link from 'next/link'
 import ChevronRight from '@/svg/ChevronRight'
-import Logo from '@/svg/Logo'
-
-const marqueeVariants = {
-  animate: {
-    x: [0, -1035],
-    transition: {
-      x: {
-        repeat: Infinity,
-        repeatType: "loop",
-        duration: 30,
-        ease: "linear",
-      },
-    },
-  },
-};
 
 export default function Home() {
-
-  const pathLength = useMotionValue(0)
-  const opacity = useTransform(pathLength, [0.05, 0.15], [0, 1])
 
   return (
     <main className='min-h-full w-auto items-center justify-start bg-black flex flex-col gap-3'>
@@ -43,10 +25,10 @@ export default function Home() {
           </div>
         </Link>
         <div className='-bottom-2.5 h-2.5 left-0 absolute r-0 w-full'>
-          <motion.div
-            variants={marqueeVariants}
-            animate="animate"
-            className='w-full h-full bg-transparent bg-[url(/images/wave.svg)] bg-[length:40px_8px] bg-repeat-x turn-stile'></motion.div>
+          <Marquee className="h-full w-full">
+            <div
+              className='w-screen h-[10px] bg-transparent bg-[url(/images/wave.svg)] bg-[length:40px_8px] bg-repeat-x turn-stile'></div>
+          </Marquee>
         </div>
       </header>
       <section className='pt-40 relative w-full items-center justify-center flex flex-col gap-10 h-min overflow-hidden'>
@@ -61,11 +43,18 @@ export default function Home() {
             <div className='bg-[url(/images/inter.png)] bg-repeat bg-[length:64px] w-full h-full rounded-0' />
           </div>
         </div>
-        <div className='outline-none flex flex-col justify-start relative'>
-          <h1 className='text-[80px] leading-[.9em] text-white max-w-1/2 text-center flex flex-col justify-center items-center'>
-            {/* Start building with <br /> */}
-            <LogoName className='w-[8rem] sm:w-[20rem] sm:h-[4rem]' />
-          </h1>
+        <div className='outline-none flex flex-col justify-center relative items-center'>
+          <div className="mb-20 self-center items-center flex flex-col w-1/2 text-center text-[80px]">
+            <h1 className=" leading-[1.1em] delay-500">
+              You’ve never shipped a game this fast before. Really.
+            </h1>
+            <Link href="/" className="group delay-700 m-0 relative inline-flex items-center overflow-hidden py-4 sm:px-[3.25rem] px-0  outline-none transition duration-300 cursor-pointer " >
+              <div className="ease text-center text-accent translate-x-0 duration-300 font-bold">Get started</div>
+              <div className="ease transition duration-300 group-hover:translate-x-[10px] text-accent relative">
+                <ChevronRight className="sm:h-[60px] sm:w-[60px] h-[23px] w-[23px] stroke-current stroke-2" />
+              </div>
+            </Link>
+          </div>
         </div>
       </section>
     </main>
