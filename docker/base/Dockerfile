@@ -3,10 +3,14 @@
 # $ sudo chmod 777 ./certs
 # $ docker run --runtime=sysbox-runc -it --rm --device=/dev/uinput --device=/dev/dri  -v ./certs:/certs --name=arc3dia ghcr.io/wanjohiryan/arc3dia:base 
 #
-#   This will run systemd, sshd and docker;
-#   https://github.com/nestybox/dockerfiles/blob/master/ubuntu-jammy-systemd/Dockerfile
-#   FROM ghcr.io/wanjohiryan/ffmpeg/v6:nightly
+# This will run systemd, sshd and docker;
+#https://github.com/nestybox/dockerfiles/blob/master/ubuntu-jammy-systemd/Dockerfile
 FROM ubuntu:jammy
+
+#
+# For selkies
+ARG UBUNTU_RELEASE=22.04
+
 #
 # Systemd installation
 #
@@ -155,6 +159,21 @@ RUN apt-get update && apt-get install --no-install-recommends -y openssh-server;
     chown $USERNAME:$USERNAME /home/${USERNAME}/.ssh
 
 #
+#Install Dan Isla's Js-interposer reference link ---> https://github.com/selkies-project/selkies-gstreamer/tree/main/addons/js-interposer
+#
+RUN  SELKIES_VERSION=$(curl -fsSL "https://api.github.com/repos/selkies-project/selkies-gstreamer/releases/latest" | jq -r '.tag_name' | sed 's/[^0-9\.\-]*//g') ; \
+        curl -O -fsSL "https://github.com/selkies-project/selkies-gstreamer/releases/download/v${SELKIES_VERSION}/selkies-js-interposer-v${SELKIES_VERSION}-ubuntu${UBUNTU_RELEASE}.deb"; \
+        apt-get update; \
+        apt-get install --no-install-recommends -y "./selkies-js-interposer-v${SELKIES_VERSION}-ubuntu${UBUNTU_RELEASE}.deb"; \
+        rm -f "selkies-js-interposer-v${SELKIES_VERSION}-ubuntu${UBUNTU_RELEASE}.deb";\
+        rm -rf /var/lib/apt/lists/* 
+
+# Add configuration for Selkies-GStreamer Joystick interposer
+ENV LD_PRELOAD /usr/local/lib/selkies-js-interposer/joystick_interposer.so${LD_PRELOAD:+:${LD_PRELOAD}}
+ENV SDL_JOYSTICK_DEVICE /dev/input/js0
+
+
+#
 # Make use of stopsignal (instead of sigterm) to stop systemd containers.
 #
 STOPSIGNAL SIGRTMIN+3
@@ -163,8 +182,8 @@ STOPSIGNAL SIGRTMIN+3
 #Copy Warp [CLIENT] linux binary and the start script into the container
 #
 COPY temp/warp /usr/bin/
-COPY docker/base/ffmpeg.sh /scripts/
-RUN chmod +x /scripts/ffmpeg.sh /usr/bin/warp
+COPY docker/base/entrypoint.sh /scripts/
+RUN chmod +x /scripts/entrypoint.sh /usr/bin/warp
 
 #
 #Copy the systemd.service file for starting the server
@@ -183,6 +202,7 @@ RUN ln -sf /lib/systemd/system/xserver.service \
 # For ssh, and http3 connections respectively
 # Warp runs on port 4443 
 #
+
 
 #RUN ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime && echo "$TZ" | sudo tee /etc/timezone
 
@@ -212,6 +232,6 @@ ENV URL_NAME "${NAME:-$(head /dev/urandom | LC_ALL=C tr -dc 'a-zA-Z0-9' | head -
 ENV WARP_SERVER_FULL_URL "${URL:-"https://$WARP_ADDRESS/$URL_NAME"}"
 
 #
-# Set systemd as entrypoint.
+# Run entrypoint.sh then set systemd as entrypoint.
 #
-ENTRYPOINT [ "/sbin/init", "--log-level=err" ]
+ENTRYPOINT ["/scripts/entrypoint.sh" ]
