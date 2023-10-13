@@ -2,6 +2,8 @@
  - [ ] Add warp client and hook it up to ffmpeg
  - [ ] Steam container as a sidecar
  - [ ] Input inside base container
+     - [ ] Add gamepad support
+     - [ ] Add mouse and keyboard support
  - [ ] Launch a test run on AWS:
       - [x] Test ffmpeg, xserver and pulseaudio
       - [ ] Test warp
