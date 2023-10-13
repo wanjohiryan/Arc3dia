@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "framer-motion": "^10.16.4",
     "next": "latest",
     "nextra": "^2.13.1",
     "nextra-theme-docs": "^2.13.1",

@@ -1,8 +1,5 @@
 import '../styles/globals.css'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-
-const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -16,7 +13,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+          rel="preload"
+          href="/fonts/SF-Pro-Bold.otf"
+          as="font"
+          crossOrigin=""
+        />
+      </head>
+      <body>{children}</body>
     </html>
   )
 }
