@@ -1,10 +1,8 @@
-import '../styles/globals.css'
+import '@/styles/globals.css'
 import type { Metadata } from 'next'
+import seoConfig from '../seo.config'
 
-export const metadata: Metadata = {
-  title: 'Arc3dia | For developers',
-  description: 'Play with friends',
-}
+export const metadata = seoConfig
 
 export default function RootLayout({
   children,
