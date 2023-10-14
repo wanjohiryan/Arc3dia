@@ -44,14 +44,14 @@ export default function Home() {
           </div>
         </div>
         <div className='outline-none flex flex-col justify-center relative items-center'>
-          <div className="mb-20 self-center items-center flex flex-col w-1/2 text-center text-[80px]">
-            <h1 className=" leading-[1.1em] delay-500">
+          <div className="mb-20 self-center items-center flex flex-col w-1/2 text-center">
+            <h1 className="min-[1200px]:text-[60px] min-[810px]:text-[48px] max-[809px]:text-[32px] -tracking-[1px] leading-[1.1em] delay-500">
               You’ve never shipped a game this fast before. Really.
             </h1>
-            <Link href="/" className="group delay-700 m-0 relative inline-flex items-center overflow-hidden py-4 sm:px-[3.25rem] px-0  outline-none transition duration-300 cursor-pointer " >
-              <div className="ease text-center text-accent translate-x-0 duration-300 font-bold">Get started</div>
+            <Link href="/" className="group delay-700 m-0 relative inline-flex items-center overflow-hidden py-4 sm:px-[3.25rem] px-0 outline-none transition duration-300 cursor-pointer " >
+              <div className="ease min-[1200px]:text-[60px] min-[810px]:text-[48px] max-[809px]:text-[32px] -tracking-[1px] leading-[1.1em] text-center text-accent translate-x-0 duration-300 font-bold">Get started</div>
               <div className="ease transition duration-300 group-hover:translate-x-[10px] text-accent relative">
-                <ChevronRight className="sm:h-[60px] sm:w-[60px] h-[23px] w-[23px] stroke-current stroke-2" />
+                <ChevronRight className="min-[810px]:h-[44px] min-[1200px]:h-[60px] max-[809px]:h-[30px] aspect-square stroke-current stroke-2" />
               </div>
             </Link>
           </div>
