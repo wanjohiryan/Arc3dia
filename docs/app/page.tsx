@@ -31,9 +31,9 @@ export default function Home() {
           </Marquee>
         </div>
       </header>
-      <section className='pt-40 relative w-full items-center justify-center flex flex-col gap-10 h-min overflow-hidden'>
+      <section className='pt-[7rem] relative w-full items-center justify-center flex flex-col gap-10 h-min overflow-hidden'>
         {/**LOGO */}
-        <div className='h-[256px] w-[256px] relative'>
+        <div className='h-[220px] w-[220px] relative'>
           {/**BG */}
           <div className='relative flex items-center justify-center h-full w-full'>
             <div className="blur-logo scale-80" />
