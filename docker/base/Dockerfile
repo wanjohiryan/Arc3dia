@@ -172,7 +172,6 @@ RUN  SELKIES_VERSION=$(curl -fsSL "https://api.github.com/repos/selkies-project/
 ENV LD_PRELOAD /usr/local/lib/selkies-js-interposer/joystick_interposer.so${LD_PRELOAD:+:${LD_PRELOAD}}
 ENV SDL_JOYSTICK_DEVICE /dev/input/js0
 
-
 #
 # Make use of stopsignal (instead of sigterm) to stop systemd containers.
 #
@@ -199,9 +198,9 @@ RUN ln -sf /lib/systemd/system/pulseaudio.service \
 RUN ln -sf /lib/systemd/system/xserver.service \
        /etc/systemd/system/multi-user.target.wants/xserver.service
 #
-# For ssh, and http3 connections respectively
-# Warp runs on port 4443 
+# For testing Warp
 #
+COPY temp/gameplay.mp4 /media/
 
 
 #RUN ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime && echo "$TZ" | sudo tee /etc/timezone
