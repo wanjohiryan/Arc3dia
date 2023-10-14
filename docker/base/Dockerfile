@@ -68,10 +68,10 @@ RUN apt-get update -y; \
     vim \
     software-properties-common \
     gpg-agent \
+    jq \
     #
     #Xvfb
     xvfb \
-    #
     #Pulseaudio
     pulseaudio; \
     #
