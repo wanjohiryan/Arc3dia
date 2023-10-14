@@ -178,9 +178,14 @@ ENV SDL_JOYSTICK_DEVICE /dev/input/js0
 STOPSIGNAL SIGRTMIN+3
 
 #
-#Copy Warp [CLIENT] linux binary and the start script into the container
+#Download the latest Warp [CLIENT] linux binary
 #
-COPY temp/warp /usr/bin/
+RUN wget -O warp https://github.com/wanjohiryan/warp/releases/latest/download/warp-ubuntu-amd64; \
+    cp ./warp /usr/bin/ ;\
+    rm ./warp
+#
+#Copy the start script into the container
+#
 COPY docker/base/entrypoint.sh /scripts/
 RUN chmod +x /scripts/entrypoint.sh /usr/bin/warp
 
