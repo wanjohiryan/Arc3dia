@@ -55,7 +55,7 @@ ENV LC_ALL en_US.UTF-8
 ENV TZ UTC
 
 ARG USERNAME=admin
-ARG USER_UID=1000 
+ARG USER_UID=1000
 ARG USER_GID=${USER_UID}
 
 #
@@ -207,14 +207,7 @@ RUN ln -sf /lib/systemd/system/xserver.service \
 #
 COPY temp/gameplay.mp4 /media/
 
-
 #RUN ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime && echo "$TZ" | sudo tee /etc/timezone
-
-# FIXME: Remove this
-#After a lot of thought, i commented out this as running the warp relay server on a local machine might not be the ideal way to do this.
-#Ideally we should have the client run locally, transmit the audio and video to a remote warp relay server that will transmit the content to all available clients.
-
-# EXPOSE 22 4443/udp 4443 80
 
 #the volume that houses the key and cert files as `/certs/key.pem` and `/certs/cert.pem`
 VOLUME [ "/certs" ]
