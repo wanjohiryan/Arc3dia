@@ -1,6 +1,9 @@
 name: "Push image to ghcr"
 
 on:
+  workflow_dispatch:
+  schedule:
+    - cron: 0 0 * * * # At the end of everyday
   push:
     branches: [master]
     paths:
