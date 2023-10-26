@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<script>
+  var module = {};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@msgpack/msgpack@2.8.0/dist.es5+umd/msgpack.min.js"></script>
+
+<body>
+  <h3 style="background-color:chartreuse">Realtime communication over WebTransport</h3>
+  <ul id="csl">
+  </ul>
+
+  <script async type="text/javascript">
+    var URL_DEBG = "lo.yomo.dev:8443"
+    var URL_PROD = "prscd2.allegro.earth"
+    var OnlineUsers = [];
+    var uid = document.location.search.replace("?", "") || "wt-" + (Math.random() + 1).toString(36).substring(7)
+
+    async function handleSignalling(reader, writer) {
+      while (true) {
+        const { value, done } = await reader.read();
+        let sig = MessagePack.decode(value);
+        if (sig.pl) {
+          sig.pl = MessagePack.decode(sig.pl);
+        }
+        console.info("\t<RCV", sig);
+
+        // data plane
+        if (sig.type == "data") {
+          let pl = MessagePack.decode(sig.pl);
+          console.info(" [DATA]", sig.p, pl);
+          return
+        }
+
+        // control plane
+        if (sig.type = "control") {
+          switch (sig.op) {
+            case "peer_online":
+              // 3. receive peer_online signal, add peer to OnlineUsers
+              console.log("peer_online", sig.p, sig.pl)
+              OnlineUsers.push(sig.p)
+              stdout(`[${sig.p}] goes Online! <img src="${sig.pl.avatar}" width="30px" height="30px" />`)
+              // 4. broadcast peer_state to other peers, tell them I am online
+              var payload = { avatar: "https://robohash.org/" + uid, ts: new Date().valueOf() }
+              var msg = { t: "control", op: "peer_state", c: "room-1", pl: MessagePack.encode(payload) }
+              socket_send(writer, msg)
+              break;
+            case "peer_offline":
+              // 6. when peer_offline signal received, remove peer from OnlineUsers
+              stdout(`[${sig.p}] is offline!`)
+              OnlineUsers = OnlineUsers.filter((p) => { return p != sig.p })
+              break;
+            case "peer_state":
+              // 5. receive peer_state signal, update peer info
+              console.log("peer_state", sig, sig.pl)
+              if (OnlineUsers.indexOf(sig.p) == -1) {
+                OnlineUsers.push(sig.p)
+                stdout(`[${sig.p}] is here <img src="${sig.pl.avatar}" width="30px" height="30px" />`)
+              }
+              break;
+            case "channel_join":
+              // 2. when receive prscd's `channel_join` signal, it's an ACK signal, means join room 
+              // success, then broadcast `peer_online` signal
+              var payload = { avatar: "https://robohash.org/" + uid, ts: new Date().valueOf() }
+              var msg = { t: "control", op: "peer_online", c: "room-1", pl: MessagePack.encode(payload) }
+              socket_send(writer, msg)
+              stdout(`Joined channel as [${uid}] successfully!`)
+
+              // 7. demo: rename
+              setTimeout(() => {
+                // 8. try rename Cid to "new-clientId-wt-2"
+                // msg = {
+                //   t: "control",
+                //   op: "peer_state",
+                //   c: sig.c,
+                //   p: "new-clientId-wt-2",
+                //   pl: MessagePack.encode({ a: 1, b: "yomo" }),
+                // };
+                // socket_send(writer, msg)
+              }, 1e3);
+              break;
+          }
+        }
+      }
+    }
+
+    async function main() {
+      const url = `https://${URL_DEBG}/v1?publickey=kmJAUnCtkWbkNnhXYtZAGEJzGDGpFo1e1vkp6cm&id=${uid}`;
+      const wt = new WebTransport(url);
+      wt.closed
+        .then(() => {
+          console.log('The HTTP/3 connection closed gracefully.');
+        })
+        .catch((ex) => {
+          // Server 挂掉了
+          console.error(
+            `*************The HTTP/3 connection closed abnormaly due to: ${ex}.`
+          );
+        });
+
+      try {
+        await wt.ready;
+        const writer = wt.datagrams.writable.getWriter();
+        const reader = wt.datagrams.readable.getReader();
+        window.wt = wt;
+        window.rd = reader;
+        window.wr = writer;
+
+        handleSignalling(reader, writer)
+          .then(p => { console.log("handleSignalling done:", p) })
+          .catch(e => { console.log("handleSignalling error:", e) })
+
+        // 1. 用户声明加入房间
+        let p = { t: "control", op: "channel_join", c: "room-1" };
+        let buf = MessagePack.encode(p);
+        console.log(">SND", p);
+        writer.write(buf);
+      } catch (ex) {
+        console.error("***catch", ex)
+      }
+    }
+
+    function socket_send(writer, msg) {
+      let buf = MessagePack.encode(msg);
+      console.log(">SND", msg);
+      writer.write(buf);
+    }
+
+    function socket_close() {
+      if (window.wt) {
+        try {
+          window.wt.close();
+        } catch (ex) {
+          console.error(ex)
+        }
+      }
+    }
+
+    // Hook window close event
+    window.addEventListener("beforeunload", (event) => {
+      // Cancel the event as stated by the standard.
+      event.preventDefault();
+      socket_close()
+      return
+    });
+
+    main()
+      // .then(p => { console.log("main done:", p) })
+      .catch(e => { console.error("main error:", e) })
+
+    stdout = function() {
+      var csl = document.getElementById("csl")
+      var li = document.createElement("li")
+      li.innerHTML = Array.prototype.slice.call(arguments).join(" ")
+      csl.appendChild(li)
+    }
+
+  </script>
+</body>
+
+</html>

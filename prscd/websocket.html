@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+  <script src="https://cdn.jsdelivr.net/npm/@msgpack/msgpack@2.8.0/dist.es5+umd/msgpack.min.js"></script>
+<body>
+  <h3 style="background-color:burlywood">Realtime communication over Websocket</h3>
+  <ul id="csl">
+  </ul>
+  <script type="text/javascript">
+    var URL_DEBG = "lo.yomo.dev:8443"
+    var URL_PROD = "prscd2.allegro.earth"
+    var OnlineUsers = [];
+    var uid = document.location.search.replace("?", "") || "ws-" + (Math.random() + 1).toString(36).substring(7)
+
+    // Create WebSocket connection.
+    const socket = new WebSocket(`wss://${URL_DEBG}/v1?publickey=kmJAUnCtkWbkNnhXYtZAGEJzGDGpFo1e1vkp6cm&id=${uid}`);
+
+    // Change binary type from "blob" to "arraybuffer"
+    socket.binaryType = "arraybuffer";
+
+    socket.onclose = function (event) {
+      // see: https://www.rfc-editor.org/rfc/rfc6455#section-7.4.1
+      // https://stackoverflow.com/questions/18803971/websocket-onerror-how-to-read-error-description
+      // 1006: client closed connection without status code
+      console.log("Socket onclose, code=", event.code);
+    };
+
+    socket.onerror = (err) => {
+      console.error(err)
+    }
+
+    // Listen for messages
+    socket.addEventListener("message", (event) => {
+      if (!(event.data instanceof ArrayBuffer)) {
+        // text frame
+        console.error("|TXT| ILLEGAL", event.data);
+        socket.close(888, "message is not binary");
+        return;
+      }
+
+      // explicit the Binary Mode
+      let resp = MessagePack.decode(event.data)
+      if (resp.pl) {
+        resp.pl = MessagePack.decode(resp.pl)
+      }
+      console.info("\t>RCV")
+
+      // handle logic
+      handleSignalling(socket, resp)
+    });
+
+    socket.onopen = () => {
+      // 1. emit channel_join signal
+      let data = { t: "control", op: "channel_join", c: "room-1", p: uid }
+      socket_send(socket, data)
+    }
+
+    function socket_send(socket, obj) {
+      let pl = MessagePack.encode(obj)
+      socket.send(pl)
+      console.info("SND>", obj)
+    }
+
+    function triggerOffline() {
+      socket_send({ t: "control", op: "peer_offline", c: "room-1" })
+    }
+
+    function handleSignalling(socket, sig) {
+      // Control plane
+      if (sig.t == "control") {
+        switch (sig.op) {
+          case "peer_online": // peer is online
+            // 3. add peer to online list
+            console.log("peer_online", sig.p, sig.pl)
+            OnlineUsers.push(sig.p)
+            stdout(`[${sig.p}] is Online! <img src="${sig.pl.avatar}" width="30px" height="30px" />`)
+            // 4. broadcast peer_state to all peers, tell them I am online
+            var payload = { avatar: "https://robohash.org/" + uid, ts: new Date().valueOf() }
+            var msg = { t: "control", op: "peer_state", c: "room-1", pl: MessagePack.encode(payload) }
+            socket_send(socket, msg)
+            break;
+          case "peer_offline": // peer goes offline
+            // 6. when peer goes offline, remove it from online list
+            stdout(`[${sig.p}] is offline!`)
+            OnlineUsers = OnlineUsers.filter((p) => { return p != sig.p })
+            break;
+          case "peer_state":
+            // 5. receive peer_state from other peers indicates state chagnes
+            console.log("peer_state", sig, sig.pl)
+            if (OnlineUsers.indexOf(sig.p) == -1) {
+              OnlineUsers.push(sig.p)
+              console.log("OnlineUsers.add", sig.p)
+              stdout(`[${sig.p}] is Online! <img src="${sig.pl.avatar}" width="30px" height="30px" />`)
+            }
+            break;
+          case "channel_join":
+            // 2. when receive prscd's `channel_join` signal, it's an ACK signal, means join channel successfully, then broadcast `peer_online` signal
+            stdout(`Joined channel as [${uid}] successfully!`)
+            var payload = { avatar: "https://robohash.org/" + uid, ts: new Date().valueOf() }
+            var msg = { t: "control", op: "peer_online", c: "room-1", pl: MessagePack.encode(payload) }
+            socket_send(socket, msg)
+
+            // 7. demo: send data to channel after 1s
+            setTimeout(() => {
+              var payload = { avatar: "https://robohash.org/" + uid, ts: new Date().valueOf() }
+              var msg = { t: "data", c: "room-1", pl: MessagePack.encode(payload) }
+              socket_send(socket, msg)
+            }, 1e3);
+            break;
+          default:
+            console.warn("!! unknown op", sig)
+            break;
+        }
+      }
+
+      // Data plane
+      if (sig.t == "data") {
+        console.log(" * DATA", sig.pl)
+      }
+    }
+
+    document.addEventListener("visibilitychange", function () {
+      console.info("visibilitychange.hidden:", document.hidden)
+    }, false);
+
+    stdout = function() {
+      var csl = document.getElementById("csl")
+      var li = document.createElement("li")
+      li.innerHTML = Array.prototype.slice.call(arguments).join(" ")
+      csl.appendChild(li)
+    }
+  </script>
+</body>
+
+</html>
