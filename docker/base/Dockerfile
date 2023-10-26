@@ -55,8 +55,7 @@ ENV LC_ALL en_US.UTF-8
 ENV TZ UTC
 
 ARG USERNAME=admin
-ARG USER_UID=1000
-ARG USER_GID=${USER_UID}
+ENV PASSWD=admin
 
 #
 # Add dependencies
@@ -110,9 +109,8 @@ RUN apt-get update; \
     #
     #create a non-root user
     #
-    groupadd --gid ${USER_GID} ${USERNAME}; \
-    useradd --uid ${USER_UID} --gid ${USERNAME} --shell /bin/bash --create-home ${USERNAME};\
-    usermod -a -G adm,audio,input,pulse-access,sudo,tape,tty,video,ffmpeg ${USERNAME} ;\
+    useradd --create-home --shell /bin/bash ${USERNAME};\
+    usermod -a -G adm,audio,input,pulse-access,sudo,tape,tty,video,ffmpeg ${USERNAME};\
     #
     #Remove sudo password
     echo "${USERNAME} ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers; \
@@ -121,9 +119,7 @@ RUN apt-get update; \
     #
     mkdir -p /certs /scripts /media;\
     chmod 1777 /certs /scripts /media; \
-    chown ${USERNAME} /certs /media /scripts; \
-    chown -R $USERNAME:$USERNAME /home/${USERNAME} ;\
-    ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime && echo "$TZ" > /etc/timezone
+    chown ${USERNAME} /certs /media /scripts
 
 #
 # Disable systemd services/units that are unnecessary within a container.
@@ -145,7 +141,7 @@ RUN apt-get update -y && apt-get install -y curl; \
     # Add user "admin" to the Docker group
     #
     groupadd docker; \
-    usermod -a -G docker $USERNAME; \
+    usermod -a -G docker ${USERNAME}; \
     newgrp docker
 
 ADD https://raw.githubusercontent.com/docker/docker-ce/master/components/cli/contrib/completion/bash/docker /etc/bash_completion.d/docker.sh
