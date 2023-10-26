@@ -1,6 +1,13 @@
 #!/bin/bash
 
-#Create directories for selkies-js-interposer
+# Make user directory owned by the user in case it is not
+chown -R $USER:$USER /home/$USER
+
+# Change operating system password to environment variable
+echo "$USER:$PASSWD" | sudo chpasswd
+
+# Change time zone from environment variable
+sudo ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime && echo "$TZ" | sudo tee /etc/timezone > /dev/null
 
 export DISPLAY="${DISPLAY:-:0}"
 
