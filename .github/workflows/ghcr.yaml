@@ -39,7 +39,7 @@ jobs:
         run: go build -v ./
       -
        name: Upload artifact
-       uses: actions/upload-artifact@v3
+       uses: actions/upload-artifact@v4
        with:
          name: gobinary
          path: ./Arc3dia
